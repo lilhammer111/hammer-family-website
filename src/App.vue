@@ -1,9 +1,7 @@
-<script setup>
-import GlobalConfig from '@/components/GlobalConfig.vue'
-</script>
+<script setup></script>
 
 <template>
-  <GlobalConfig><router-view></router-view></GlobalConfig>
+  <router-view></router-view>
 </template>
 
 <style scoped></style>
