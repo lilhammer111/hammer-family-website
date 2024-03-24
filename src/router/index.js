@@ -5,7 +5,7 @@ import IndexView from '@/views/primary/IndexView.vue'
 import RegisterView from '@/views/second/RegisterView.vue'
 import HomeView from '@/views/second/HomeView.vue'
 import MsgView from '@/views/second/MsgView.vue'
-import AxisView from '@/views/second/AxisView.vue'
+import MomentView from '@/views/second/MomentView.vue'
 import PlanView from '@/views/second/PlanView.vue'
 
 const router = createRouter({
@@ -35,9 +35,9 @@ const router = createRouter({
           component: RegisterView
         },
         {
-          path: '/axis',
-          name: 'axis',
-          component: AxisView
+          path: '/moment',
+          name: 'moment',
+          component: MomentView
         },
         {
           path: '/msg',

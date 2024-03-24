@@ -7,7 +7,7 @@ import router from './router'
 // 导入其他css样式
 import 'primevue/resources/themes/aura-light-green/theme.css'
 // 导入基础css样式
-import './base.scss'
+import '@/styles/base.scss'
 import FocusTrap from 'primevue/focustrap'
 
 const app = createApp(App)

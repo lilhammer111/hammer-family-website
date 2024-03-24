@@ -16,9 +16,9 @@ const items = ref([
     route: '/home'
   },
   {
-    text: 'Axis',
+    text: 'Moment',
     icon: 'pi pi-backward',
-    route: '/axis'
+    route: '/moment'
   },
   {
     text: 'Msg',

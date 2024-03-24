@@ -1,5 +1,5 @@
 <template>
-  <div class="ali-cen">
+  <div class="v-cen">
     <!-- <Button :icon="icon" severity="secondary" rounded text> </Button>
     <span>{{ num }}</span> -->
     <Button

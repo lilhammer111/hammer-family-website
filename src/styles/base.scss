@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.v-cen {
+  display: flex;
+  align-items: center;
+}
+
+.main-ctr {
+  max-width: 1000px;
+  margin: 10px auto;
+}
+
+.h-cen {
+  margin: 0 auto;
+}
+
+.ver-cen-sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-style {
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.title-style:hover {
+  color: var(--primary-color);
+}
+
+.light-shadow-style {
+  border: solid 0.5px #d9d9d9;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.2);
+}
+
+.main-cont-wd {
+  margin: 25px auto;
+  width: 70%;
+}
