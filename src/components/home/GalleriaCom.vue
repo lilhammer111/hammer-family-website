@@ -18,7 +18,6 @@
 import { ref } from 'vue'
 import Galleria from 'primevue/galleria'
 import itemImageSrc1 from '@/assets/pictures/us.jpg'
-import itemImageSrc2 from '@/assets/pictures/us2.jpg'
 
 import tnImageSrc1 from '@/assets/pictures/us_50x50.jpg'
 import tnImageSrc2 from '@/assets/pictures/us2_50x50.jpg'
@@ -35,7 +34,7 @@ const images = ref([
     title: 'Title 1'
   },
   {
-    itemImageSrc: itemImageSrc2,
+    itemImageSrc: "",
     thumbnailImageSrc: tnImageSrc2,
     alt: 'Description for Image 2',
     title: 'Title 2'

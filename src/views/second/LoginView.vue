@@ -1,6 +1,6 @@
 <template>
   <div class="signupFrm">
-    <form action="" class="form" @submit="handleSubmit">
+    <form action="" class="form" @submit="handleSubmit(items)">
       <h1 class="title">Sign In</h1>
       <div class="inputContainer" v-for="item in items" :key="item.id">
         <input :type="item.type" class="input" placeholder="a" v-model="item.input" />
@@ -10,7 +10,7 @@
     </form>
     <div style="margin-top: 10px">
       yet have an account?
-      <a href="">Sign up</a>
+      <router-link to="/register">Sign up</router-link>
       now!
     </div>
   </div>
@@ -18,6 +18,9 @@
 
 <script setup>
 import { ref } from 'vue'
+// import doLogin from '@/api/account'
+import router from '@/router/index.js'
+import axios from 'axios'
 
 const items = ref([
   {
@@ -31,9 +34,40 @@ const items = ref([
     text: 'password'
   }
 ])
+
+function handleSubmit(items) {
+  const data = JSON.stringify({
+    username: items[0].input,
+    password: items[1].input
+  })
+
+  const config = {
+    method: 'post',
+    url: 'http://127.0.0.1:8080/api/account/login',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
+  }
+
+  axios(config)
+    .then(function(response) {
+      console.log(response)
+      if (response.status === 200) {
+        console.log("status 200")
+        router.back()
+      }
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+
+
+  // router.push("/home")
+}
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .signupFrm {
   display: flex;
   flex-direction: column;

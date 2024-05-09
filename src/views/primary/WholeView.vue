@@ -15,18 +15,12 @@
     </div>
   </div>
   <div class="main">
-    <NavCom></NavCom>
-    <div class="main-content">
-      <Card>
-        <template #title>Simple Card</template>
-        <template #content>
-          <p class="m-0">
-            <RouterView></RouterView>
-          </p>
-        </template>
-      </Card>
+    <NavCom class="left"></NavCom>
+    <div class="middle">
+      <RouterView></RouterView>
+
     </div>
-    <SthInteresting></SthInteresting>
+    <SthInteresting class="right"></SthInteresting>
   </div>
 </template>
 
@@ -36,7 +30,6 @@ import LoginCom from '@/components/LoginCom.vue'
 import RegisterCom from '@/components/RegisterCom.vue'
 import SearchCom from '@/components/SearchCom.vue'
 import NavCom from '@/components/NavCom.vue'
-import Card from 'primevue/card'
 import SthInteresting from '@/components/SthInteresting.vue'
 </script>
 
@@ -55,6 +48,7 @@ import SthInteresting from '@/components/SthInteresting.vue'
   .u .sea {
     height: 75%;
   }
+
   .nav {
     height: 100%;
   }
@@ -63,9 +57,19 @@ import SthInteresting from '@/components/SthInteresting.vue'
 .main {
   margin-top: 20px;
   display: flex;
-  .main-content {
-    margin: 0 10px;
-    width: $middle-width;
+  flex-direction: row;
+
+  .left {
+    width: 15%;
+  }
+
+  .middle {
+    width: 65%;
+    margin: 0 15px;
+  }
+
+  .right {
+    width: 20%;
   }
 }
 </style>

@@ -2,7 +2,8 @@ body {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
-  width: 1400px;
+  max-width: 1400px;
+  min-width: 1000px;
   background-color: #f7f7f7;
 }
 
@@ -43,4 +44,16 @@ body {
 .main-cont-wd {
   margin: 25px auto;
   width: 70%;
+}
+
+.mg-btm-15 {
+  margin:0 0 15px 0 ;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.card-border-radius {
+  border-radius: 12px;
 }

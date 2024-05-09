@@ -35,6 +35,11 @@ const items = ref([
     text: 'Plan',
     icon: 'pi pi-check-circle',
     route: '/plan'
+  },
+  {
+    text: 'Article',
+    icon: 'pi pi-comments',
+    route: '/article'
   }
 ])
 </script>
@@ -42,15 +47,22 @@ const items = ref([
 <style lang="scss" scoped>
 .left-nav {
   width: $left-width;
+
   .left-nav-item {
     margin: 5px 0;
   }
+
   .left-nav-item:hover {
     background-color: var(--teal-400);
     border-radius: 10px;
   }
 }
+
 .p-button {
   color: #94a3b8;
+}
+
+.p-button-label {
+  color: #000000;
 }
 </style>
