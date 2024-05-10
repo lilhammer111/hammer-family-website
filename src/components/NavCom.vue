@@ -19,35 +19,34 @@ const items = ref([
   {
     text: 'Home',
     icon: 'pi pi-home',
-    route: '/home'
+    route: '/index/main/home'
   },
   {
     text: 'Moment',
     icon: 'pi pi-backward',
-    route: '/moment'
+    route: '/index/main/moment'
   },
   {
     text: 'Msg',
     icon: 'pi pi-comments',
-    route: '/msg'
+    route: '/index/main/msg'
   },
   {
     text: 'Plan',
     icon: 'pi pi-check-circle',
-    route: '/plan'
+    route: '/index/main/plan'
   },
   {
     text: 'Article',
     icon: 'pi pi-comments',
-    route: '/article'
+    route: '/index/main/article'
   }
 ])
 </script>
 
 <style lang="scss" scoped>
 .left-nav {
-  width: $left-width;
-
+  width:100%;
   .left-nav-item {
     margin: 5px 0;
   }
@@ -59,10 +58,6 @@ const items = ref([
 }
 
 .p-button {
-  color: #94a3b8;
-}
-
-.p-button-label {
   color: #000000;
 }
 </style>

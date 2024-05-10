@@ -2,10 +2,11 @@
   <div class="hc v-cen">
     <div class="nav v-cen">
       <img
-        style="max-width: 100%; max-height: 100%; object-fit: contain"
-        :src="Logo"
+        class="logo"
+        :src="logo"
         alt="logo"
         srcset=""
+        @click="goHome"
       />
       <SearchCom></SearchCom>
     </div>
@@ -15,25 +16,34 @@
     </div>
   </div>
   <div class="main">
-    <NavCom class="left"></NavCom>
-    <div class="middle">
-      <RouterView></RouterView>
-
-    </div>
-    <SthInteresting class="right"></SthInteresting>
+    <RouterView></RouterView>
   </div>
 </template>
 
 <script setup>
-import Logo from '@/assets/pictures/logo.png'
+import logo from '@/assets/pictures/logo.png'
 import LoginCom from '@/components/LoginCom.vue'
 import RegisterCom from '@/components/RegisterCom.vue'
 import SearchCom from '@/components/SearchCom.vue'
-import NavCom from '@/components/NavCom.vue'
-import SthInteresting from '@/components/SthInteresting.vue'
+import router from '@/router/index.js'
+
+function goHome() {
+  router.push('/index/main/home')
+}
+
 </script>
 
 <style lang="scss" scoped>
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.logo:hover {
+  cursor:pointer;
+}
+
 .hc {
   margin-top: 5px;
   background-color: $pure-white;
@@ -59,17 +69,6 @@ import SthInteresting from '@/components/SthInteresting.vue'
   display: flex;
   flex-direction: row;
 
-  .left {
-    width: 15%;
-  }
 
-  .middle {
-    width: 65%;
-    margin: 0 15px;
-  }
-
-  .right {
-    width: 20%;
-  }
 }
 </style>

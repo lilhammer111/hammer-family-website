@@ -1,3 +1,8 @@
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 body {
   margin: 0 auto;
   padding: 0;
@@ -12,14 +17,23 @@ body {
   align-items: center;
 }
 
+.flex-direction-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.h-cen {
+  margin: 0 auto;
+}
+
+
 .main-ctr {
   max-width: 1000px;
   margin: 10px auto;
 }
 
-.h-cen {
-  margin: 0 auto;
-}
 
 .ver-cen-sb {
   display: flex;
@@ -47,7 +61,7 @@ body {
 }
 
 .mg-btm-15 {
-  margin:0 0 15px 0 ;
+  margin: 0 0 15px 0;
 }
 
 .width-100 {

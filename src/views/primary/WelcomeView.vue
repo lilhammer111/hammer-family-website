@@ -1,6 +1,6 @@
 <template>
   <div class="welcome">
-    <router-link to="/home" rel="noopener">
+    <router-link to="/index/main/home" rel="noopener">
       <Button label="Hey , Hammer" link class="p-button-lg" icon="pi pi-send" iconPos="right" />
     </router-link>
   </div>

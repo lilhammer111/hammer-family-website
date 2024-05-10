@@ -2,7 +2,7 @@
   <div class="card flex justify-content-center gap-3">
     <!-- <Button label="Link" link /> -->
 
-    <router-link to="/register" rel="noopener">
+    <router-link to="/index/register" rel="noopener">
       <Button label="Sign Up" />
     </router-link>
   </div>
