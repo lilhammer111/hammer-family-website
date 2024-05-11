@@ -10,17 +10,34 @@
     </form>
     <div style="margin-top: 10px">
       yet have an account?
-      <router-link to="/register">Sign up</router-link>
+      <router-link to="/index/register">Sign up</router-link>
       now!
     </div>
+  </div>
+
+  <div class="card flex justify-content-center">
+    <Toast position="top-right" group="dialog">
+      <template #message="slotProps">
+        <div class="flex flex-column  align-items-start" style="flex: 1">
+          <div class="flex align-items-center gap-2 v-cen mg-btm-15">
+            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"  style="margin-right: 10px" />
+            <span class="font-bold text-900"> lilhammer (System Manager)</span>
+          </div>
+          <div class="font-medium text-lg my-3 text-900">{{ slotProps.message.summary }}</div>
+        </div>
+      </template>
+    </Toast>
   </div>
 </template>
 
 <script setup>
+import Toast from 'primevue/toast'
 import { ref } from 'vue'
-// import doLogin from '@/api/account'
 import router from '@/router/index.js'
 import axios from 'axios'
+import { useToast } from 'primevue/usetoast'
+
+const toast = useToast()
 
 const items = ref([
   {
@@ -35,6 +52,7 @@ const items = ref([
   }
 ])
 
+
 function handleSubmit(items) {
   const data = JSON.stringify({
     username: items[0].input,
@@ -43,7 +61,7 @@ function handleSubmit(items) {
 
   const config = {
     method: 'post',
-    url: 'http://127.0.0.1:8080/api/account/login',
+    url: `${import.meta.env.VITE_API_URL}/api/account/login`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -54,16 +72,21 @@ function handleSubmit(items) {
     .then(function(response) {
       console.log(response)
       if (response.status === 200) {
-        console.log("status 200")
+        console.log('status 200')
         router.back()
       }
     })
     .catch(function(error) {
       console.log(error)
+      if (error.response.status === 401) {
+        toast.add({
+          severity: 'Contrast',
+          summary: 'Hey gus, \nPassword or Username is incorrect!',
+          group: 'dialog',
+          life: 15000
+        })
+      }
     })
-
-
-  // router.push("/home")
 }
 </script>
 

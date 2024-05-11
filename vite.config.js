@@ -6,6 +6,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import RadixVueResolver from 'radix-vue/resolver'
 import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -24,6 +25,14 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `@import "@/styles/_variables.scss";` // 确保路径正确
+      }
+    }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: process.env.VITE_API_URL,
+        changeOrigin: true
       }
     }
   }

@@ -10,7 +10,7 @@
     </form>
     <div style="margin-top: 10px">
       already enrolled?
-      <router-link to="/login">Sign in</router-link>
+      <router-link to="/index/login">Sign in</router-link>
       now!
     </div>
   </div>
@@ -19,6 +19,7 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
+import router from '@/router/index.js'
 
 const items = ref([
   {
@@ -41,7 +42,7 @@ function handleSubmit(items) {
 
   const config = {
     method: 'post',
-    url: 'http://127.0.0.1:8080/api/account/register',
+    url: `${import.meta.env.VITE_API_URL}/api/account/register`,
     headers: {
       'Content-Type': 'application/json'
     },
@@ -50,14 +51,14 @@ function handleSubmit(items) {
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data))
+      if (response.status === 200) {
+        console.log(JSON.stringify(response.data))
+        router.back()
+      }
     })
     .catch(function (error) {
       console.log(error)
     })
-
-
-  // router.push("/home")
 
 }
 
