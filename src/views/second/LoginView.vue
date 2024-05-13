@@ -20,7 +20,8 @@
       <template #message="slotProps">
         <div class="flex flex-column  align-items-start" style="flex: 1">
           <div class="flex align-items-center gap-2 v-cen mg-btm-15">
-            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"  style="margin-right: 10px" />
+            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"
+                    style="margin-right: 10px" />
             <span class="font-bold text-900"> lilhammer (System Manager)</span>
           </div>
           <div class="font-medium text-lg my-3 text-900">{{ slotProps.message.summary }}</div>
@@ -36,6 +37,8 @@ import { ref } from 'vue'
 import router from '@/router/index.js'
 import axios from 'axios'
 import { useToast } from 'primevue/usetoast'
+import { isSignIn } from '@/stores/user.js'
+
 
 const toast = useToast()
 
@@ -72,8 +75,10 @@ function handleSubmit(items) {
     .then(function(response) {
       console.log(response)
       if (response.status === 200) {
-        console.log('status 200')
-        router.back()
+        isSignIn.value = true
+        router.push({
+          name: 'home'
+        })
       }
     })
     .catch(function(error) {

@@ -51,9 +51,11 @@ function handleSubmit(items) {
 
   axios(config)
     .then(function (response) {
-      if (response.status === 200) {
+      if (response.status === 201) {
         console.log(JSON.stringify(response.data))
-        router.back()
+        router.push({
+          name: 'home'
+        })
       }
     })
     .catch(function (error) {

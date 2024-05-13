@@ -1,5 +1,5 @@
 <template>
-  <div class="card flex justify-content-center gap-3">
+  <div class="card flex justify-content-center gap-3" v-if="!isSignIn">
     <!-- <Button label="Link" link /> -->
 
     <router-link to="/index/login" rel="noopener">
@@ -8,7 +8,9 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { isSignIn } from '@/stores/user.js'
+</script>
 
 <style lang="scss">
 Button {

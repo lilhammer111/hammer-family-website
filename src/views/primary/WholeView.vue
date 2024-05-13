@@ -11,6 +11,7 @@
       <SearchCom></SearchCom>
     </div>
     <div class="u v-cen">
+      <AvatarCom></AvatarCom>
       <LoginCom></LoginCom>
       <RegisterCom></RegisterCom>
     </div>
@@ -25,10 +26,14 @@ import logo from '@/assets/pictures/logo.png'
 import LoginCom from '@/components/LoginCom.vue'
 import RegisterCom from '@/components/RegisterCom.vue'
 import SearchCom from '@/components/SearchCom.vue'
+import AvatarCom from '@/components/AvatarCom.vue'
 import router from '@/router/index.js'
+import { ref } from 'vue'
+
+const isSignIn = ref(false)
 
 function goHome() {
-  router.push('/index/main/home')
+  router.push({ name: 'home' })
 }
 
 </script>
@@ -42,7 +47,7 @@ function goHome() {
 }
 
 .logo:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .hc {
