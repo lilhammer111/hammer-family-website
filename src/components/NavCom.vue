@@ -19,27 +19,27 @@ const items = ref([
   {
     text: 'Home',
     icon: 'pi pi-home',
-    route: '/index/main/home'
+    route: 'home'
   },
   {
-    text: 'Moment',
+    text: 'Lilhammer',
     icon: 'pi pi-backward',
-    route: '/index/main/moment'
+    route: 'lilhammer'
   },
   {
     text: 'Msg',
     icon: 'pi pi-comments',
-    route: '/index/main/msg'
+    route: 'msg'
   },
   {
     text: 'Plan',
     icon: 'pi pi-check-circle',
-    route: '/index/main/plan'
+    route: 'plan'
   },
   {
     text: 'Article',
     icon: 'pi pi-comments',
-    route: '/index/main/article'
+    route: 'article'
   }
 ])
 </script>

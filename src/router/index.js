@@ -5,16 +5,16 @@ import IndexView from '@/views/primary/WholeView.vue'
 import RegisterView from '@/views/second/RegisterView.vue'
 import HomeView from '@/views/third/HomeView.vue'
 import MsgView from '@/views/third/MsgView.vue'
-import MomentView from '@/views/third/MomentView.vue'
 import PlanView from '@/views/third/PlanView.vue'
 import ArticleView from '@/views/third/ArticleView.vue'
 import MainView from '@/views/second/MainView.vue'
+import LilhammerView from '@/views/third/LilhammerView.vue'
 
 const third_router = [
   {
-    path: 'moment',
-    name: 'moment',
-    component: MomentView
+    path: 'lilhammer',
+    name: 'lilhammer',
+    component: LilhammerView
   },
   {
     path: 'msg',
@@ -50,8 +50,8 @@ const second_router = [
     component: RegisterView
   },
   {
-    path: 'main',
-    name: 'main',
+    path: 'nav',
+    name: 'nav',
     component: MainView,
     children: third_router
   }

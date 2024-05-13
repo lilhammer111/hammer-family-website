@@ -1,5 +1,5 @@
 <template>
-  <IconField iconPosition="left">
+  <IconField iconPosition="right">
     <InputIcon class="pi pi-search"> </InputIcon>
     <InputText v-model="input" placeholder="search anything you interest" />
   </IconField>

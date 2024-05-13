@@ -10,7 +10,8 @@
       />
       <SearchCom></SearchCom>
     </div>
-    <div class="u v-cen">
+    <div class="login-and-avatar-stl v-cen">
+      <PostBlessCom></PostBlessCom>
       <AvatarCom></AvatarCom>
       <LoginCom></LoginCom>
       <RegisterCom></RegisterCom>
@@ -27,10 +28,8 @@ import LoginCom from '@/components/LoginCom.vue'
 import RegisterCom from '@/components/RegisterCom.vue'
 import SearchCom from '@/components/SearchCom.vue'
 import AvatarCom from '@/components/AvatarCom.vue'
+import PostBlessCom from '@/components/PostBlessCom.vue'
 import router from '@/router/index.js'
-import { ref } from 'vue'
-
-const isSignIn = ref(false)
 
 function goHome() {
   router.push({ name: 'home' })
@@ -61,7 +60,7 @@ function goHome() {
   border-color: $border-white;
   justify-content: space-between;
 
-  .u .sea {
+  .login-and-avatar-stl .sea {
     height: 75%;
   }
 
