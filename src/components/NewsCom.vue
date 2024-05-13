@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <Card>
+    <Card class="f-width">
       <template #title>
         News
       </template>
@@ -8,7 +7,6 @@
         <p class="m-0">What's your name</p>
       </template>
     </Card>
-  </div>
 </template>
 
 <script setup></script>

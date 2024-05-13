@@ -194,7 +194,7 @@ const events = ref([
       'she was about to bring into our world were to my very existence.'
   },
   {
-    topic: 'New Guy',
+    topic: 'New Soul',
     date: '16/10/2020',
     icon: '🧑🏻‍🍼',
     image: 'src/assets/pictures/first_eye.jpg',

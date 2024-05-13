@@ -14,13 +14,13 @@
 
   <OverlayPanel ref="op" class="op-stl">
     <div class="op-item-stl v-cen">
-      <i class="pi pi-sign-out mg-right-15"></i>
+      <i class="pi pi-sign-out mg-right-10"></i>
       <span>Logout</span>
     </div>
     <div class="divider-stl "></div>
     <div class="op-item-stl v-cen">
 
-      <i class="pi  pi-cog mg-right-15"></i>
+      <i class="pi  pi-cog mg-right-10"></i>
       <span>Setting</span>
     </div>
   </OverlayPanel>
@@ -60,7 +60,6 @@ const toggle = (event) => {
 .op-item-stl {
   height: 30px;
   line-height: 30px;
-  width: 100px;
   color: $font-color-gray;
 }
 

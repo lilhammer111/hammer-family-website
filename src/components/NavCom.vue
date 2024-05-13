@@ -2,9 +2,9 @@
   <div class="left-nav">
     <Card>
       <template #content>
-        <div class="left-nav-item" v-for="item in items" :key="item.id">
-          <RouterLink :to="item.route">
-            <Button :label="item.text" :icon="item.icon" severity="secondary" link />
+        <div class="left-nav-item " v-for="item in items" :key="item.id">
+          <RouterLink :to="item.route" class="h-cen">
+            <Button :label="item.text" severity="secondary" link />
           </RouterLink>
         </div>
       </template>
@@ -17,28 +17,28 @@ import { ref } from 'vue'
 
 const items = ref([
   {
-    text: 'Home',
-    icon: 'pi pi-home',
+    text: '🌴 Home',
+    icon: '',
     route: 'home'
   },
   {
-    text: 'Lilhammer',
-    icon: 'pi pi-backward',
+    text: '🌱 hammer',
+    icon: '',
     route: 'lilhammer'
   },
   {
-    text: 'Msg',
-    icon: 'pi pi-comments',
+    text: '📢 Forum',
+    icon: '',
     route: 'msg'
   },
   {
-    text: 'Plan',
-    icon: 'pi pi-check-circle',
+    text: '🎯 Plan',
+    icon: '',
     route: 'plan'
   },
   {
-    text: 'Article',
-    icon: 'pi pi-comments',
+    text: '🎓 Article',
+    icon: '',
     route: 'article'
   }
 ])
@@ -46,7 +46,8 @@ const items = ref([
 
 <style lang="scss" scoped>
 .left-nav {
-  width:100%;
+  width: 100%;
+
   .left-nav-item {
     margin: 5px 0;
   }
