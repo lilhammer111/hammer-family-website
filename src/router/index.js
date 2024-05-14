@@ -17,22 +17,16 @@ const lilhammer_son_router = [
   {
     path: 'activity',
     name: 'hammer-activity',
-    component: HammerActivityCom,
+    component: HammerActivityCom
   },
   {
     path: 'record',
     name: 'hammer-record',
-    component: HammerRecordCom,
-  },
+    component: HammerRecordCom
+  }
 ]
 
 const third_router = [
-  {
-    path: 'lilhammer',
-    name: 'lilhammer',
-    component: LilhammerView,
-    children: lilhammer_son_router,
-  },
   {
     path: 'msg',
     name: 'msg',
@@ -58,6 +52,12 @@ const third_router = [
     name: 'news',
     component: NewsView
   },
+  {
+    path: 'lilhammer',
+    name: 'lilhammer',
+    component: LilhammerView,
+    children: lilhammer_son_router
+  }
 ]
 
 const second_router = [

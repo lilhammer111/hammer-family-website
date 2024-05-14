@@ -1,27 +1,44 @@
-<script setup>
-
-</script>
-
 <template>
-
-  <div class="card">
-    <DataTable :value="products" sortMode="multiple" tableStyle="min-width: 50rem">
-      <Column field="code" header="Code" sortable style="width: 25%"></Column>
-      <Column field="name" header="Name" sortable style="width: 25%"></Column>
-      <Column field="category" header="Category" sortable style="width: 25%"></Column>
-      <Column field="quantity" header="Quantity" sortable style="width: 25%"></Column>
+  <Card>
+    <DataTable :value="health" sortMode="multiple" tableStyle="min-width: 50rem;width: 100%" removableSort>
+      <Column field="date" header="Code" sortable="true" style="width: 25%"></Column>
+      <Column field="height" header="Name" sortable="true" style="width: 25%"></Column>
+      <Column field="weight" header="Category" sortable="true" style="width: 25%"></Column>
+      <Column field="sleep_time" header="Quantity" sortable="true" style="width: 25%"></Column>
     </DataTable>
-  </div>
+  </Card>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 
-
-const products = ref()
-
+const health = ref([
+  {
+    date: '2023-2-28',
+    height: '51',
+    weight: '14',
+    sleep_time: '21:45'
+  },
+  {
+    date: '2023-2-28',
+    height: '51',
+    weight: '14',
+    sleep_time: '21:45'
+  },
+  {
+    date: '2023-2-28',
+    height: '51',
+    weight: '14',
+    sleep_time: '21:45'
+  },
+  {
+    date: '2023-2-28',
+    height: '51',
+    weight: '14',
+    sleep_time: '21:45'
+  },
+])
 </script>
-
 
 <style scoped lang="scss">
 

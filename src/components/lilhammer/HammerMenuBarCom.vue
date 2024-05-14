@@ -1,7 +1,7 @@
 <template>
   <Menubar :model="items" class="mg-btm-10">
     <template #item="{ item, props, hasSubmenu }">
-      <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+      <router-link v-if="item.route" v-slot="{ href, navigate }" :to="{name: item.route}" custom>
         <a :href="href" v-bind="props.action" @click="navigate">
           <span :class="item.icon" />
           <span class="ml-2">{{ item.label }}</span>
@@ -31,11 +31,11 @@ const toast = useToast()
 const items = ref([
   {
     label: 'Activity',
-    route: { name: 'hammer-activity' }
+    route: 'hammer-activity',
   },
   {
     label: 'Health',
-    route: { name: 'hammer-record' }
+    route: 'hammer-record',
   },
   {
     label: 'File',
