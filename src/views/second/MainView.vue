@@ -3,6 +3,8 @@ import NavCom from '@/components/NavCom.vue'
 import NewsCom from '@/components/NewsCom.vue'
 import comeBackImage from '@/assets/pictures/welcome_back.png'
 import dialogBoxImage from '@/assets/pictures/dialog_box.png'
+import ArticleCom from '@/components/ArticleCom.vue'
+
 import { ref } from 'vue'
 
 const showWelcome = ref(false)
@@ -12,20 +14,13 @@ const data = ref({
   nth: 1,
   last_visit: '2023/10/21'
 })
-// function fade() {
-//   setTimeout(
-//     () => {
-//       showWelcome.value = false
-//     },
-//     3500
-//   )
-// }
 </script>
 
 <template>
-  <div class="flex-direction-column left-bar ">
+  <div class="flex-direction-column left-bar">
     <NavCom></NavCom>
     <NewsCom></NewsCom>
+    <ArticleCom></ArticleCom>
   </div>
   <div class="middle-bar">
     <RouterView></RouterView>
@@ -71,20 +66,20 @@ const data = ref({
 <style scoped lang="scss">
 .left-bar {
   margin-right: $l-gap;
-  width: 15%;
+  width: 22%;
 }
 
 .left-bar > * {
-  margin-bottom: $l-gap;
+  margin-bottom: $m-gap;
 }
 
 .middle-bar {
-  width: 65%;
-  margin-right: $l-gap;
+  width: 60%;
+  margin-right: $m-gap;
 }
 
 .right-bar {
-  width: 15%;
+  width: 18%;
   position: relative;
 }
 

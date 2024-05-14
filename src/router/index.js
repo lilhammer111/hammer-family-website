@@ -9,12 +9,29 @@ import PlanView from '@/views/third/PlanView.vue'
 import ArticleView from '@/views/third/ArticleView.vue'
 import MainView from '@/views/second/MainView.vue'
 import LilhammerView from '@/views/third/LilhammerView.vue'
+import NewsView from '@/views/third/NewsView.vue'
+import HammerActivityCom from '@/components/lilhammer/HammerActivityCom.vue'
+import HammerRecordCom from '@/components/lilhammer/HammerRecordCom.vue'
+
+const lilhammer_son_router = [
+  {
+    path: 'activity',
+    name: 'hammer-activity',
+    component: HammerActivityCom,
+  },
+  {
+    path: 'record',
+    name: 'hammer-record',
+    component: HammerRecordCom,
+  },
+]
 
 const third_router = [
   {
     path: 'lilhammer',
     name: 'lilhammer',
-    component: LilhammerView
+    component: LilhammerView,
+    children: lilhammer_son_router,
   },
   {
     path: 'msg',
@@ -35,7 +52,12 @@ const third_router = [
     path: 'article',
     name: 'article',
     component: ArticleView
-  }
+  },
+  {
+    path: 'news',
+    name: 'news',
+    component: NewsView
+  },
 ]
 
 const second_router = [

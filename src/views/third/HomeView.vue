@@ -168,7 +168,7 @@ const events = ref([
     date: '2020/15/10',
     icon: '✈️',
     image: 'src/assets/pictures/us.jpg',
-    image_size: '400',
+    image_size: '300',
     text: '\n' +
       'She once told me her wish was to visit Lhasa. ' +
       'We were at the foot of Mount Huangshan at the time, ' +

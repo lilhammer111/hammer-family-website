@@ -27,7 +27,7 @@ const items = ref([
     route: 'lilhammer'
   },
   {
-    text: '📢 Forum',
+    text: '📢 Message',
     icon: '',
     route: 'msg'
   },
@@ -36,11 +36,6 @@ const items = ref([
     icon: '',
     route: 'plan'
   },
-  {
-    text: '🎓 Article',
-    icon: '',
-    route: 'article'
-  }
 ])
 </script>
 
@@ -53,7 +48,7 @@ const items = ref([
   }
 
   .left-nav-item:hover {
-    background-color: var(--teal-400);
+    background-color: var(--gray-100);
     border-radius: 10px;
   }
 }

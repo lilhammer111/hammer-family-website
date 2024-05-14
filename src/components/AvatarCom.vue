@@ -14,14 +14,12 @@
 
   <OverlayPanel ref="op" class="op-stl">
     <div class="op-item-stl v-cen">
-      <i class="pi pi-sign-out mg-right-10"></i>
-      <span>Logout</span>
-    </div>
-    <div class="divider-stl "></div>
-    <div class="op-item-stl v-cen">
-
       <i class="pi  pi-cog mg-right-10"></i>
       <span>Setting</span>
+    </div>
+    <div class="op-item-stl v-cen">
+      <i class="pi pi-sign-out mg-right-10"></i>
+      <span>Logout</span>
     </div>
   </OverlayPanel>
 
@@ -46,7 +44,7 @@ const toggle = (event) => {
 .ava-stl:hover {
   box-sizing: border-box;
   cursor: pointer;
-  border: 2px solid #d9d9d9;
+  border:3px solid var(--gray-400);
 }
 
 .ava-item-stl {
@@ -60,19 +58,18 @@ const toggle = (event) => {
 .op-item-stl {
   height: 30px;
   line-height: 30px;
-  color: $font-color-gray;
+  color: black;
 }
 
 .op-item-stl:hover {
   cursor: pointer;
-  color: black;
+  color: var(--gray-400);
+
 }
 
 .p-overlaypanel .p-overlaypanel-content {
   padding: 0.5px;
 }
 
-.divider-stl {
-  border: 0.2px solid darkgray;
-}
+
 </style>

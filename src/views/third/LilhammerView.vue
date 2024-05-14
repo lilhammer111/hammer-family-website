@@ -1,11 +1,13 @@
-<script setup>
-
-</script>
-
 <template>
-<div>lilhammer</div>
+  <HammerMenuBarCom/>
+  <RouterView></RouterView>
 </template>
 
-<style scoped lang="scss">
+<script setup>
+
+import HammerMenuBarCom from '@/components/lilhammer/HammerMenuBarCom.vue'
+</script>
+
+<style lang="scss" scoped>
 
 </style>

@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import logo from '@/assets/pictures/logo.png'
+import logo from '@/assets/pictures/hammer_logo.webp'
 import LoginCom from '@/components/LoginCom.vue'
 import RegisterCom from '@/components/RegisterCom.vue'
 import SearchCom from '@/components/SearchCom.vue'
@@ -39,8 +39,8 @@ function goHome() {
 
 <style lang="scss" scoped>
 .logo {
-  max-width: 100%;
-  max-height: 100%;
+  height:80%;
+  width:80%;
   object-fit: contain;
   margin-right: 10px;
 }

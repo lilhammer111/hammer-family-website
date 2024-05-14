@@ -3,12 +3,13 @@
   height: 0;
 }
 
-body {
+body, html {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   max-width: 1400px;
-  min-width: 1000px;
+  min-width: 800px;
+  width:1080px;
   background-color: #f7f7f7;
 }
 
@@ -64,6 +65,10 @@ body {
   margin: 0 0 15px 0;
 }
 
+.mg-btm-10 {
+  margin-bottom: 10px;
+}
+
 .mg-right-10 {
   margin-right:10px;
 }
@@ -77,4 +82,10 @@ body {
 
 .f-width {
   width: 100%;
+}
+
+.left-bar-tag-stl {
+  height: 16px;
+  margin-right: 5px;
+  border-radius: 4px;
 }

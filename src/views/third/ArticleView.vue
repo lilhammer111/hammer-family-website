@@ -26,7 +26,7 @@ const articles = ref([
     title: 'How to ai infer',
     author: 'Demon',
     summary: 'In the rapidly evolving world of artificial intelligence, the ability to effectively perform AI inference is crucial for deploying intelligent systems in real-world applications. This article delves into the fundamentals of AI inference, exploring the techniques and technologies that enable AI models to make predictions and decisions based on new data. Whether you\'re a seasoned data scientist, a software developer, or an AI enthusiast, this guide provides you with a clear understanding of the key concepts and practical applications of AI inference.'
-  },
+  }
 ])
 
 const items = ref([
@@ -124,16 +124,14 @@ const items = ref([
       ]
     ]
   }
-]);
+])
 </script>
 
 <template>
-  <div class="card">
-    <MegaMenu :model="items" />
-  </div>
+  <MegaMenu :model="items" class="mg-btm-15" />
 
-  <div class="article" >
-    <Card style="width: 289px; overflow: hidden" v-for="article in articles" >
+  <div class="article">
+    <Card style="width: 289px; overflow: hidden" v-for="article in articles">
       <template #header>
         <img alt="user header" :src="article.cover" />
       </template>
