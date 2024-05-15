@@ -24,11 +24,11 @@
 
 <script setup>
 import logo from '@/assets/pictures/hammer_logo.webp'
-import LoginCom from '@/components/LoginCom.vue'
-import RegisterCom from '@/components/RegisterCom.vue'
-import SearchCom from '@/components/SearchCom.vue'
-import AvatarCom from '@/components/AvatarCom.vue'
-import PostBlessCom from '@/components/PostBlessCom.vue'
+import LoginCom from '@/components/header/LoginCom.vue'
+import RegisterCom from '@/components/header/RegisterCom.vue'
+import SearchCom from '@/components/header/SearchCom.vue'
+import AvatarCom from '@/components/header/AvatarCom.vue'
+import PostBlessCom from '@/components/header/PostBlessCom.vue'
 import router from '@/router/index.js'
 
 function goHome() {
@@ -42,7 +42,7 @@ function goHome() {
   height:80%;
   width:80%;
   object-fit: contain;
-  margin-right: 10px;
+  margin:0 10px 0 5px;
 }
 
 .logo:hover {

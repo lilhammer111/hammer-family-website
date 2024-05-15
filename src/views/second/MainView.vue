@@ -1,6 +1,6 @@
 <script setup>
 import NavCom from '@/components/NavCom.vue'
-import NewsCom from '@/components/NewsCom.vue'
+import NewsCom from '@/components/message/NewsCom.vue'
 import comeBackImage from '@/assets/pictures/welcome_back.png'
 import dialogBoxImage from '@/assets/pictures/dialog_box.png'
 import ArticleCom from '@/components/ArticleCom.vue'

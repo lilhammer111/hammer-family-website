@@ -1,6 +1,6 @@
 <template>
   <Panel
-    v-for="item in items"
+    v-for="item in paginatedItems"
     :key="item.id"
     class="light-shadow-style mg-btm-15 width-100 card-border-radius"
     toggleable
@@ -8,7 +8,7 @@
     <template #header>
       <div class="flex align-items-center gap-2 v-cen">
         <Avatar
-          image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
+          :image="item.user.avatar"
           size="small"
           shape="circle"
         />
@@ -30,16 +30,26 @@
     </template>
     <p class="m-0">{{ item.msg }}</p>
   </Panel>
+
+  <Paginator
+    :first="first"
+    :rows="rowsPerPage"
+    :totalRecords="items.length"
+    style="width: 100%"
+    @page="onPageChange"
+  >
+  </Paginator>
 </template>
 
 <script setup>
 import IconNum from '@/components/IconNum.vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 const items = ref([
   {
     user: {
-      name: 'Demon'
+      name: 'Demon',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     msg: '祝我们永远幸福哦！',
@@ -48,7 +58,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'Jojo'
+      name: 'Jojo',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     msg: '要做幸福快乐的宝宝！ 小锤子，我们永远爱你哦',
@@ -57,7 +68,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'lilhammer'
+      name: 'lilhammer',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     msg: '嗯。。。嗯。。。',
@@ -66,7 +78,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'Demon'
+      name: 'Demon',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     msg: '愿你的每一天都充满阳光，心情如这绚烂的阳光一样明媚。',
@@ -75,7 +88,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'hhhhelloworld'
+      name: 'hhhhelloworld',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -84,7 +98,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'en???'
+      name: 'en???',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -94,7 +109,8 @@ const items = ref([
 
   {
     user: {
-      name: 'joker'
+      name: 'joker',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -103,7 +119,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'faker'
+      name: 'faker',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -112,16 +129,18 @@ const items = ref([
   },
   {
     user: {
-      name: 'pian'
+      name: 'pian',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
-      tu_num: '15',
+    tu_num: '15',
     com_num: '16',
     msg: '在你的世界里，愿快乐无限，梦想成真。'
   },
   {
     user: {
-      name: 'dior'
+      name: 'dior',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -130,7 +149,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'uncle'
+      name: 'uncle',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -139,7 +159,8 @@ const items = ref([
   },
   {
     user: {
-      name: 'ant'
+      name: 'ant',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
@@ -148,30 +169,31 @@ const items = ref([
   },
   {
     user: {
-      name: 'mayun'
+      name: 'mayun',
+      avatar: 'https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png'
     },
     created_at: '2024/1/31 15:30',
     tu_num: '15',
     com_num: '16',
     msg: '在这个美好的时刻，我想告诉你，你的存在本身就是这个世界上最美的奇迹之一。你的笑容可以点亮最暗的天，你的话语可以温暖最冷的心。愿你永远珍惜自己的价值，无论前方道路多么不确定，都要带着自信和骄傲前行。愿每一天都能带给你新的希望和喜悦，愿你的人生旅程永远充满爱与奇迹。'
-  },
-  //   {
-  //     user: {
-  //       name: 'Demon'
-  //     },
-  //     created_at: '2024/1/31 15:30',
-  //     tu_num: 15,
-  //     com_num: 16,
-  //     msg: '要做幸福快乐的宝宝！ 小锤子，我们永远爱你哦'
-  //   },
-  //   {
-  //     user: {
-  //       name: 'Demon'
-  //     },
-  //     created_at: '2024/1/31 15:30',
-  //     tu_num: 15,
-  //     com_num: 16,
-  //     msg: '要做幸福快乐的宝宝！ 小锤子，我们永远爱你哦'
-  //   }
+  }
 ])
+
+const first = ref(0) // 当前页的起始索引
+const rowsPerPage = ref(10) // 每页显示的行数
+
+const paginatedItems = computed(() => {
+  return items.value.slice(first.value, first.value + rowsPerPage.value)
+})
+
+const onPageChange = (event) => {
+  first.value = event.first
+}
 </script>
+
+<style lang="scss">
+
+:deep(.p-paginator) {
+  flex-wrap: nowrap;
+}
+</style>

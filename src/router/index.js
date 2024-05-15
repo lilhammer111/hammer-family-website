@@ -12,6 +12,10 @@ import LilhammerView from '@/views/third/LilhammerView.vue'
 import NewsView from '@/views/third/NewsView.vue'
 import HammerActivityCom from '@/components/lilhammer/HammerActivityCom.vue'
 import HammerRecordCom from '@/components/lilhammer/HammerRecordCom.vue'
+import WishCom from '@/components/message/WishCom.vue'
+import FoodCom from '@/components/message/share/FoodCom.vue'
+import MovieCom from '@/components/message/share/MovieCom.vue'
+import BookCom from '@/components/message/share/BookCom.vue'
 
 const lilhammer_son_router = [
   {
@@ -26,11 +30,40 @@ const lilhammer_son_router = [
   }
 ]
 
+const msg_router = [
+  {
+    path: 'news',
+    name: 'news',
+    component: NewsView
+  },
+  {
+    path: 'wish',
+    name: 'wish',
+    component: WishCom
+  },
+  {
+    path: 'food',
+    name: 'food',
+    component: FoodCom
+  },
+  {
+    path: 'movie',
+    name: 'movie',
+    component: MovieCom
+  },
+  {
+    path: 'book',
+    name: 'book',
+    component: BookCom
+  },
+]
+
 const third_router = [
   {
     path: 'msg',
     name: 'msg',
-    component: MsgView
+    component: MsgView,
+    children: msg_router
   },
   {
     path: 'home',
@@ -47,11 +80,7 @@ const third_router = [
     name: 'article',
     component: ArticleView
   },
-  {
-    path: 'news',
-    name: 'news',
-    component: NewsView
-  },
+
   {
     path: 'lilhammer',
     name: 'lilhammer',

@@ -11,11 +11,6 @@
         <span>{{ item.label }}</span>
         <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2" />
       </a>
-      <!--      <a v-else :href="item.url" :target="item.target" v-bind="props.action">-->
-      <!--        <span :class="item.icon" />-->
-      <!--        <span class="ml-2">{{ item.label }}</span>-->
-      <!--        <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2" />-->
-      <!--      </a>-->
     </template>
     <Toast />
   </Menubar>
@@ -30,11 +25,11 @@ const toast = useToast()
 
 const items = ref([
   {
-    label: 'Activity',
+    label: '📅 Journal',
     route: 'hammer-activity',
   },
   {
-    label: 'Health',
+    label: '🥦 Health',
     route: 'hammer-record',
   },
   {

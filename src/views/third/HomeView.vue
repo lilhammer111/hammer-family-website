@@ -6,6 +6,7 @@
         Welcome to the <b>lilhammer family</b> website! Nestled in the vast digital landscape, this is a place crafted
         with love and laughter, where every moment is cherished and every visitor is valued.
       </p>
+
       <p class="m-0">
         We are the lilhammer family—united by bonds that extend beyond the ordinary. Each page you explore here is
         imbued with our stories and dreams, and we are thrilled to share them with you.
@@ -15,6 +16,7 @@
         In this ever-spinning world, your choice to step into my little corner of the internet fills me with immense
         honor. 🌟
       </p>
+
       <p class="m-0">
         Whether you are a long-lost friend or a traveler making your first visit, here you'll find
         a peaceful pause from the bustling world outside.
@@ -207,11 +209,12 @@ const events = ref([
 
 <style lang="scss" scoped>
 .paral-stl {
-  display: flex
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .paral-stl > * {
-  margin-right: $m-gap;
   width: 50%;
 }
 

@@ -2,7 +2,7 @@
   <div class="left-nav">
     <Card>
       <template #content>
-        <div class="left-nav-item " v-for="item in items" :key="item.id">
+        <div class="left-nav-item " v-for="item of items" :key="item.id">
           <RouterLink :to="item.route" class="h-cen">
             <Button :label="item.text" severity="secondary" link />
           </RouterLink>
@@ -19,22 +19,17 @@ const items = ref([
   {
     text: '🌴 Home',
     icon: '',
-    route: 'home'
+    route: '/index/nav/home'
   },
   {
-    text: '🌱 hammer',
+    text: '🌱 Hammer',
     icon: '',
-    route: 'lilhammer'
+    route: '/index/nav/lilhammer/activity'
   },
   {
-    text: '📢 Message',
+    text: '🐣 Community',
     icon: '',
-    route: 'msg'
-  },
-  {
-    text: '🎯 Plan',
-    icon: '',
-    route: 'plan'
+    route: '/index/nav/msg/wish'
   },
 ])
 </script>
