@@ -1,5 +1,5 @@
 <script setup>
-import NavCom from '@/components/NavCom.vue'
+import NavCom from '@/components/common/NavCom.vue'
 import NewsCom from '@/components/message/NewsCom.vue'
 import comeBackImage from '@/assets/pictures/welcome_back.png'
 import dialogBoxImage from '@/assets/pictures/dialog_box.png'
@@ -10,15 +10,33 @@ import { ref } from 'vue'
 const showWelcome = ref(false)
 
 const data = ref({
-  name:'Demon',
+  name: 'Demon',
   nth: 1,
   last_visit: '2023/10/21'
 })
+
+const navItems = ref([
+  {
+    text: '🌴 Home',
+    icon: '',
+    route: 'home'
+  },
+  {
+    text: '🌱 Hammer',
+    icon: '',
+    route: 'hammer-activity'
+  },
+  {
+    text: '🐣 Community',
+    icon: '',
+    route: 'wish'
+  }
+])
 </script>
 
 <template>
-  <div class="flex-direction-column left-bar">
-    <NavCom></NavCom>
+  <div class=" left-bar">
+    <NavCom :items="navItems"></NavCom>
     <NewsCom></NewsCom>
     <ArticleCom></ArticleCom>
   </div>
@@ -45,9 +63,9 @@ const data = ref({
         alt="dialog box"
       />
       <p class="para-stl" v-show="showWelcome">
-        Hi, {{data.name}}
+        Hi, {{ data.name }}
       </p>
-      <p class="para-stl"  style="top:24px; right: 6px" v-show="showWelcome">
+      <p class="para-stl" style="top:24px; right: 6px" v-show="showWelcome">
         Welcome Back!
       </p>
       <p class="para-stl" style="top:44px; right: 15px" v-show="showWelcome">
@@ -64,9 +82,10 @@ const data = ref({
 </template>
 
 <style scoped lang="scss">
+@import "@/styles/variables";
+
 .left-bar {
-  margin-right: $l-gap;
-  width: 22%;
+  width: $nav-width-proportion * 100%;
 }
 
 .left-bar > * {
@@ -75,7 +94,6 @@ const data = ref({
 
 .middle-bar {
   width: 60%;
-  margin-right: $m-gap;
 }
 
 .right-bar {
@@ -95,7 +113,7 @@ const data = ref({
 .para-stl {
   font-size: 13px;
   font-weight: bolder;
-  top:4px;
+  top: 4px;
   right: -10px;
 }
 

@@ -3,9 +3,7 @@
     <Card>
       <template #content>
         <div class="left-nav-item " v-for="item of items" :key="item.id">
-          <RouterLink :to="item.route" class="h-cen">
-            <Button :label="item.text" severity="secondary" link />
-          </RouterLink>
+            <Button :label="item.text" severity="secondary" link @click="router.push({name: item.route})"/>
         </div>
       </template>
     </Card>
@@ -13,25 +11,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import router from '@/router/index.js'
 
-const items = ref([
-  {
-    text: '🌴 Home',
-    icon: '',
-    route: '/index/nav/home'
-  },
-  {
-    text: '🌱 Hammer',
-    icon: '',
-    route: '/index/nav/lilhammer/activity'
-  },
-  {
-    text: '🐣 Community',
-    icon: '',
-    route: '/index/nav/msg/wish'
-  },
+defineProps([
+  'items'
 ])
+
+
 </script>
 
 <style lang="scss" scoped>

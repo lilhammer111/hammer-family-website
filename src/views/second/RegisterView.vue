@@ -20,6 +20,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router/index.js'
+import { isSignIn } from '@/stores/user.js'
 
 const items = ref([
   {
@@ -52,6 +53,7 @@ function handleSubmit(items) {
   axios(config)
     .then(function (response) {
       if (response.status === 201) {
+        isSignIn.value = true
         console.log(JSON.stringify(response.data))
         router.push({
           name: 'home'

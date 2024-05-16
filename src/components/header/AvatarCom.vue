@@ -13,13 +13,13 @@
   />
 
   <OverlayPanel ref="op" class="op-stl">
-    <div class="op-item-stl v-cen">
-      <i class="pi  pi-cog mg-right-10"></i>
-      <span>Setting</span>
-    </div>
-    <div class="op-item-stl v-cen">
-      <i class="pi pi-sign-out mg-right-10"></i>
-      <span>Logout</span>
+    <div v-for="item of Items"
+         :key="item.label"
+         class="op-item-stl v-cen"
+         @click="item.action(item)"
+    >
+      <i :class="item.icon" style="margin-right:10px"></i>
+      <span>{{ item.label }}</span>
     </div>
   </OverlayPanel>
 
@@ -28,6 +28,36 @@
 <script setup>
 import { isSignIn } from '@/stores/user.js'
 import { ref } from 'vue'
+import router from '@/router/index.js'
+
+const Items = ref([
+  {
+    icon: 'pi pi-user',
+    label: 'Profile',
+    route: 'profile',
+    action: (item) => {
+      router.push({ name: item.route })
+    }
+  },
+  {
+    icon: 'pi  pi-cog',
+    label: 'Settings',
+    route: 'settings',
+    action: (item) => {
+      router.push({ name: item.route })
+    },
+  },
+  {
+    icon: 'pi pi-sign-out',
+    label: 'Logout',
+    route: 'home',
+    action: (item) => {
+      router.push({ name: item.route })
+      isSignIn.value = false
+    }
+  }
+])
+
 
 const op = ref()
 const toggle = (event) => {
@@ -44,7 +74,7 @@ const toggle = (event) => {
 .ava-stl:hover {
   box-sizing: border-box;
   cursor: pointer;
-  border:3px solid var(--gray-400);
+  border: 3px solid var(--gray-400);
 }
 
 .ava-item-stl {

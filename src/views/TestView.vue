@@ -1,7 +1,16 @@
+
 <template>
-  <div></div>
+  <div class="card flex justify-content-center">
+    <FloatLabel>
+      <InputText id="username" v-model="value" />
+      <label for="username">Username</label>
+    </FloatLabel>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
 
-<style lang="scss" scoped></style>
+
+const value = ref(null);
+</script>

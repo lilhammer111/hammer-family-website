@@ -14,25 +14,9 @@
       now!
     </div>
   </div>
-
-  <div class="card flex justify-content-center">
-    <Toast position="top-right" group="dialog">
-      <template #message="slotProps">
-        <div class="flex flex-column  align-items-start" style="flex: 1">
-          <div class="flex align-items-center gap-2 v-cen mg-btm-15">
-            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"
-                    style="margin-right: 10px" />
-            <span class="font-bold text-900"> lilhammer (System Manager)</span>
-          </div>
-          <div class="font-medium text-lg my-3 text-900">{{ slotProps.message.summary }}</div>
-        </div>
-      </template>
-    </Toast>
-  </div>
 </template>
 
 <script setup>
-import Toast from 'primevue/toast'
 import { ref } from 'vue'
 import router from '@/router/index.js'
 import axios from 'axios'
@@ -57,6 +41,14 @@ const items = ref([
 
 
 function handleSubmit(items) {
+  // for test
+  if (items[0].input === 'test') {
+    isSignIn.value = true
+    router.push({
+      name: 'home'
+    })
+  }
+
   const data = JSON.stringify({
     username: items[0].input,
     password: items[1].input
@@ -86,7 +78,7 @@ function handleSubmit(items) {
       if (error.response.status === 401) {
         toast.add({
           severity: 'Contrast',
-          summary: 'Hey gus, \nPassword or Username is incorrect!',
+          summary: 'Hey gus! The password or username you input is incorrect!',
           group: 'dialog',
           life: 15000
         })

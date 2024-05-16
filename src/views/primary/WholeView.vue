@@ -1,5 +1,5 @@
 <template>
-  <div class="hc v-cen">
+  <div class="header-container v-cen">
     <div class="nav v-cen">
       <img
         class="logo"
@@ -38,26 +38,25 @@ function goHome() {
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/variables';
+
 .logo {
-  height:80%;
-  width:80%;
+  height: 80%;
+  width: 80%;
   object-fit: contain;
-  margin:0 10px 0 5px;
+  margin: 0 10px 0 5px;
 }
 
 .logo:hover {
   cursor: pointer;
 }
 
-.hc {
+.header-container {
   margin-top: 5px;
-  background-color: $pure-white;
+  background-color: #ffffff;
   height: 65px;
-  // border-bottom: solid;
-  // border-bottom-width: 1;
-  border: solid;
-  border-radius: 10px;
-  border-color: $border-white;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
   justify-content: space-between;
 
   .login-and-avatar-stl .sea {
@@ -73,7 +72,6 @@ function goHome() {
   margin-top: 20px;
   display: flex;
   flex-direction: row;
-
-
+  gap: $m-gap;
 }
 </style>

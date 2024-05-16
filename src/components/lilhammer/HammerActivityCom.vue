@@ -42,9 +42,9 @@ const data = ref([
       pictures: [hammerJpg, hammer1, hammer2, hammer3, hammer4, hammer5, hammer6, hammer7],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤第一次游泳',
@@ -52,9 +52,9 @@ const data = ref([
       pictures: [hammerJpg, hammer8, hammer9],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤上幼儿园',
@@ -62,9 +62,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤生日派对',
@@ -72,9 +72,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤去动物园',
@@ -82,9 +82,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤学会骑自行车',
@@ -92,9 +92,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤看电影',
@@ -102,9 +102,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤画画',
@@ -112,9 +112,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤学做饭',
@@ -122,9 +122,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     },
     {
       title: '小锤玩滑梯',
@@ -132,9 +132,9 @@ const data = ref([
       pictures: [hammerJpg],
       time: '13:14 PM·Oct 14, 2023',
       remark: {
-        thumb_num: 15,
-        comment_num: 20
-      },
+        thumb_num: '15',
+        comment_num: '20'
+      }
     }
   ]
 )

@@ -9,7 +9,7 @@ import 'primevue/resources/themes/aura-light-noir/theme.css'
 import '@/styles/base.scss'
 import FocusTrap from 'primevue/focustrap'
 import ToastService from 'primevue/toastservice'
-
+import DialogService from 'primevue/dialogservice';
 
 const app = createApp(App)
 app.use(PrimeVue, {
@@ -18,7 +18,7 @@ app.use(PrimeVue, {
 })
 app.directive('focustrap', FocusTrap)
 app.use(ToastService)
-
+app.use(DialogService)
 app.use(createPinia())
 app.use(router)
 app.mount('#app')

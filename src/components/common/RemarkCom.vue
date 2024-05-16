@@ -10,7 +10,6 @@
     <div class="input-stl mg-btm-10">
       <Avatar style="margin-top:3px" image="https://primefaces.org/cdn/primevue/images/organization/walter.jpg"
               size="normal" shape="square" />
-      <InputGroup style="width:100%;position: relative">
         <InputText v-show="!showTextArea"
                    style="width:100%"
                    :class="inputClass"
@@ -24,7 +23,6 @@
                   variant="filled" />
         <Button class="submit-btn-stl" v-if="showTextArea" severity="contract" label="Confirm"
                 size="small"></Button>
-      </InputGroup>
     </div>
     <div class="comment-stl">
       <div class="every-comment-stl " v-for="(comment, index) in comments" :key="comment.username">
