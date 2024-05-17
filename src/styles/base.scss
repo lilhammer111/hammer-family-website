@@ -4,6 +4,12 @@
 }
 
 body, html {
+  background-color: #f7f7f7;
+  padding: 0;
+  margin: 0 0 20px 0;
+  box-sizing: border-box;
+}
+#app {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
@@ -31,6 +37,11 @@ body, html {
   flex-direction: row;
   justify-content: space-between;
   align-items:center;
+}
+
+.flex-ver-gap-10 {
+  display:flex;
+  justify-content: space-between;
 }
 
 .flex-direction-column {

@@ -34,7 +34,7 @@ const Items = ref([
   {
     icon: 'pi pi-user',
     label: 'Profile',
-    route: 'profile',
+    route: 'info',
     action: (item) => {
       router.push({ name: item.route })
     }
@@ -42,7 +42,7 @@ const Items = ref([
   {
     icon: 'pi  pi-cog',
     label: 'Settings',
-    route: 'settings',
+    route: 'secure',
     action: (item) => {
       router.push({ name: item.route })
     },

@@ -1,29 +1,25 @@
 <script setup>
 import NavCom from '@/components/common/NavCom.vue'
-import { onBeforeMount, ref } from 'vue'
-import router from '@/router/index.js'
+import { ref } from 'vue'
 
 const navItems = ref([
   {
-    text: '🌴 Profile',
+    text: '🌴 Personal Info',
     icon: '',
     route: 'info'
   },
   {
-    text: '🌱 Bias',
+    text: '🌱 Activity',
     icon: '',
-    route: 'bias'
+    route: 'activity'
   },
   {
-    text: '🐣 Secure',
+    text: '🐣 Achievement',
     icon: '',
-    route: 'secure'
+    route: 'achievement'
   }
 ])
 
-onBeforeMount(() => {
-  router.push({ name: 'info' })
-})
 
 </script>
 

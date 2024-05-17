@@ -1,12 +1,12 @@
 <template>
   <div class="signupFrm">
-    <form action="" class="form" @submit="handleSubmit(items)">
+    <form action="" class="form">
       <h1 class="title">Sign In</h1>
       <div class="inputContainer" v-for="item in items" :key="item.id">
         <input :type="item.type" class="input" placeholder="a" v-model="item.input" />
         <label for="" class="label">{{ item.text }}</label>
       </div>
-      <input type="submit" class="submitBtn" value="Sign In" />
+      <Button severity="contract" class="submitBtn" @click="handleSubmit(items)">Sign In</Button>
     </form>
     <div style="margin-top: 10px">
       yet have an account?
@@ -136,7 +136,7 @@ function handleSubmit(items) {
   left: 0;
   height: 100%;
   width: 100%;
-  border: 1px solid #dadce0;
+  border: 1px solid var(--gray-600);
   border-radius: 7px;
   font-size: 16px;
   padding: 0 20px;
@@ -151,7 +151,7 @@ function handleSubmit(items) {
   left: 15px;
   padding: 0 4px;
   background-color: white;
-  color: #dadce0;
+  color: var(--gray-600);
   font-size: 16px;
   transition: 0.5s;
   z-index: 0;
@@ -167,7 +167,6 @@ function handleSubmit(items) {
   width: 90%;
   border: none;
   /* background-color: purple; */
-  background-color: #10b981;
   color: white;
   border-radius: 6px;
   cursor: pointer;
@@ -177,7 +176,6 @@ function handleSubmit(items) {
 
 .submitBtn:hover {
   /* background-color: #9867c5; */
-  background-color: #188a42;
   transform: translateY(-2px);
 }
 
@@ -186,7 +184,7 @@ function handleSubmit(items) {
   left: 3px;
   font-size: 14px;
   font-weight: 600;
-  color: #10b981;
+  color: black;
   z-index: 10;
 }
 
@@ -198,7 +196,7 @@ function handleSubmit(items) {
 }
 
 .input:focus {
-  border: 2px solid #10b981;
+  border: 2px solid black;
 }
 
 .p {

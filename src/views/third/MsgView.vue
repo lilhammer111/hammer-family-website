@@ -4,7 +4,7 @@
 </template>
 
 <script setup>
-import MsgMenuCom from '@/components/message/MsgMenuCom.vue'
+import MsgMenuCom from '@/components/community/CommunityMenuCom.vue'
 
 </script>
 

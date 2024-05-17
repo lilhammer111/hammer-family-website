@@ -1,18 +1,27 @@
 <script setup>
 import NavCom from '@/components/common/NavCom.vue'
-import NewsCom from '@/components/message/NewsCom.vue'
+import NewsCom from '@/components/NewsCom.vue'
 import comeBackImage from '@/assets/pictures/welcome_back.png'
-import dialogBoxImage from '@/assets/pictures/dialog_box.png'
 import ArticleCom from '@/components/ArticleCom.vue'
 
 import { ref } from 'vue'
 
-const showWelcome = ref(false)
 
 const data = ref({
   name: 'Demon',
   nth: 1,
-  last_visit: '2023/10/21'
+  last_visit: 'October 21, 2023'
+})
+
+const welcome_msg = ref(
+  `Hey ${data.value.name}\nIt's great to see you again.
+This is your ${data.value.nth}th visit.
+Your last visit was on ${data.value.last_visit}. Welcome back!`
+)
+
+const ptOption = ref({
+  arrow: { style: 'display:none' },
+  text: { style: 'font-weight:bolder;left:0px;background: rgba(255, 255, 255,0.8);backdrop-filter: blur(100px);color: black; box-shadow: 5px 5px  10px 4px rgba(0, 0, 0, 0.3);' }
 })
 
 const navItems = ref([
@@ -24,14 +33,15 @@ const navItems = ref([
   {
     text: '🌱 Hammer',
     icon: '',
-    route: 'hammer-activity'
+    route: 'wish'
   },
   {
     text: '🐣 Community',
     icon: '',
-    route: 'wish'
+    route: 'food'
   }
 ])
+
 </script>
 
 <template>
@@ -45,44 +55,30 @@ const navItems = ref([
   </div>
 
   <div class="right-bar">
-    <div
-      @mouseover="showWelcome = true"
-      @mouseleave="showWelcome = false"
-    >
 
-      <img
-        :src="comeBackImage"
-        alt="welcome back"
-        style="width:100%"
-
-      />
-      <img
-        v-show="showWelcome"
-        class="dialog-box-stl fade-out"
-        :src="dialogBoxImage"
-        alt="dialog box"
-      />
-      <p class="para-stl" v-show="showWelcome">
-        Hi, {{ data.name }}
-      </p>
-      <p class="para-stl" style="top:24px; right: 6px" v-show="showWelcome">
-        Welcome Back!
-      </p>
-      <p class="para-stl" style="top:44px; right: 15px" v-show="showWelcome">
-        This is your {{ data.nth }}th visit,
-      </p>
-      <p class="para-stl" style="top:64px; right: 22px" v-show="showWelcome">and your last visit was</p>
-      <p class="para-stl" style="top:84px" v-show="showWelcome">on {{ data.last_visit }}!</p>
-    </div>
+    <img
+      v-tooltip.right="{
+      value: welcome_msg,
+      showDelay: 1000,
+      hideDelay: 1000,
+      pt:ptOption,
+    }"
+      :src="comeBackImage"
+      alt="welcome back"
+      style="width:100%;margin-left:10px"
+    />
   </div>
-
-  <!--    <div v-show="showWelcome" class="dialog-box-stl">-->
-  <!--      xxx.-->
-  <!--    </div>-->
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/variables";
+
+.dialog-stl {
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  left: 100px;
+  backdrop-filter: blur(10px);
+}
 
 .left-bar {
   width: $nav-width-proportion * 100%;

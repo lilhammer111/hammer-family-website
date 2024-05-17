@@ -18,13 +18,6 @@ const router = useRouter()
 
 const items = ref([
   {
-    label: 'Bless',
-    icon: '',
-    command: () => {
-      router.push({ name: 'wish' })
-    }
-  },
-  {
     label: 'Share',
     icon: '',
     items: [
