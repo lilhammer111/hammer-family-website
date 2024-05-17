@@ -12,7 +12,7 @@
     @click="toggle"
   />
 
-  <OverlayPanel ref="op" class="op-stl">
+  <OverlayPanel ref="opRef" class="op-stl">
     <div v-for="item of Items"
          :key="item.label"
          class="op-item-stl v-cen"
@@ -59,10 +59,12 @@ const Items = ref([
 ])
 
 
-const op = ref()
+const opRef = ref()
 const toggle = (event) => {
-  op.value.toggle(event)
+  opRef.value.toggle(event)
 }
+
+
 </script>
 
 <style scoped lang="scss">
