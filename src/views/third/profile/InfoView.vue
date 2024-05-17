@@ -58,7 +58,14 @@ const form = ref({
   contact: {
     email: '',
     mobile: ''
-  }
+  },
+  location: '',
+  socialAccounts: [
+    { id: 1, url: '' },
+    { id: 2, url: '' },
+    { id: 3, url: '' }
+  ],
+  industry:'',
 })
 
 const pronounsOptions = ref([
@@ -69,7 +76,80 @@ const pronounsOptions = ref([
   { name: 'Paris', code: 'PRS' }
 ])
 
-
+const countries = ref([
+  {
+    name: 'Australia',
+    code: 'AU',
+    states: [
+      {
+        name: 'New South Wales',
+        cities: [
+          { cname: 'Sydney', code: 'A-SY' },
+          { cname: 'Newcastle', code: 'A-NE' },
+          { cname: 'Wollongong', code: 'A-WO' }
+        ]
+      },
+      {
+        name: 'Queensland',
+        cities: [
+          { cname: 'Brisbane', code: 'A-BR' },
+          { cname: 'Townsville', code: 'A-TO' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Canada',
+    code: 'CA',
+    states: [
+      {
+        name: 'Quebec',
+        cities: [
+          { cname: 'Montreal', code: 'C-MO' },
+          { cname: 'Quebec City', code: 'C-QU' }
+        ]
+      },
+      {
+        name: 'Ontario',
+        cities: [
+          { cname: 'Ottawa', code: 'C-OT' },
+          { cname: 'Toronto', code: 'C-TO' }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'United States',
+    code: 'US',
+    states: [
+      {
+        name: 'California',
+        cities: [
+          { cname: 'Los Angeles', code: 'US-LA' },
+          { cname: 'San Diego', code: 'US-SD' },
+          { cname: 'San Francisco', code: 'US-SF' }
+        ]
+      },
+      {
+        name: 'Florida',
+        cities: [
+          { cname: 'Jacksonville', code: 'US-JA' },
+          { cname: 'Miami', code: 'US-MI' },
+          { cname: 'Tampa', code: 'US-TA' },
+          { cname: 'Orlando', code: 'US-OR' }
+        ]
+      },
+      {
+        name: 'Texas',
+        cities: [
+          { cname: 'Austin', code: 'US-AU' },
+          { cname: 'Dallas', code: 'US-DA' },
+          { cname: 'Houston', code: 'US-HO' }
+        ]
+      }
+    ]
+  }
+])
 </script>
 
 <template>
@@ -110,7 +190,7 @@ const pronounsOptions = ref([
             :options="pronounsOptions"
             optionLabel="name"
             placeholder="Select a Pronouns"
-                     />
+          />
         </div>
       </ProfileInfoCom>
 
@@ -130,6 +210,11 @@ const pronounsOptions = ref([
         header="Social Accounts"
         explanation="Include links to your social media profiles."
       >
+        <div class="flex-hor-start" style="margin: 5px 0;" v-for="account of form.socialAccounts"
+             :key="account.id">
+          <i class="pi pi-link"></i>
+          <InputText type="text" v-model="account.url" />
+        </div>
 
       </ProfileInfoCom>
 
@@ -138,16 +223,40 @@ const pronounsOptions = ref([
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Industry" explanation="Specify the industry you are associated with.">
-        <Calendar v-model="date" />
+        <div>
+          <CascadeSelect v-model="form.industry" :options="countries" optionLabel="cname" optionGroupLabel="name"
+                         :optionGroupChildren="['states', 'cities']" style="min-width: 14rem" placeholder="Select a Industry">
+            <template #option="slotProps">
+              <div class="flex align-items-center">
+                <img v-if="slotProps.option.states" :alt="slotProps.option.name" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px"  />
+                <i v-if="slotProps.option.cities" class="pi pi-compass mr-2"></i>
+                <i v-if="slotProps.option.cname" class="pi pi-map-marker mr-2"></i>
+                <span>{{ slotProps.option.cname || slotProps.option.name }}</span>
+              </div>
+            </template>
+          </CascadeSelect>
+        </div>
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Location" explanation="Where are you based or where do you primarily operate?">
-        <Calendar v-model="date" />
+        <CascadeSelect v-model="form.location" :options="countries" optionLabel="cname" optionGroupLabel="name"
+                       :optionGroupChildren="['states', 'cities']" style="min-width: 14rem" placeholder="Select a City">
+          <template #option="slotProps">
+            <div class="flex align-items-center">
+              <img v-if="slotProps.option.states" :alt="slotProps.option.name"
+                   src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
+                   :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
+              <i v-if="slotProps.option.cities" class="pi pi-compass mr-2"></i>
+              <i v-if="slotProps.option.cname" class="pi pi-map-marker mr-2"></i>
+              <span>{{ slotProps.option.cname || slotProps.option.name }}</span>
+            </div>
+          </template>
+        </CascadeSelect>
       </ProfileInfoCom>
 
     </template>
     <template #footer>
-      <Button label="Save Modification" severity="secondary" style="float: right;"></Button>
+      <Button label="Save Modification" severity="contract" style="float: right;"></Button>
     </template>
   </Card>
 

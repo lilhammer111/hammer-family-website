@@ -1,5 +1,6 @@
 <script setup>
 import SystemToastCom from '@/components/common/SystemToastCom.vue'
+
 </script>
 
 <template>

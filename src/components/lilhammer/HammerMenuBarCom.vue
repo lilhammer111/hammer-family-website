@@ -8,6 +8,7 @@
         </a>
       </router-link>
       <a v-else v-bind="props.action">
+        <span :class="item.icon" style="margin-right:10px"/>
         <span>{{ item.label }}</span>
         <span v-if="hasSubmenu" class="pi pi-fw pi-angle-down ml-2" />
       </a>
@@ -25,7 +26,11 @@ const toast = useToast()
 
 const items = ref([
   {
-    label: '📅 Journal',
+    label: '💖 Wish',
+    route: 'wish',
+  },
+  {
+    label: '🎯 Activity',
     route: 'hammer-activity',
   },
   {
@@ -33,48 +38,18 @@ const items = ref([
     route: 'hammer-record',
   },
   {
-    label: 'File',
-    items: [
-      {
-        label: 'New',
-        command: () => {
-          toast.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 })
-        }
-      },
-      {
-        label: 'Print',
-        command: () => {
-          toast.add({ severity: 'error', summary: 'Error', detail: 'No printer connected', life: 3000 })
-        }
-      }
-    ]
-  },
-  {
-    label: 'Search',
-    command: () => {
-      toast.add({ severity: 'warn', summary: 'Search Results', detail: 'No results found', life: 3000 })
-    }
-  },
-  {
     separator: true
   },
   {
-    label: 'Sync',
+    label: 'New',
+    icon:'pi pi-plus',
     items: [
       {
-        label: 'Import',
-        icon: 'pi pi-cloud-download',
+        label: 'Write a Wish',
         command: () => {
           toast.add({ severity: 'info', summary: 'Downloads', detail: 'Downloaded from cloud', life: 3000 })
         }
       },
-      {
-        label: 'Export',
-        icon: 'pi pi-cloud-upload',
-        command: () => {
-          toast.add({ severity: 'info', summary: 'Shared', detail: 'Exported to cloud', life: 3000 })
-        }
-      }
     ]
   }
 

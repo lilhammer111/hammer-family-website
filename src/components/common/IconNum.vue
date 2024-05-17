@@ -1,7 +1,5 @@
 <template>
   <div class="v-cen">
-    <!-- <Button :icon="icon" severity="secondary" rounded text> </Button>
-    <span>{{ num }}</span> -->
     <Button
       type="button"
       :icon="icon"
@@ -14,5 +12,5 @@
 </template>
 
 <script setup>
-const { icon, num } = defineProps(['icon', 'num'])
+defineProps(['icon', 'num'])
 </script>

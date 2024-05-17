@@ -5,24 +5,27 @@ import IndexView from '@/views/primary/WholeView.vue'
 import RegisterView from '@/views/second/RegisterView.vue'
 import HomeView from '@/views/third/HomeView.vue'
 import MsgView from '@/views/third/MsgView.vue'
-import PlanView from '@/views/third/PlanView.vue'
 import ArticleView from '@/views/third/ArticleView.vue'
 import MainView from '@/views/second/MainView.vue'
 import LilhammerView from '@/views/third/LilhammerView.vue'
 import NewsView from '@/views/third/NewsView.vue'
 import HammerActivityCom from '@/components/lilhammer/HammerActivityCom.vue'
 import HammerRecordCom from '@/components/lilhammer/HammerRecordCom.vue'
-import WishCom from '@/components/message/WishCom.vue'
-import FoodCom from '@/components/message/share/FoodCom.vue'
-import MovieCom from '@/components/message/share/MovieCom.vue'
-import BookCom from '@/components/message/share/BookCom.vue'
+import WishCom from '@/components/lilhammer/WishCom.vue'
+import FoodCom from '@/components/community/share/FoodCom.vue'
+import MovieCom from '@/components/community/share/MovieCom.vue'
+import BookCom from '@/components/community/share/BookCom.vue'
 import { isSignIn } from '@/stores/user.js'
-import { useToast } from 'primevue/usetoast';
+import { useToast } from 'primevue/usetoast'
 import SettingsView from '@/views/second/SettingsView.vue'
 import ProfileView from '@/views/second/ProfileView.vue'
-import InfoView from '@/views/third/prifile/InfoView.vue'
-import BiasView from '@/views/third/prifile/BiasView.vue'
-import SecureView from '@/views/third/prifile/SecureView.vue'
+import InfoView from '@/views/third/profile/InfoView.vue'
+import SecureView from '@/views/third/settings/SecureView.vue'
+import PreferenceView from '@/views/third/settings/PreferenceView.vue'
+import PrivacyView from '@/views/third/settings/PrivacyView.vue'
+import NotificationView from '@/views/third/settings/NotificationView.vue'
+import ActivityView from '@/views/third/profile/ActivityView.vue'
+import AchievementView from '@/views/third/profile/AchievementView.vue'
 
 const lilhammer_son_router = [
   {
@@ -34,20 +37,21 @@ const lilhammer_son_router = [
     path: 'record',
     name: 'hammer-record',
     component: HammerRecordCom
-  }
-]
-
-const msg_router = [
-  {
-    path: 'news',
-    name: 'news',
-    component: NewsView
   },
   {
     path: 'wish',
     name: 'wish',
     component: WishCom
   },
+]
+
+const community_router = [
+  {
+    path: 'news',
+    name: 'news',
+    component: NewsView
+  },
+
   {
     path: 'food',
     name: 'food',
@@ -62,7 +66,7 @@ const msg_router = [
     path: 'book',
     name: 'book',
     component: BookCom
-  },
+  }
 ]
 
 const third_router = [
@@ -70,17 +74,12 @@ const third_router = [
     path: 'msg',
     name: 'msg',
     component: MsgView,
-    children: msg_router
+    children: community_router
   },
   {
     path: 'home',
     name: 'home',
     component: HomeView
-  },
-  {
-    path: 'plan',
-    name: 'plan',
-    component: PlanView
   },
   {
     path: 'article',
@@ -114,38 +113,64 @@ const second_router = [
     children: third_router
   },
   {
-    path:'settings',
+    path: 'settings',
     name: 'settings',
     component: SettingsView,
+    children: [
+      {
+        path: 'secure',
+        name: 'secure',
+        component: SecureView
+      },
+      {
+        path: 'preferences',
+        name: 'preferences',
+        component: PreferenceView
+      },
+      {
+        path: 'privacy',
+        name: 'privacy',
+        component: PrivacyView
+      },
+      {
+        path: 'notification',
+        name: 'notification',
+        component: NotificationView
+      }
+    ]
   },
   {
-    path:'profile',
+    path: 'profile',
     name: 'profile',
     component: ProfileView,
     children: [
       {
-        path:'info',
+        path: 'info',
         name: 'info',
-        component: InfoView,
+        component: InfoView
       },
       {
-        path:'bias',
-        name: 'bias',
-        component: BiasView,
+        path: 'activity',
+        name: 'activity',
+        component: ActivityView
       },
       {
-        path:'secure',
-        name: 'secure',
-        component: SecureView,
-      },
-    ],
-  },
+        path: 'achievement',
+        name: 'achievement',
+        component: AchievementView
+      }
+    ]
+  }
 ]
 
 const router = createRouter({
   // history: createWebHashHistory(import.meta.env.BASE_URL),
   history: createWebHashHistory(),
   routes: [
+    {
+      path: '/:catchAll(.*)', // Vue 3 使用 /:catchAll(.*) 来捕获所有未定义的路由
+      redirect: '/' // 重定向到主页
+    },
     {
       path: '/',
       name: 'welcome',
@@ -165,12 +190,12 @@ const router = createRouter({
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
-  const publicPages = ['login', 'register', 'home', 'welcome']; // 允许访问的路由名称
+  const publicPages = ['login', 'register', 'home', 'welcome'] // 允许访问的路由名称
 
   if (!publicPages.includes(to.name) && !isSignIn.value) {
     // 如果访问的不是公开页面并且用户没有登录，跳转到登录页面
-    next({ name: 'login' });
-    const toast = useToast();
+    next({ name: 'login' })
+    const toast = useToast()
     toast.add({
       severity: 'Contrast',
       summary: 'Hello! Please log in first. If you don\'t have an account, kindly register.',
@@ -179,8 +204,8 @@ router.beforeEach((to, from, next) => {
     })
   } else {
     // 否则允许访问
-    next();
+    next()
   }
-});
+})
 
 export default router
