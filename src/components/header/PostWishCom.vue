@@ -1,7 +1,7 @@
 <script setup>
 import { isSignIn } from '@/stores/user.js'
 import router from '@/router/index.js'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 const visible = ref(false)
 
@@ -12,11 +12,6 @@ function createWish() {
   visible.value = true
 }
 
-const dialogRef = ref(null)
-const input = ref(null)
-onMounted(() => {
-  input.value.focus()
-})
 </script>
 
 <template>
@@ -29,11 +24,11 @@ onMounted(() => {
     @click="createWish"
   />
 
-  <Dialog class="flex-ver-gap-10" :visible="visible" modal header="Edit" :style="{ width: '25rem' }">
-    <input ref="input">
-    <Textarea ref="dialogRef" v-model="text" rows="5" cols="29" auto-resize
+  <Dialog @update:visible="visible = false" class="flex-ver-gap-10" :visible="visible" modal header="Edit"
+          :style="{ width: '25rem' }">
+    <Textarea autofocus v-model="text" rows="5" cols="29" auto-resize
               placeholder="Thank you for sending your best wishes!" style="border:none" />
-    <Button type="button" label="Send" style="width: 6rem;float:right" @click="visible = false"></Button>
+    <Button type="button" label="Create" style="width: 6rem;float:right" @click="visible = false"></Button>
   </Dialog>
 </template>
 

@@ -90,6 +90,9 @@ const navItems = ref([
 
 .middle-bar {
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: $m-gap;
 }
 
 .right-bar {

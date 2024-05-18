@@ -6,16 +6,15 @@
 body, html {
   background-color: #f7f7f7;
   padding: 0;
-  margin: 0 0 20px 0;
+  margin: 0;
   box-sizing: border-box;
 }
+
 #app {
   margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
-  max-width: 1400px;
-  min-width: 800px;
-  width:1080px;
+  width: 1080px;
   background-color: #f7f7f7;
 }
 
@@ -26,28 +25,28 @@ body, html {
 
 
 .flex-hor-start {
-  display:flex;
+  display: flex;
   justify-content: start;
-  align-items:center;
+  align-items: center;
   gap: 10px
 }
 
 .flex-hor-sb {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
 }
 
 .flex-ver-gap-10 {
-  display:flex;
+  display: flex;
   justify-content: space-between;
 }
 
 .flex-direction-column {
   display: flex;
   flex-direction: column;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -108,8 +107,9 @@ body, html {
 }
 
 .mg-right-10 {
-  margin-right:10px;
+  margin-right: 10px;
 }
+
 .width-100 {
   width: 100%;
 }

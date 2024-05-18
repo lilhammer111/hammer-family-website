@@ -1,5 +1,5 @@
 <template>
-  <Card v-for="d of data" class="mg-btm-10">
+  <Card v-for="d of data" :key="d.title">
     <template #title>
       <div class="ver-cen-sb">
         <div class="mg-right-10">{{ d.title }}</div>
@@ -12,7 +12,7 @@
         {{ d.text }}
       </p>
       <div class="img-container mg-btm-15">
-        <Image class="img-item" :src="p" alt="Image" width="130" preview v-for="p in d.pictures" />
+        <Image class="img-item" :src="p" alt="Image" width="130" preview v-for="p in d.pictures" :key="p.id" />
       </div>
       <RemarkCom :time="d.time" :remark="d.remark"></RemarkCom>
     </template>

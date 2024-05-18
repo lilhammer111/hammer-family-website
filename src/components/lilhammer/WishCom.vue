@@ -1,5 +1,5 @@
 <template>
-  <Card v-for="item of paginatedItems" class="mg-btm-10" :key="item.id">
+  <Card v-for="item of paginatedItems"  :key="item.id">
     <template #title>
       <AvaWithNameCom :name="item.user.name" :avatar="item.user.avatar"></AvaWithNameCom>
     </template>
