@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import ProfileInfoCom from '@/components/common/ProfileInfoCom.vue'
 import FloatLabel from 'primevue/floatlabel'
+import axios from 'axios'
 
 const date = ref()
 const picture_src = ref('src/assets/pictures/hammer.jpg')
@@ -17,41 +18,10 @@ const fileUploadOptions = ref({
 const fileUpload = ref(null)
 
 const triggerFileUpload = () => {
-  // ?
   fileUpload.value.$refs.fileInput.click()
 }
 
 const nameValue = ref('')
-ref([
-  {
-    header: 'Name',
-    explanation: 'Enter your full name as you would like it to appear.'
-  },
-  {
-    header: 'Bio',
-    explanation: 'You can @mention other users and organizations to link to them.'
-  },
-  {
-    header: 'Pronouns',
-    explanation: 'What do you like to be called?'
-  },
-  {
-    header: 'Social Accounts',
-    explanation: 'Include links to your social media profiles.'
-  },
-  {
-    header: 'Industry',
-    explanation: 'Specify the industry you are associated with.'
-  },
-  {
-    header: 'Location',
-    explanation: 'Where are you based or where do you primarily operate?'
-  },
-  {
-    header: 'Contact Information',
-    explanation: 'Provide your email address or phone number for contact.'
-  }
-])
 
 const form = ref({
   pronouns: '',
@@ -65,7 +35,7 @@ const form = ref({
     { id: 2, url: '' },
     { id: 3, url: '' }
   ],
-  industry:'',
+  industry: ''
 })
 
 const pronounsOptions = ref([
@@ -150,6 +120,35 @@ const countries = ref([
     ]
   }
 ])
+
+function afterUpload(event) {
+  console.log('event: ', event)
+  picture_src.value = event.files[0].objectURL
+}
+
+const url = ref(import.meta.env.VITE_API_URL + '/api/file/avatar')
+
+onMounted(() => {
+  const user_id =
+
+  const config = {
+    method: 'get',
+    url: `${import.meta.env.VITE_API_URL}/api/account/${user_id}`,
+    headers: {
+      'Accept': '*/*',
+      'Host': '127.0.0.1:8000',
+      'Connection': 'keep-alive'
+    }
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+})
 </script>
 
 <template>
@@ -168,13 +167,13 @@ const countries = ref([
         <FileUpload
           ref="fileUpload"
           mode="basic"
-          name="pic[]"
-          url="/api/upload"
+          name="file[]"
+          :url="url"
           accept="image/*"
           :maxFileSize="1000000"
           :auto="true"
-          choose-label="Upload a photo"
           :pt="fileUploadOptions"
+          @upload="afterUpload"
         >
         </FileUpload>
       </ProfileInfoCom>
@@ -225,10 +224,13 @@ const countries = ref([
       <ProfileInfoCom header="Industry" explanation="Specify the industry you are associated with.">
         <div>
           <CascadeSelect v-model="form.industry" :options="countries" optionLabel="cname" optionGroupLabel="name"
-                         :optionGroupChildren="['states', 'cities']" style="min-width: 14rem" placeholder="Select a Industry">
+                         :optionGroupChildren="['states', 'cities']" style="min-width: 14rem"
+                         placeholder="Select a Industry">
             <template #option="slotProps">
               <div class="flex align-items-center">
-                <img v-if="slotProps.option.states" :alt="slotProps.option.name" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png" :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px"  />
+                <img v-if="slotProps.option.states" :alt="slotProps.option.name"
+                     src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
+                     :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
                 <i v-if="slotProps.option.cities" class="pi pi-compass mr-2"></i>
                 <i v-if="slotProps.option.cname" class="pi pi-map-marker mr-2"></i>
                 <span>{{ slotProps.option.cname || slotProps.option.name }}</span>
