@@ -129,24 +129,18 @@ function afterUpload(event) {
 const url = ref(import.meta.env.VITE_API_URL + '/api/file/avatar')
 
 onMounted(() => {
-  const user_id =
-
   const config = {
     method: 'get',
-    url: `${import.meta.env.VITE_API_URL}/api/account/${user_id}`,
-    headers: {
-      'Accept': '*/*',
-      'Host': '127.0.0.1:8000',
-      'Connection': 'keep-alive'
-    }
+    url: `${import.meta.env.VITE_API_URL}/api/user`,
+    withCredentials: true,
   };
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      console.log("get user info:", response);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log("get user info error: ",error);
     });
 })
 </script>

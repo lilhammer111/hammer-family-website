@@ -58,14 +58,15 @@ function handleSubmit(items) {
     method: 'post',
     url: `${import.meta.env.VITE_API_URL}/api/account/login`,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    data: data
+    data: data,
+    withCredentials: true,
   }
 
   axios(config)
     .then(function(response) {
-      console.log(response)
+      console.log('login response:', response)
       if (response.status === 200) {
         isSignIn.value = true
         router.push({
@@ -74,7 +75,7 @@ function handleSubmit(items) {
       }
     })
     .catch(function(error) {
-      console.log(error)
+      console.log('login error:', error)
       if (error.response.status === 401) {
         toast.add({
           severity: 'Contrast',
