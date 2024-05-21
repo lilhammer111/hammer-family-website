@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import RadixVueResolver from 'radix-vue/resolver'
 import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
-
+import fs from 'fs'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,12 +28,18 @@ export default defineConfig({
       }
     }
   },
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: process.env.VITE_API_URL,
+  //       changeOrigin: true
+  //     }
+  //   }
+  // }
   server: {
-    proxy: {
-      '/api': {
-        target: process.env.VITE_API_URL,
-        changeOrigin: true
-      }
+    https: {
+      key: fs.readFileSync("/home/lilhammer/Dev/Cert/localhost+2-key.pem"),
+      cert: fs.readFileSync('/home/lilhammer/Dev/Cert/localhost+2.pem')
     }
   }
 })

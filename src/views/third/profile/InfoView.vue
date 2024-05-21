@@ -5,14 +5,14 @@ import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
 
 const date = ref()
-const picture_src = ref('src/assets/pictures/hammer.jpg')
+const localAvatarUrl = ref('src/assets/pictures/hammer.jpg')
 
 const ptOptions = ref({
   root: { class: 'img-container' }
 })
 
 const fileUploadOptions = ref({
-  root: { class: 'fu-stl' }
+  root: { style: 'display: none' }
 })
 
 const fileUpload = ref(null)
@@ -21,128 +21,93 @@ const triggerFileUpload = () => {
   fileUpload.value.$refs.fileInput.click()
 }
 
-const nameValue = ref('')
+const pronounsOptions = ref(['He', 'She'])
 
-const form = ref({
-  pronouns: '',
-  contact: {
-    email: '',
-    mobile: ''
-  },
-  location: '',
-  socialAccounts: [
-    { id: 1, url: '' },
-    { id: 2, url: '' },
-    { id: 3, url: '' }
-  ],
-  industry: ''
-})
+const industryOptions = ref(['IT', 'Education'])
 
-const pronounsOptions = ref([
-  { name: 'New York', code: 'NY' },
-  { name: 'Rome', code: 'RM' },
-  { name: 'London', code: 'LDN' },
-  { name: 'Istanbul', code: 'IST' },
-  { name: 'Paris', code: 'PRS' }
-])
-
-const countries = ref([
-  {
-    name: 'Australia',
-    code: 'AU',
-    states: [
-      {
-        name: 'New South Wales',
-        cities: [
-          { cname: 'Sydney', code: 'A-SY' },
-          { cname: 'Newcastle', code: 'A-NE' },
-          { cname: 'Wollongong', code: 'A-WO' }
-        ]
-      },
-      {
-        name: 'Queensland',
-        cities: [
-          { cname: 'Brisbane', code: 'A-BR' },
-          { cname: 'Townsville', code: 'A-TO' }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'Canada',
-    code: 'CA',
-    states: [
-      {
-        name: 'Quebec',
-        cities: [
-          { cname: 'Montreal', code: 'C-MO' },
-          { cname: 'Quebec City', code: 'C-QU' }
-        ]
-      },
-      {
-        name: 'Ontario',
-        cities: [
-          { cname: 'Ottawa', code: 'C-OT' },
-          { cname: 'Toronto', code: 'C-TO' }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'United States',
-    code: 'US',
-    states: [
-      {
-        name: 'California',
-        cities: [
-          { cname: 'Los Angeles', code: 'US-LA' },
-          { cname: 'San Diego', code: 'US-SD' },
-          { cname: 'San Francisco', code: 'US-SF' }
-        ]
-      },
-      {
-        name: 'Florida',
-        cities: [
-          { cname: 'Jacksonville', code: 'US-JA' },
-          { cname: 'Miami', code: 'US-MI' },
-          { cname: 'Tampa', code: 'US-TA' },
-          { cname: 'Orlando', code: 'US-OR' }
-        ]
-      },
-      {
-        name: 'Texas',
-        cities: [
-          { cname: 'Austin', code: 'US-AU' },
-          { cname: 'Dallas', code: 'US-DA' },
-          { cname: 'Houston', code: 'US-HO' }
-        ]
-      }
-    ]
-  }
-])
+const uploadUrl = ref(`${import.meta.env.VITE_API_URL}/api/file/avatar`)
 
 function afterUpload(event) {
-  console.log('event: ', event)
-  picture_src.value = event.files[0].objectURL
+  console.log('after uploading event: ', event)
+  localAvatarUrl.value = event.files[0].objectURL
+  let filename = event.files[0]['name']
+  console.log('uploaded file name:', filename)
+  form.value.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
+  console.log('uploaded avatar url', form.value.avatar_url)
 }
 
-const url = ref(import.meta.env.VITE_API_URL + '/api/file/avatar')
+const form = ref({
+  username: '',
+  birthday: '',
+  pronouns: '',
+  avatar_url: '',
+  email: '',
+  mobile: '',
+  location: '',
+  socialAccounts: [],
+  industry: ''
+})
 
 onMounted(() => {
   const config = {
     method: 'get',
     url: `${import.meta.env.VITE_API_URL}/api/user`,
-    withCredentials: true,
-  };
+    withCredentials: true
+  }
 
   axios(config)
-    .then(function (response) {
-      console.log("get user info:", response);
+    .then(function(response) {
+      console.log('get user info:', response)
+      form.value.avatar_url = response.data['avatar_url']
+      form.value.industry = response.data['industry']
+      form.value.username = response.data['username']
+      form.value.email = response.data['email']
+      form.value.mobile = response.data['mobile']
+      form.value.location = response.data['location']
+      form.value.birthday = response.data['birthday']
+      form.value.pronouns = response.data['pronouns']
+
+      form.value.socialAccounts = response.data['social_accounts'] || []
+
+      // 如果数组元素少于三个，补足空字符串直到数组长度为三
+      while (form.value.socialAccounts.length < 3) {
+        form.value.socialAccounts.push('')
+      }
+
     })
-    .catch(function (error) {
-      console.log("get user info error: ",error);
-    });
+    .catch(function(error) {
+      console.log('get user info error: ', error)
+    })
 })
+
+function saveUpdate() {
+  const url = `${import.meta.env.VITE_API_URL}/api/user`
+
+  console.log("social account: ", form.value.socialAccounts)
+  console.log("social account length: ", form.value.socialAccounts.length)
+  console.log("social account ", form.value.socialAccounts.length === 0)
+  console.log("form ", form.value)
+
+
+  if (form.value.socialAccounts.length === 0) {
+    form.value.socialAccounts = null
+  }
+
+  axios.post(
+    url,
+    form.value,
+    {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  ).then(function(response) {
+    console.log('save update user response: ', response)
+  }).catch(function(error) {
+    console.log('save update user error: ', error)
+  })
+}
 </script>
 
 <template>
@@ -151,7 +116,7 @@ onMounted(() => {
     <template #content>
       <ProfileInfoCom header="Profile Photo" explanation="Upload a photo by clicking the avatar below">
         <Avatar
-          :image="picture_src"
+          :image="form.avatar_url"
           shape="circle"
           :pt="ptOptions"
           @click="triggerFileUpload"
@@ -161,40 +126,43 @@ onMounted(() => {
         <FileUpload
           ref="fileUpload"
           mode="basic"
-          name="file[]"
-          :url="url"
+          :url="uploadUrl"
+          name="file"
           accept="image/*"
           :maxFileSize="1000000"
           :auto="true"
           :pt="fileUploadOptions"
+          :withCredentials="true"
           @upload="afterUpload"
         >
         </FileUpload>
       </ProfileInfoCom>
 
-      <ProfileInfoCom header="Name" explanation="Enter your full name as you would like it to appear.">
-        <InputText type="text" v-model="nameValue" />
+      <ProfileInfoCom header="Username" explanation="Enter your full name as you would like it to appear.">
+        <InputText type="text" v-model="form.username" />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Pronouns" explanation="What do you like to be called?">
-        <div class="card flex justify-content-center">
-          <Dropdown
-            v-model="form.pronouns"
-            :options="pronounsOptions"
-            optionLabel="name"
-            placeholder="Select a Pronouns"
-          />
-        </div>
+        <Dropdown
+          v-model="form.pronouns"
+          :options="pronounsOptions"
+          placeholder="Select a Pronouns"
+        />
       </ProfileInfoCom>
 
       <ProfileInfoCom
         header="Contact Information"
         explanation="Provide your email address or phone number for contact."
       >
-        <div style="display:flex; gap: 10px;margin-top:10px">
-          <FloatLabel v-for="(val,key) in form.contact" v-bind:key>
-            <InputText :id="key" v-model="form.contact[key]" />
-            <label :for="key">{{ key }}</label>
+        <div style="display:flex; gap: 10px;margin-top:15px">
+          <FloatLabel>
+            <InputText id="1" v-model="form.mobile" />
+            <label for="mobile">mobile</label>
+          </FloatLabel>
+
+          <FloatLabel>
+            <InputText id="2" v-model="form.email" />
+            <label for="email">email</label>
           </FloatLabel>
         </div>
       </ProfileInfoCom>
@@ -203,10 +171,19 @@ onMounted(() => {
         header="Social Accounts"
         explanation="Include links to your social media profiles."
       >
-        <div class="flex-hor-start" style="margin: 5px 0;" v-for="account of form.socialAccounts"
-             :key="account.id">
-          <i class="pi pi-link"></i>
-          <InputText type="text" v-model="account.url" />
+        <div class="flex-ver-start son-gap-10">
+          <div class="flex-hor-start son-gap-10">
+            <i class="pi pi-link"></i>
+            <InputText type="text" v-model="form.socialAccounts[0]" />
+          </div>
+          <div class="flex-hor-start son-gap-10">
+            <i class="pi pi-link"></i>
+            <InputText type="text" v-model="form.socialAccounts[1]" />
+          </div>
+          <div class="flex-hor-start son-gap-10">
+            <i class="pi pi-link"></i>
+            <InputText type="text" v-model="form.socialAccounts[2]" />
+          </div>
         </div>
 
       </ProfileInfoCom>
@@ -216,43 +193,21 @@ onMounted(() => {
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Industry" explanation="Specify the industry you are associated with.">
-        <div>
-          <CascadeSelect v-model="form.industry" :options="countries" optionLabel="cname" optionGroupLabel="name"
-                         :optionGroupChildren="['states', 'cities']" style="min-width: 14rem"
-                         placeholder="Select a Industry">
-            <template #option="slotProps">
-              <div class="flex align-items-center">
-                <img v-if="slotProps.option.states" :alt="slotProps.option.name"
-                     src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
-                     :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
-                <i v-if="slotProps.option.cities" class="pi pi-compass mr-2"></i>
-                <i v-if="slotProps.option.cname" class="pi pi-map-marker mr-2"></i>
-                <span>{{ slotProps.option.cname || slotProps.option.name }}</span>
-              </div>
-            </template>
-          </CascadeSelect>
-        </div>
+        <Dropdown
+          v-model="form.industry"
+          :options="industryOptions"
+          optionLabel="name"
+          placeholder="Select a Industry"
+        />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Location" explanation="Where are you based or where do you primarily operate?">
-        <CascadeSelect v-model="form.location" :options="countries" optionLabel="cname" optionGroupLabel="name"
-                       :optionGroupChildren="['states', 'cities']" style="min-width: 14rem" placeholder="Select a City">
-          <template #option="slotProps">
-            <div class="flex align-items-center">
-              <img v-if="slotProps.option.states" :alt="slotProps.option.name"
-                   src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
-                   :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
-              <i v-if="slotProps.option.cities" class="pi pi-compass mr-2"></i>
-              <i v-if="slotProps.option.cname" class="pi pi-map-marker mr-2"></i>
-              <span>{{ slotProps.option.cname || slotProps.option.name }}</span>
-            </div>
-          </template>
-        </CascadeSelect>
+        <InputText type="text" v-model="form.location" />
       </ProfileInfoCom>
 
     </template>
     <template #footer>
-      <Button label="Save Modification" severity="contract" style="float: right;"></Button>
+      <Button @click="saveUpdate" label="Save Modification" severity="contract" style="float: right;"></Button>
     </template>
   </Card>
 

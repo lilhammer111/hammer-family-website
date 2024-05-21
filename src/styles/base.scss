@@ -31,6 +31,16 @@ body, html {
   gap: 10px
 }
 
+.flex-ver-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.son-gap-10 {
+  gap: 10px;
+}
+
 .flex-hor-sb {
   display: flex;
   flex-direction: row;
