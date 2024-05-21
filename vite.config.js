@@ -28,18 +28,10 @@ export default defineConfig({
       }
     }
   },
-  // server: {
-  //   proxy: {
-  //     '/api': {
-  //       target: process.env.VITE_API_URL,
-  //       changeOrigin: true
-  //     }
-  //   }
-  // }
   server: {
     https: {
-      key: fs.readFileSync("/home/lilhammer/Dev/Cert/localhost+2-key.pem"),
-      cert: fs.readFileSync('/home/lilhammer/Dev/Cert/localhost+2.pem')
+      key: fs.readFileSync("/home/lilhammer/Dev/Cert/localhost+1-key.pem"),
+      cert: fs.readFileSync('/home/lilhammer/Dev/Cert/localhost+1.pem')
     }
   }
 })

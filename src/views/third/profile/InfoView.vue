@@ -5,7 +5,6 @@ import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
 
 const date = ref()
-const localAvatarUrl = ref('src/assets/pictures/hammer.jpg')
 
 const ptOptions = ref({
   root: { class: 'img-container' }
@@ -29,14 +28,11 @@ const uploadUrl = ref(`${import.meta.env.VITE_API_URL}/api/file/avatar`)
 
 function afterUpload(event) {
   console.log('after uploading event: ', event)
-  localAvatarUrl.value = event.files[0].objectURL
   let filename = event.files[0]['name']
-  console.log('uploaded file name:', filename)
-  form.value.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
-  console.log('uploaded avatar url', form.value.avatar_url)
+  userData.value.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
 }
 
-const form = ref({
+const userData = ref({
   username: '',
   birthday: '',
   pronouns: '',
@@ -44,7 +40,7 @@ const form = ref({
   email: '',
   mobile: '',
   location: '',
-  socialAccounts: [],
+  social_account: [],
   industry: ''
 })
 
@@ -58,20 +54,20 @@ onMounted(() => {
   axios(config)
     .then(function(response) {
       console.log('get user info:', response)
-      form.value.avatar_url = response.data['avatar_url']
-      form.value.industry = response.data['industry']
-      form.value.username = response.data['username']
-      form.value.email = response.data['email']
-      form.value.mobile = response.data['mobile']
-      form.value.location = response.data['location']
-      form.value.birthday = response.data['birthday']
-      form.value.pronouns = response.data['pronouns']
+      userData.value.avatar_url = response.data['avatar_url']
+      userData.value.industry = response.data['industry']
+      userData.value.username = response.data['username']
+      userData.value.email = response.data['email']
+      userData.value.mobile = response.data['mobile']
+      userData.value.location = response.data['location']
+      userData.value.birthday = response.data['birthday']
+      userData.value.pronouns = response.data['pronouns']
 
-      form.value.socialAccounts = response.data['social_accounts'] || []
+      userData.value.social_account = response.data['social_accounts'] || []
 
       // 如果数组元素少于三个，补足空字符串直到数组长度为三
-      while (form.value.socialAccounts.length < 3) {
-        form.value.socialAccounts.push('')
+      while (userData.value.social_account.length < 3) {
+        userData.value.social_account.push('')
       }
 
     })
@@ -82,20 +78,9 @@ onMounted(() => {
 
 function saveUpdate() {
   const url = `${import.meta.env.VITE_API_URL}/api/user`
-
-  console.log("social account: ", form.value.socialAccounts)
-  console.log("social account length: ", form.value.socialAccounts.length)
-  console.log("social account ", form.value.socialAccounts.length === 0)
-  console.log("form ", form.value)
-
-
-  if (form.value.socialAccounts.length === 0) {
-    form.value.socialAccounts = null
-  }
-
   axios.post(
     url,
-    form.value,
+    userData.value,
     {
       withCredentials: true,
       headers: {
@@ -116,7 +101,7 @@ function saveUpdate() {
     <template #content>
       <ProfileInfoCom header="Profile Photo" explanation="Upload a photo by clicking the avatar below">
         <Avatar
-          :image="form.avatar_url"
+          :image="userData.avatar_url"
           shape="circle"
           :pt="ptOptions"
           @click="triggerFileUpload"
@@ -129,7 +114,7 @@ function saveUpdate() {
           :url="uploadUrl"
           name="file"
           accept="image/*"
-          :maxFileSize="1000000"
+          :maxFileSize="20000000"
           :auto="true"
           :pt="fileUploadOptions"
           :withCredentials="true"
@@ -139,12 +124,12 @@ function saveUpdate() {
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Username" explanation="Enter your full name as you would like it to appear.">
-        <InputText type="text" v-model="form.username" />
+        <InputText type="text" v-model="userData.username" />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Pronouns" explanation="What do you like to be called?">
         <Dropdown
-          v-model="form.pronouns"
+          v-model="userData.pronouns"
           :options="pronounsOptions"
           placeholder="Select a Pronouns"
         />
@@ -156,12 +141,12 @@ function saveUpdate() {
       >
         <div style="display:flex; gap: 10px;margin-top:15px">
           <FloatLabel>
-            <InputText id="1" v-model="form.mobile" />
+            <InputText id="1" v-model="userData.mobile" />
             <label for="mobile">mobile</label>
           </FloatLabel>
 
           <FloatLabel>
-            <InputText id="2" v-model="form.email" />
+            <InputText id="2" v-model="userData.email" />
             <label for="email">email</label>
           </FloatLabel>
         </div>
@@ -174,15 +159,15 @@ function saveUpdate() {
         <div class="flex-ver-start son-gap-10">
           <div class="flex-hor-start son-gap-10">
             <i class="pi pi-link"></i>
-            <InputText type="text" v-model="form.socialAccounts[0]" />
+            <InputText type="text" v-model="userData.social_account[0]" />
           </div>
           <div class="flex-hor-start son-gap-10">
             <i class="pi pi-link"></i>
-            <InputText type="text" v-model="form.socialAccounts[1]" />
+            <InputText type="text" v-model="userData.social_account[1]" />
           </div>
           <div class="flex-hor-start son-gap-10">
             <i class="pi pi-link"></i>
-            <InputText type="text" v-model="form.socialAccounts[2]" />
+            <InputText type="text" v-model="userData.social_account[2]" />
           </div>
         </div>
 
@@ -194,15 +179,14 @@ function saveUpdate() {
 
       <ProfileInfoCom header="Industry" explanation="Specify the industry you are associated with.">
         <Dropdown
-          v-model="form.industry"
+          v-model="userData.industry"
           :options="industryOptions"
-          optionLabel="name"
           placeholder="Select a Industry"
         />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Location" explanation="Where are you based or where do you primarily operate?">
-        <InputText type="text" v-model="form.location" />
+        <InputText type="text" v-model="userData.location" />
       </ProfileInfoCom>
 
     </template>
