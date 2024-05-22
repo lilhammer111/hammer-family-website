@@ -1,8 +1,13 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import ProfileInfoCom from '@/components/common/ProfileInfoCom.vue'
 import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
+import { useUserStore } from '@/stores/user.js'
+
+const userStore = useUserStore()
+
+const userData = ref(userStore.userData)
 
 const date = ref()
 
@@ -32,68 +37,34 @@ function afterUpload(event) {
   userData.value.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
 }
 
-const userData = ref({
-  username: '',
-  birthday: '',
-  pronouns: '',
-  avatar_url: '',
-  email: '',
-  mobile: '',
-  location: '',
-  social_account: [
-    {
-      id: 1,
-      url: ''
-    },
-    {
-      id: 2,
-      url: ''
-    },
-    {
-      id: 3,
-      url: ''
-    }
-  ],
-  industry: ''
-})
-
-onMounted(() => {
-  const config = {
-    method: 'get',
-    url: `${import.meta.env.VITE_API_URL}/api/user`,
-    withCredentials: true
-  }
-
-  axios(config)
-    .then(function(response) {
-      console.log('get user info:', response)
-      userData.value.avatar_url = response.data['avatar_url']
-      userData.value.industry = response.data['industry']
-      userData.value.username = response.data['username']
-      userData.value.email = response.data['email']
-      userData.value.mobile = response.data['mobile']
-      userData.value.location = response.data['location']
-      userData.value.birthday = response.data['birthday']
-      userData.value.pronouns = response.data['pronouns']
-
-      for (const idx in userData.value.social_account) {
-        userData.value.social_account[idx].url = response.data["social_account"][idx]
-      }
-
-      console.log("userData.value: ", userData.value)
-
-      // userData.value.social_account.url = response.data['social_accounts'] || []
-      //
-      // // 如果数组元素少于三个，补足空字符串直到数组长度为三
-      // while (userData.value.social_account.length < 3) {
-      //   userData.value.social_account.push('')
-      // }
-
-    })
-    .catch(function(error) {
-      console.log('get user info error: ', error)
-    })
-})
+// const userData = ref({
+//   username: '',
+//   birthday: '',
+//   pronouns: '',
+//   avatar_url: '',
+//   email: '',
+//   mobile: '',
+//   location: '',
+//   social_account: [
+//     {
+//       id: 1,
+//       url: ''
+//     },
+//     {
+//       id: 2,
+//       url: ''
+//     },
+//     {
+//       id: 3,
+//       url: ''
+//     }
+//   ],
+//   industry: ''
+// })
+//
+// onMounted(() => {
+//   userStore.fetchUserData()
+// })
 
 function saveUpdate() {
   const url = `${import.meta.env.VITE_API_URL}/api/user`
