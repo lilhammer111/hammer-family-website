@@ -40,7 +40,20 @@ const userData = ref({
   email: '',
   mobile: '',
   location: '',
-  social_account: [],
+  social_account: [
+    {
+      id: 1,
+      url: ''
+    },
+    {
+      id: 2,
+      url: ''
+    },
+    {
+      id: 3,
+      url: ''
+    }
+  ],
   industry: ''
 })
 
@@ -63,12 +76,18 @@ onMounted(() => {
       userData.value.birthday = response.data['birthday']
       userData.value.pronouns = response.data['pronouns']
 
-      userData.value.social_account = response.data['social_accounts'] || []
-
-      // 如果数组元素少于三个，补足空字符串直到数组长度为三
-      while (userData.value.social_account.length < 3) {
-        userData.value.social_account.push('')
+      for (const idx in userData.value.social_account) {
+        userData.value.social_account[idx].url = response.data["social_account"][idx]
       }
+
+      console.log("userData.value: ", userData.value)
+
+      // userData.value.social_account.url = response.data['social_accounts'] || []
+      //
+      // // 如果数组元素少于三个，补足空字符串直到数组长度为三
+      // while (userData.value.social_account.length < 3) {
+      //   userData.value.social_account.push('')
+      // }
 
     })
     .catch(function(error) {
@@ -78,9 +97,26 @@ onMounted(() => {
 
 function saveUpdate() {
   const url = `${import.meta.env.VITE_API_URL}/api/user`
+
+  let postData = {}
+
+  for (const key in userData.value) {
+    postData[key] = userData.value[key]
+    if (key === 'social_account') {
+      postData[key] = []
+      userData.value.social_account.forEach(
+        (elem) => {
+          postData[key].push(elem.url)
+        }
+      )
+    }
+  }
+
+  console.log('data to post', postData)
+
   axios.post(
     url,
-    userData.value,
+    postData,
     {
       withCredentials: true,
       headers: {
@@ -157,18 +193,18 @@ function saveUpdate() {
         explanation="Include links to your social media profiles."
       >
         <div class="flex-ver-start son-gap-10">
-          <div class="flex-hor-start son-gap-10">
+          <div class="flex-hor-start son-gap-10" v-for="(obj,idx) in userData.social_account" :key="idx">
             <i class="pi pi-link"></i>
-            <InputText type="text" v-model="userData.social_account[0]" />
+            <InputText type="text" v-model="obj.url" />
           </div>
-          <div class="flex-hor-start son-gap-10">
-            <i class="pi pi-link"></i>
-            <InputText type="text" v-model="userData.social_account[1]" />
-          </div>
-          <div class="flex-hor-start son-gap-10">
-            <i class="pi pi-link"></i>
-            <InputText type="text" v-model="userData.social_account[2]" />
-          </div>
+          <!--          <div class="flex-hor-start son-gap-10">-->
+          <!--            <i class="pi pi-link"></i>-->
+          <!--            <InputText type="text" v-model="userData.social_account[1]" />-->
+          <!--          </div>-->
+          <!--          <div class="flex-hor-start son-gap-10">-->
+          <!--            <i class="pi pi-link"></i>-->
+          <!--            <InputText type="text" v-model="userData.social_account[2]" />-->
+          <!--          </div>-->
         </div>
 
       </ProfileInfoCom>
