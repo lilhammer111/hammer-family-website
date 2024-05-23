@@ -7,10 +7,6 @@ import { useUserStore } from '@/stores/user.js'
 
 const userStore = useUserStore()
 
-const userData = ref(userStore.userData)
-
-const date = ref()
-
 const ptOptions = ref({
   root: { class: 'img-container' }
 })
@@ -34,48 +30,20 @@ const uploadUrl = ref(`${import.meta.env.VITE_API_URL}/api/file/avatar`)
 function afterUpload(event) {
   console.log('after uploading event: ', event)
   let filename = event.files[0]['name']
-  userData.value.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
+  userStore.userData.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
 }
 
-// const userData = ref({
-//   username: '',
-//   birthday: '',
-//   pronouns: '',
-//   avatar_url: '',
-//   email: '',
-//   mobile: '',
-//   location: '',
-//   social_account: [
-//     {
-//       id: 1,
-//       url: ''
-//     },
-//     {
-//       id: 2,
-//       url: ''
-//     },
-//     {
-//       id: 3,
-//       url: ''
-//     }
-//   ],
-//   industry: ''
-// })
-//
-// onMounted(() => {
-//   userStore.fetchUserData()
-// })
 
 function saveUpdate() {
   const url = `${import.meta.env.VITE_API_URL}/api/user`
 
   let postData = {}
 
-  for (const key in userData.value) {
-    postData[key] = userData.value[key]
+  for (const key in userStore.userData) {
+    postData[key] = userStore.userData[key]
     if (key === 'social_account') {
       postData[key] = []
-      userData.value.social_account.forEach(
+      userStore.userData.social_account.forEach(
         (elem) => {
           postData[key].push(elem.url)
         }
@@ -108,7 +76,7 @@ function saveUpdate() {
     <template #content>
       <ProfileInfoCom header="Profile Photo" explanation="Upload a photo by clicking the avatar below">
         <Avatar
-          :image="userData.avatar_url"
+          :image="userStore.userData.avatar_url"
           shape="circle"
           :pt="ptOptions"
           @click="triggerFileUpload"
@@ -131,12 +99,12 @@ function saveUpdate() {
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Username" explanation="Enter your full name as you would like it to appear.">
-        <InputText type="text" v-model="userData.username" />
+        <InputText type="text" v-model="userStore.userData.username" />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Pronouns" explanation="What do you like to be called?">
         <Dropdown
-          v-model="userData.pronouns"
+          v-model="userStore.userData.pronouns"
           :options="pronounsOptions"
           placeholder="Select a Pronouns"
         />
@@ -148,12 +116,12 @@ function saveUpdate() {
       >
         <div style="display:flex; gap: 10px;margin-top:15px">
           <FloatLabel>
-            <InputText id="1" v-model="userData.mobile" />
+            <InputText id="1" v-model="userStore.userData.mobile" />
             <label for="mobile">mobile</label>
           </FloatLabel>
 
           <FloatLabel>
-            <InputText id="2" v-model="userData.email" />
+            <InputText id="2" v-model="userStore.userData.email" />
             <label for="email">email</label>
           </FloatLabel>
         </div>
@@ -164,36 +132,36 @@ function saveUpdate() {
         explanation="Include links to your social media profiles."
       >
         <div class="flex-ver-start son-gap-10">
-          <div class="flex-hor-start son-gap-10" v-for="(obj,idx) in userData.social_account" :key="idx">
+          <div class="flex-hor-start son-gap-10" v-for="(obj,idx) in userStore.userData.social_account" :key="idx">
             <i class="pi pi-link"></i>
             <InputText type="text" v-model="obj.url" />
           </div>
           <!--          <div class="flex-hor-start son-gap-10">-->
           <!--            <i class="pi pi-link"></i>-->
-          <!--            <InputText type="text" v-model="userData.social_account[1]" />-->
+          <!--            <InputText type="text" v-model="userStore.userData.social_account[1]" />-->
           <!--          </div>-->
           <!--          <div class="flex-hor-start son-gap-10">-->
           <!--            <i class="pi pi-link"></i>-->
-          <!--            <InputText type="text" v-model="userData.social_account[2]" />-->
+          <!--            <InputText type="text" v-model="userStore.userData.social_account[2]" />-->
           <!--          </div>-->
         </div>
 
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Birthday" explanation="Enter your full name as you would like it to appear.">
-        <Calendar v-model="date" />
+        <Calendar v-model="userStore.userData.birthday" />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Industry" explanation="Specify the industry you are associated with.">
         <Dropdown
-          v-model="userData.industry"
+          v-model="userStore.userData.industry"
           :options="industryOptions"
           placeholder="Select a Industry"
         />
       </ProfileInfoCom>
 
       <ProfileInfoCom header="Location" explanation="Where are you based or where do you primarily operate?">
-        <InputText type="text" v-model="userData.location" />
+        <InputText type="text" v-model="userStore.userData.location" />
       </ProfileInfoCom>
 
     </template>

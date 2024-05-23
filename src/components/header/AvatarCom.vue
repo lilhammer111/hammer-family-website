@@ -1,35 +1,10 @@
-<template>
-  <!--  <div style="position: relative;"-->
-  <!--       @mouseover="avaItemEnabled = true"-->
-  <!--       @mouseleave="avaItemEnabled = false"-->
-  <!--  >-->
-  <Avatar
-    v-if="isSignIn"
-    image="https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png"
-    class="ava-stl"
-    size="normal"
-    shape="circle"
-    @click="toggle"
-  />
-
-  <OverlayPanel ref="opRef" class="op-stl">
-    <div v-for="item of Items"
-         :key="item.label"
-         class="op-item-stl v-cen"
-         @click="item.action(item)"
-    >
-      <i :class="item.icon" style="margin-right:10px"></i>
-      <span>{{ item.label }}</span>
-    </div>
-  </OverlayPanel>
-
-</template>
-
 <script setup>
 import { isSignIn } from '@/stores/user.js'
 import { ref } from 'vue'
 import router from '@/router/index.js'
+import { useUserStore } from '@/stores/user.js'
 
+const userStore = useUserStore()
 const Items = ref([
   {
     icon: 'pi pi-user',
@@ -45,7 +20,7 @@ const Items = ref([
     route: 'secure',
     action: (item) => {
       router.push({ name: item.route })
-    },
+    }
   },
   {
     icon: 'pi pi-sign-out',
@@ -66,6 +41,33 @@ const toggle = (event) => {
 
 
 </script>
+
+<template>
+  <!--  <div style="position: relative;"-->
+  <!--       @mouseover="avaItemEnabled = true"-->
+  <!--       @mouseleave="avaItemEnabled = false"-->
+  <!--  >-->
+  <Avatar
+    v-if="isSignIn"
+    :image="userStore.userData.avatar_url"
+    class="ava-stl"
+    size="normal"
+    shape="circle"
+    @click="toggle"
+  />
+
+  <OverlayPanel ref="opRef" class="op-stl">
+    <div v-for="item of Items"
+         :key="item.label"
+         class="op-item-stl v-cen"
+         @click="item.action(item)"
+    >
+      <i :class="item.icon" style="margin-right:10px"></i>
+      <span>{{ item.label }}</span>
+    </div>
+  </OverlayPanel>
+
+</template>
 
 <style scoped lang="scss">
 .ava-stl {

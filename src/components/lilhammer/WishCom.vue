@@ -1,5 +1,5 @@
 <template>
-  <Card v-for="item of paginatedItems"  :key="item.id">
+  <Card v-for="item of paginatedItems" :key="item.id">
     <template #title>
       <AvaWithNameCom :name="item.user.name" :avatar="item.user.avatar"></AvaWithNameCom>
     </template>
@@ -22,10 +22,28 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import RemarkCom from '@/components/common/RemarkCom.vue'
 import AvaWithNameCom from '@/components/common/AvaWithNameCom.vue'
+import axios from 'axios'
 
+onMounted(() => {
+  axios.get(
+    `${import.meta.env.VITE_API_URL}/api/wish/paginated`,
+    {
+      withCredentials: true,
+      params: {
+        page_number: first.value,
+        page_size: rowsPerPage.value
+      }
+    }
+  ).then((resp) => {
+    console.log('get wish resp: ', resp)
+    items.value = resp.data
+  }).catch((err) => {
+    console.log('get wish error: ', err)
+  })
+})
 
 const items = ref([
   {
