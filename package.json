@@ -11,6 +11,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@types/node": "^20.12.12",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "pinia": "^2.1.7",

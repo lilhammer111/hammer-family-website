@@ -4,6 +4,7 @@ import ProfileInfoCom from '@/components/common/ProfileInfoCom.vue'
 import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user.js'
+import { uploadUrl } from '@/api/account.js'
 
 const userStore = useUserStore()
 
@@ -25,7 +26,7 @@ const pronounsOptions = ref(['He', 'She'])
 
 const industryOptions = ref(['IT', 'Education'])
 
-const uploadUrl = ref(`${import.meta.env.VITE_API_URL}/api/file/avatar`)
+const url = ref(uploadUrl)
 
 function afterUpload(event) {
   console.log('after uploading event: ', event)
@@ -86,7 +87,7 @@ function saveUpdate() {
         <FileUpload
           ref="fileUpload"
           mode="basic"
-          :url="uploadUrl"
+          :url="url"
           name="file"
           accept="image/*"
           :maxFileSize="20000000"

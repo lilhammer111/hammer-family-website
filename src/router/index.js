@@ -29,8 +29,8 @@ import AchievementView from '@/views/third/profile/AchievementView.vue'
 
 const lilhammer_son_router = [
   {
-    path: 'activity',
-    name: 'hammer-activity',
+    path: 'journal',
+    name: 'journal',
     component: HammerActivityCom
   },
   {

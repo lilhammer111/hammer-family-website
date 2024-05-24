@@ -1,20 +1,20 @@
 <template>
-  <Card v-for="d of data" :key="d.title">
+  <Card v-for="item of items" :key="item.title">
     <template #title>
       <div class="ver-cen-sb">
-        <div class="mg-right-10">{{ d.title }}</div>
-        <div class="mg-right-10">{{ d.date }}</div>
+        <div class="mg-right-10">{{ item.title }}</div>
+        <div class="mg-right-10">{{ item.date }}</div>
       </div>
 
     </template>
     <template #content>
       <p class="m-0">
-        {{ d.text }}
+        {{ item.text }}
       </p>
       <div class="img-container mg-btm-15">
-        <Image class="img-item" :src="p" alt="Image" width="130" preview v-for="p in d.pictures" :key="p.id" />
+        <Image class="img-item" :src="p" alt="Image" width="130" preview v-for="p in item.pictures" :key="p.id" />
       </div>
-      <RemarkCom :time="d.time" :remark="d.remark"></RemarkCom>
+      <RemarkCom :time="item.time" :remark="item.remark"></RemarkCom>
     </template>
   </Card>
 </template>
@@ -35,7 +35,7 @@ import hammer9 from '@/assets/pictures/hammer/hammer9.jpg'
 import RemarkCom from '@/components/common/RemarkCom.vue'
 
 
-const data = ref([
+const items = ref([
     {
       title: '小锤学会走路',
       text: '小锤今天学会了独立行走，家里的家具都在颤抖！',

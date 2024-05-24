@@ -3,7 +3,7 @@
     <Card>
       <template #content>
         <div class="left-nav-item " v-for="item of items" :key="item.id">
-            <Button :label="item.text" severity="secondary" link @click="router.push({name: item.route})"/>
+            <Button :label="item.text" severity="secondary" link @click="navigate(item)"/>
         </div>
       </template>
     </Card>
@@ -17,7 +17,9 @@ defineProps([
   'items'
 ])
 
-
+function navigate(item) {
+  router.push({name: item.route})
+}
 </script>
 
 <style lang="scss" scoped>

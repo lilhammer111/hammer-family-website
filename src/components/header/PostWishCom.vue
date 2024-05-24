@@ -3,14 +3,15 @@ import { isSignIn } from '@/stores/user.js'
 import router from '@/router/index.js'
 import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
+import axios from 'axios'
 
-const visible = ref(false)
+const dialogVisible = ref(false)
 
 const text = ref('')
 
 function showWishEditor() {
   router.push({ name: 'wish' })
-  visible.value = true
+  dialogVisible.value = true
 }
 
 const toast = useToast()
@@ -18,18 +19,32 @@ const toast = useToast()
 function createWish() {
   // 检查是否为空
   if (!text.value.trim()) {
-    toast.add({
-      severity: 'Contrast',
-      summary: 'Hey gus! It failed to create your wish because your input is empty! Please check carefully!',
-      group: 'dialog',
-      life: 15000
+    toast.add(
+      {
+        severity: 'error',
+        summary: 'Hey gus! It failed to create your wish because your input is empty! Please check carefully!',
+        life: 15000,
+        group: 'dialog',
+      }
+    )
+  } else {
+    // 不为空则发送创建请求
+    axios.post(
+      `${import.meta.env.VITE_API_URL}/api/wish`,
+      {
+        content: text.value
+      },
+      {
+        withCredentials: true
+      }
+    ).then((resp) => {
+      console.log('create wish resp: ', resp)
+    }).catch((err) => {
+      console.log('create wish err', err)
     })
   }
-  //
-  // // 隐藏弹窗
-  visible.value = false
 
-
+  dialogVisible.value = false
 }
 
 </script>
@@ -44,7 +59,7 @@ function createWish() {
     @click="showWishEditor"
   />
 
-  <Dialog @update:visible="visible = false" class="flex-ver-gap-10" :visible="visible" modal header="Edit"
+  <Dialog @update:visible="dialogVisible = false" class="flex-ver-gap-10" :visible="dialogVisible" modal header="Edit"
           :style="{ width: '25rem' }">
     <Textarea autofocus v-model="text" rows="5" cols="29" auto-resize
               placeholder="Thank you for sending your best wishes!" style="border:none" />
