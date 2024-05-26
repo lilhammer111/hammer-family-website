@@ -1,6 +1,12 @@
+@import "variables";
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+:root {
+  --btn-width-6: #{$btn-width-6};
 }
 
 body, html {
@@ -28,7 +34,13 @@ body, html {
   display: flex;
   justify-content: start;
   align-items: center;
-  gap: 10px
+}
+
+.flex-hor-sb {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .flex-ver-start {
@@ -44,12 +56,7 @@ body, html {
   gap:20px;
 }
 
-.flex-hor-sb {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
+
 
 .flex-ver-gap-10 {
   display: flex;
@@ -143,4 +150,17 @@ body, html {
 
 .pointer-cursor:hover {
   cursor: pointer;
+}
+
+.img-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.img-item {
+  display: flex;
+  align-items: center;
 }

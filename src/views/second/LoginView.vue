@@ -21,7 +21,7 @@ import { ref } from 'vue'
 import router from '@/router/index.js'
 import axios from 'axios'
 import { useToast } from 'primevue/usetoast'
-import { isSignIn } from '@/stores/user.js'
+import { isSignIn, useUserStore } from '@/stores/user.js'
 
 
 const toast = useToast()
@@ -40,7 +40,7 @@ const items = ref([
 ])
 
 
-function handleSubmit(items) {
+async function handleSubmit(items) {
   // for test
   if (items[0].input === 'test') {
     isSignIn.value = true
@@ -49,42 +49,43 @@ function handleSubmit(items) {
     })
   }
 
-  const data = JSON.stringify({
-    username: items[0].input,
-    password: items[1].input
-  })
+  // 可能不需要自己序列化
+  // const data = JSON.stringify({
+  //   username: items[0].input,
+  //   password: items[1].input
+  // })
 
-  const config = {
-    method: 'post',
-    url: `${import.meta.env.VITE_API_URL}/api/account/login`,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: data,
-    withCredentials: true,
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/account/login`,
+      {
+        username: items[0].input,
+        password: items[1].input
+      },
+      {
+        withCredentials: true
+      }
+    )
+
+    if (response.status === 200) {
+      isSignIn.value = true
+      await router.push({
+        name: 'home'
+      })
+
+      await useUserStore().initUserInfo()
+    }
+  } catch (error) {
+    console.log('login error:', error)
+    if (error.response.status === 401) {
+      toast.add({
+        severity: 'Contrast',
+        summary: 'Hey gus! The password or username you input is incorrect!',
+        group: 'dialog',
+        life: 15000
+      })
+    }
   }
-
-  axios(config)
-    .then(function(response) {
-      console.log('login response:', response)
-      if (response.status === 200) {
-        isSignIn.value = true
-        router.push({
-          name: 'home'
-        })
-      }
-    })
-    .catch(function(error) {
-      console.log('login error:', error)
-      if (error.response.status === 401) {
-        toast.add({
-          severity: 'Contrast',
-          summary: 'Hey gus! The password or username you input is incorrect!',
-          group: 'dialog',
-          life: 15000
-        })
-      }
-    })
 }
 </script>
 

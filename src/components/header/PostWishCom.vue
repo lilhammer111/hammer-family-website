@@ -63,7 +63,7 @@ function createWish() {
           :style="{ width: '25rem' }">
     <Textarea autofocus v-model="text" rows="5" cols="29" auto-resize
               placeholder="Thank you for sending your best wishes!" style="border:none" />
-    <Button type="button" label="Create" style="width: 6rem;float:right" @click="createWish"></Button>
+    <Button type="button" label="Create" style="width: var(--btn-width-6);float:right" @click="createWish"></Button>
   </Dialog>
 </template>
 

@@ -35,15 +35,14 @@ function afterUpload(event) {
 }
 
 
-function saveUpdate() {
-  const url = `${import.meta.env.VITE_API_URL}/api/user`
+async function saveUpdate() {
 
   let postData = {}
 
   for (const key in userStore.userData) {
     postData[key] = userStore.userData[key]
     if (key === 'social_account') {
-      postData[key] = []
+      postData[key] = ["","",""]
       userStore.userData.social_account.forEach(
         (elem) => {
           postData[key].push(elem.url)
@@ -54,20 +53,27 @@ function saveUpdate() {
 
   console.log('data to post', postData)
 
-  axios.post(
-    url,
-    postData,
-    {
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json'
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_API_URL}/api/user`,
+      postData,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
-    }
-  ).then(function(response) {
-    console.log('save update user response: ', response)
-  }).catch(function(error) {
+    )
+
+    console.log("update user response:", response)
+    // todo
+    // if ( response.status === 500 ) {}
+
+    await useUserStore().initUserInfo()
+
+  } catch (error) {
     console.log('save update user error: ', error)
-  })
+  }
 }
 </script>
 
