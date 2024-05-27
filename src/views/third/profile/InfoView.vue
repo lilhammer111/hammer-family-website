@@ -5,6 +5,7 @@ import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user.js'
 import { imageUrl } from '@/api/account.js'
+import PageBottomCom from '@/components/common/PageBottomCom.vue'
 
 const userStore = useUserStore()
 
@@ -179,7 +180,7 @@ async function saveUpdate() {
       <Button @click="saveUpdate" label="Save Modification" severity="contract" style="float: right;"></Button>
     </template>
   </Card>
-
+  <PageBottomCom content="Hope these words add a little sparkle to your day."></PageBottomCom>
 </template>
 
 <style scoped lang="scss">

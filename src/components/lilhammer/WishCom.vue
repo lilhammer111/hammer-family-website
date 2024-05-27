@@ -23,6 +23,9 @@
     @page="onPageChange"
   >
   </Paginator>
+
+  <PageBottomCom content="Here’s to more beautiful moments ahead."></PageBottomCom>
+
 </template>
 
 <script setup>
@@ -32,6 +35,7 @@ import AvaWithNameCom from '@/components/common/AvaWithNameCom.vue'
 import axios from 'axios'
 import { storeToRefs } from 'pinia'
 import { useWishStore } from '@/stores/wish.js'
+import PageBottomCom from '@/components/common/PageBottomCom.vue'
 
 // paginate
 const first = ref(0) // 当前页的起始索引

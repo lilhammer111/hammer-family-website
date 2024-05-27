@@ -35,7 +35,7 @@
     @page="onPageChange"
   >
   </Paginator>
-  <PageBottomCom content="Next Page"></PageBottomCom>
+  <PageBottomCom content="Take your time, there’s beauty in every page."></PageBottomCom>
 </template>
 
 <script setup>

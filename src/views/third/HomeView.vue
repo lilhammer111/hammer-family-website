@@ -119,7 +119,7 @@
 
     </template>
   </Card>
-  <PageBottomCom content="No More"></PageBottomCom>
+  <PageBottomCom content="Each step forward is a step toward something better."></PageBottomCom>
 </template>
 
 <script setup>

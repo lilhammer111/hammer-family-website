@@ -20,10 +20,14 @@
 
     </template>
   </Card>
+
+  <PageBottomCom content="Your presence brightens our pages."></PageBottomCom>
+
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import PageBottomCom from '@/components/common/PageBottomCom.vue'
 
 const current = ref('Health')
 
