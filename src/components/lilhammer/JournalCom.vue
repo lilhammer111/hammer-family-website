@@ -21,7 +21,7 @@
           preview
         />
       </div>
-      <RemarkCom :time="item.created_at" :remark="item.remark"></RemarkCom>
+      <RemarkCom v-if="item.remark" :time="item.created_at" :remark="item.remark"></RemarkCom>
     </template>
   </Card>
 
@@ -47,6 +47,7 @@ import { baseUrl } from '@/api/account.js'
 const { journalItems } = storeToRefs(useJournalStore())
 
 onMounted(() => {
+
   getJournalItemsPerPage()
 })
 // paginate

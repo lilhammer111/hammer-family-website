@@ -13,11 +13,10 @@ export const useJournalStore = defineStore(
       created_at: '',
       updated_at: '',
       remark: {
-        thumb_num: 0,
-        comment_num: 0
+        thumb_num: '',
+        comment_num: ''
       }
     })
-
 
 
     return { journalItems }

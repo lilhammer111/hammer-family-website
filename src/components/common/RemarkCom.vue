@@ -10,19 +10,19 @@
     <div class="input-stl mg-btm-10">
       <Avatar style="margin-top:3px" image="https://primefaces.org/cdn/primevue/images/organization/walter.jpg"
               size="normal" shape="square" />
-        <InputText v-show="!showTextArea"
-                   style="width:100%"
-                   :class="inputClass"
-                   type="text"
-                   v-model="inputContent"
-                   variant="filled"
-                   @click="showTextArea = true"
-                   :pt="inputTextPassThrough"
-        />
-        <Textarea v-show="showTextArea" v-model="inputContent" rows="5" cols="30" style="width:100%"
-                  variant="filled" />
-        <Button class="submit-btn-stl" v-if="showTextArea" severity="contract" label="Confirm"
-                size="small"></Button>
+      <InputText v-show="!showTextArea"
+                 style="width:100%"
+                 :class="inputClass"
+                 type="text"
+                 v-model="inputContent"
+                 variant="filled"
+                 @click="showTextArea = true"
+                 :pt="inputTextPassThrough"
+      />
+      <Textarea v-show="showTextArea" v-model="inputContent" rows="5" cols="30" style="width:100%"
+                variant="filled" />
+      <Button class="submit-btn-stl" v-if="showTextArea" severity="contract" label="Confirm"
+              size="small"></Button>
     </div>
     <div class="comment-stl">
       <div class="every-comment-stl " v-for="(comment, index) in comments" :key="comment.username">
@@ -45,7 +45,7 @@
 
 <script setup>
 import IconNum from '@/components/common/IconNum.vue'
-import { ref } from 'vue'
+import { ref, toRef } from 'vue'
 
 const showRemark = ref(false)
 const showTextArea = ref(false)
@@ -63,7 +63,8 @@ const inputTextPassThrough = {
 
 const inputContent = ref('')
 
-defineProps(['time', 'remark'])
+const props = defineProps(['time', 'remark'])
+const { time, remark } = toRef(props)
 
 const inputClass = ref({})
 
