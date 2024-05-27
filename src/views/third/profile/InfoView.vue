@@ -4,12 +4,13 @@ import ProfileInfoCom from '@/components/common/ProfileInfoCom.vue'
 import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user.js'
-import { uploadUrl } from '@/api/account.js'
+import { imageUrl } from '@/api/account.js'
 
 const userStore = useUserStore()
 
 const ptOptions = ref({
-  root: { class: 'img-container' }
+  root: { class: 'img-container' },
+  image: {style: "height:100%;width:auto"}
 })
 
 const fileUploadOptions = ref({
@@ -26,7 +27,7 @@ const pronounsOptions = ref(['He', 'She'])
 
 const industryOptions = ref(['IT', 'Education'])
 
-const url = ref(uploadUrl)
+const url = ref(imageUrl)
 
 function afterUpload(event) {
   console.log('after uploading event: ', event)
@@ -82,19 +83,21 @@ async function saveUpdate() {
     <template #title>Profile</template>
     <template #content>
       <ProfileInfoCom header="Profile Photo" explanation="Upload a photo by clicking the avatar below">
-        <Avatar
-          :image="userStore.userData.avatar_url"
-          shape="circle"
-          :pt="ptOptions"
-          @click="triggerFileUpload"
-          class="pointer-cursor"
-        />
+        <div style="height: 180px">
+          <Avatar
+            :image="userStore.userData.avatar_url"
+            :pt="ptOptions"
+            @click="triggerFileUpload"
+            class="pointer-cursor"
+          />
+        </div>
+
 
         <FileUpload
           ref="fileUpload"
           mode="basic"
           :url="url"
-          name="file"
+          name="image"
           accept="image/*"
           :maxFileSize="20000000"
           :auto="true"

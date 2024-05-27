@@ -16,7 +16,7 @@ import Tooltip from 'primevue/tooltip'
 const app = createApp(App)
 app.use(PrimeVue, {
   ripple: true,
-  outline:true
+  outline:true,
 })
 app.directive('tooltip', Tooltip)
 app.directive('focustrap', FocusTrap)

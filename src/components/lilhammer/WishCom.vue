@@ -27,17 +27,17 @@ import RemarkCom from '@/components/common/RemarkCom.vue'
 import AvaWithNameCom from '@/components/common/AvaWithNameCom.vue'
 import axios from 'axios'
 
+// paginate
 const first = ref(0) // 当前页的起始索引
 const rowsPerPage = ref(10) // 每页显示的行数
-
-const wishData = ref([])
-
+const totalRecords = ref()
 const onPageChange = (event) => {
   first.value = event.first
   fetchWishPerPage()
 }
 
-const totalRecords = ref()
+// core items
+const wishData = ref([])
 
 async function fetchWishPerPage() {
   try {
@@ -99,7 +99,7 @@ async function fetchWishPerPage() {
   }
 }
 
-onMounted(()=>{
+onMounted(() => {
   fetchWishPerPage()
 })
 </script>

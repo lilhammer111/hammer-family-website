@@ -13,25 +13,29 @@
       </div>
       <div class="flex-ver-start son-gap-10">
         <label for="username">Content</label>
-        <Textarea v-model="journalForm.text" rows="5" cols="29" auto-resize />
+        <Textarea v-model="journalForm.content" rows="5" cols="29" auto-resize />
       </div>
       <divider v-if="imagesItems.length" />
       <div class="img-container">
-        <div class="img-item" style="position: relative" v-for="(item, idx) of imagesItems" :key="idx">
+        <div
+          v-for="(item, idx) of imagesItems" :key="idx"
+          class="img-item"
+          style="position: relative"
+          @mouseenter="item.closeBtnVis = true"
+          @mouseleave="item.closeBtnVis = false"
+          @click="removeImage(idx)"
+        >
           <img
             :ref="el => imageRefs[idx] = el"
             :src="item.url"
             alt="img"
             style="width: 80px;height: auto"
-            @mouseenter="item.closeBtnVis = true"
-            @mouseleave="item.closeBtnVis = false"
             @load="setMaskSize(idx)"
           >
           <div
             :ref="el => maskRefs[idx] = el"
             v-show="item.closeBtnVis"
             class="mask-stl"
-            @click="removeImage(idx)"
           >
           </div>
           <div
@@ -48,7 +52,7 @@
           chooseLabel="Image"
           auto
           mode="basic"
-          name="files[]"
+          name="image"
           :multiple="true"
           :url="url"
           accept="image/*"
@@ -71,7 +75,8 @@ import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 import router from '@/router/index.js'
-import { uploadUrl } from '@/api/account.js'
+import { baseUrl, imageUrl, staticBaseUrl } from '@/api/account.js'
+import axios from 'axios'
 
 // image data
 const imagesItems = ref([])
@@ -85,12 +90,13 @@ function setMaskSize(idx) {
   maskRefs.value[idx].style.height = `${height}px`
 }
 
-function removeImage(idx,event) {
-  console.log('remove event', event)
+function removeImage(idx) {
   if (idx > -1 && idx < imagesItems.value.length) {
-    imagesItems.value.splice(idx, 1);
-    imageRefs.value.splice(idx, 1);
-    maskRefs.value.splice(idx, 1);
+    imagesItems.value.splice(idx, 1)
+    imageRefs.value.splice(idx, 1)
+    maskRefs.value.splice(idx, 1)
+
+    journalForm.value.images.splice(idx, 1)
   }
 }
 
@@ -108,8 +114,8 @@ function onUpload(event) {
   console.log('onUpload', event)
   for (const file of event.files) {
     imagesItems.value.push({ url: file.objectURL, closeBtnVis: false })
+    journalForm.value.images.push(staticBaseUrl + '/' + file.name)
   }
-
 }
 
 
@@ -124,17 +130,37 @@ const fileUploadOptions = ref({
 // form
 const journalForm = ref({
   title: '',
-  text: ''
+  content: '',
+  images: []
 })
 
 
-const url = ref(uploadUrl)
+const url = ref(imageUrl)
 
 const toast = useToast()
 
 const journalDialogVisible = ref(false)
 
-function createJournal() {
+async function createJournal() {
+  console.log("create journal data",journalForm.value)
+  try {
+    const resp = await axios.post(
+      `${baseUrl}/journal`,
+      journalForm.value,
+      {
+        withCredentials: true
+      }
+    )
+
+    if (resp.status === 201) {
+      console.log('resp data', resp.data)
+    } else {
+      console.log('bad resp status')
+    }
+  } catch (err) {
+    console.log('axios err', err)
+  }
+  journalDialogVisible.value = false
 }
 
 const items = ref([
@@ -202,7 +228,7 @@ const items = ref([
 .mask-stl {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index:10001;
+  z-index: 1101;
 }
 
 .close-btn-stl {
@@ -212,6 +238,6 @@ const items = ref([
   font-size: 25px;
   transform: translate(-50%, -50%);
   color: white;
-  z-index:10002;
+  z-index: 1101;
 }
 </style>
