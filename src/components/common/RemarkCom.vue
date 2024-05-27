@@ -2,8 +2,8 @@
   <div class="flex-hor-sb mg-btm-10">
     <div style="color: var(--bluegray-600)">{{ time }}</div>
     <div class="icon-stl">
-      <IconNum icon="pi pi-thumbs-up" :num="remark.thumb_num"></IconNum>
-      <IconNum icon="pi pi-comment" :num="remark.comment_num" @click="toggleState"></IconNum>
+      <IconNum icon="pi pi-thumbs-up" :num="remark?.thumb_num"></IconNum>
+      <IconNum icon="pi pi-comment" :num="remark?.comment_num" @click="toggleState"></IconNum>
     </div>
   </div>
   <div v-if="showRemark">
@@ -45,7 +45,7 @@
 
 <script setup>
 import IconNum from '@/components/common/IconNum.vue'
-import { ref, toRef } from 'vue'
+import { ref, toRefs } from 'vue'
 
 const showRemark = ref(false)
 const showTextArea = ref(false)
@@ -64,7 +64,7 @@ const inputTextPassThrough = {
 const inputContent = ref('')
 
 const props = defineProps(['time', 'remark'])
-const { time, remark } = toRef(props)
+const { time, remark } = toRefs(props)
 
 const inputClass = ref({})
 

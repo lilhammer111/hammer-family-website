@@ -119,13 +119,13 @@
 
     </template>
   </Card>
-  <NoMoreResCom></NoMoreResCom>
+  <PageBottomCom content="No More"></PageBottomCom>
 </template>
 
 <script setup>
 import Card from 'primevue/card'
 import { ref } from 'vue'
-import NoMoreResCom from '@/components/common/NoMoreResCom.vue'
+import PageBottomCom from '@/components/common/PageBottomCom.vue'
 
 const lilhammer = ref({
   'name': 'Little Hammer',

@@ -2,11 +2,11 @@
   <div class="signupFrm">
     <form action="" class="form">
       <h1 class="title">Sign In</h1>
-      <div class="inputContainer" v-for="item in items" :key="item.id">
+      <div class="inputContainer" v-for="(item, idx) in loginForm" :key="idx">
         <input :type="item.type" class="input" placeholder="a" v-model="item.input" />
         <label for="" class="label">{{ item.text }}</label>
       </div>
-      <Button severity="contract" class="submitBtn" @click="handleSubmit(items)">Sign In</Button>
+      <Button severity="contract" class="submitBtn" @click="handleSubmit(loginForm)">Sign In</Button>
     </form>
     <div style="margin-top: 10px">
       yet have an account?
@@ -26,7 +26,7 @@ import { isSignIn, useUserStore } from '@/stores/user.js'
 
 const toast = useToast()
 
-const items = ref([
+const loginForm = ref([
   {
     type: 'text',
     input: '',
@@ -40,27 +40,27 @@ const items = ref([
 ])
 
 
-async function handleSubmit(items) {
+async function handleSubmit(loginForm) {
   // for test
-  if (items[0].input === 'test') {
+  if (loginForm[0].input === 'test') {
     isSignIn.value = true
-    router.push({
+    await router.push({
       name: 'home'
     })
   }
 
   // 可能不需要自己序列化
   // const data = JSON.stringify({
-  //   username: items[0].input,
-  //   password: items[1].input
+  //   username: registerForm[0].input,
+  //   password: registerForm[1].input
   // })
 
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_API_URL}/api/account/login`,
       {
-        username: items[0].input,
-        password: items[1].input
+        username: loginForm[0].input,
+        password: loginForm[1].input
       },
       {
         withCredentials: true
@@ -79,7 +79,7 @@ async function handleSubmit(items) {
     console.log('login error:', error)
     if (error.response.status === 401) {
       toast.add({
-        severity: 'Contrast',
+        severity: 'contrast',
         summary: 'Hey gus! The password or username you input is incorrect!',
         group: 'dialog',
         life: 15000

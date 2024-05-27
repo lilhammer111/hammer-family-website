@@ -18,11 +18,12 @@
       <divider v-if="imagesItems.length" />
       <div class="img-container">
         <div
-          v-for="(item, idx) of imagesItems" :key="idx"
+          v-for="(item, idx) of imagesItems"
+          :key="idx"
           class="img-item"
           style="position: relative"
-          @mouseenter="item.closeBtnVis = true"
-          @mouseleave="item.closeBtnVis = false"
+          @mouseenter="showCloseBtn(item)"
+          @mouseleave="hiddenCloseBtn(item)"
           @click="removeImage(idx)"
         >
           <img
@@ -77,6 +78,16 @@ import Toast from 'primevue/toast'
 import router from '@/router/index.js'
 import { baseUrl, imageUrl, staticBaseUrl } from '@/api/account.js'
 import axios from 'axios'
+import { useJournalStore } from '@/stores/journal.js'
+
+// btn
+function showCloseBtn(item) {
+  item.closeBtnVis = true
+}
+
+function hiddenCloseBtn(item) {
+  item.closeBtnVis = true
+}
 
 // image data
 const imagesItems = ref([])
@@ -99,15 +110,6 @@ function removeImage(idx) {
     journalForm.value.images.splice(idx, 1)
   }
 }
-
-// function hiddenCloseBtnDelay(item) {
-//   setTimeout(
-//     () => {
-//       item.closeBtnVis = false
-//     },
-//     500
-//   )
-// }
 
 // upload component
 function onUpload(event) {
@@ -142,7 +144,7 @@ const toast = useToast()
 const journalDialogVisible = ref(false)
 
 async function createJournal() {
-  console.log("create journal data",journalForm.value)
+  console.log('create journal data', journalForm.value)
   try {
     const resp = await axios.post(
       `${baseUrl}/journal`,
@@ -153,7 +155,21 @@ async function createJournal() {
     )
 
     if (resp.status === 201) {
-      console.log('resp data', resp.data)
+      // 直接添加数据
+      useJournalStore().journalItems.unshift(resp.data['data'])
+
+      // 更新数据总数以便分页
+      useJournalStore().totalJournalItemsNumber++
+
+      // 清空表单双向数据绑定
+      journalForm.value = {
+        title: '',
+        content: '',
+        images: []
+      }
+      imagesItems.value = []
+      imageRefs.value = []
+      maskRefs.value = []
     } else {
       console.log('bad resp status')
     }

@@ -1,10 +1,10 @@
 <script setup>
-
+defineProps(['content'])
 </script>
 
 <template>
   <div class="no-more-stl">
-    No more content
+    {{ content }}
   </div>
 </template>
 

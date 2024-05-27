@@ -1,9 +1,10 @@
 <script setup>
-import { isSignIn } from '@/stores/user.js'
+import { isSignIn, useUserStore } from '@/stores/user.js'
 import router from '@/router/index.js'
 import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import axios from 'axios'
+import { useWishStore } from '@/stores/wish.js'
 
 const dialogVisible = ref(false)
 
@@ -16,7 +17,7 @@ function showWishEditor() {
 
 const toast = useToast()
 
-function createWish() {
+async function createWish() {
   // 检查是否为空
   if (!text.value.trim()) {
     toast.add(
@@ -24,24 +25,36 @@ function createWish() {
         severity: 'error',
         summary: 'Hey gus! It failed to create your wish because your input is empty! Please check carefully!',
         life: 15000,
-        group: 'dialog',
+        group: 'dialog'
       }
     )
   } else {
     // 不为空则发送创建请求
-    axios.post(
-      `${import.meta.env.VITE_API_URL}/api/wish`,
-      {
-        content: text.value
-      },
-      {
-        withCredentials: true
-      }
-    ).then((resp) => {
+    try {
+      const resp = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/wish`,
+        {
+          content: text.value
+        },
+        {
+          withCredentials: true
+        }
+      )
+
       console.log('create wish resp: ', resp)
-    }).catch((err) => {
+
+      if (resp.status === 201) {
+        console.log('create wish resp', resp)
+        const wishStore = useWishStore()
+        const userStore = useUserStore()
+        wishStore.wishItems.unshift(resp.data["data"])
+        wishStore.wishItems[0]["username"] = userStore.userData.username
+        wishStore.wishItems[0]["avatar_url"] = userStore.userData.avatar_url
+      }
+    } catch (err) {
       console.log('create wish err', err)
-    })
+
+    }
   }
 
   dialogVisible.value = false

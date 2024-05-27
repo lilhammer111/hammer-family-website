@@ -29,6 +29,18 @@ const Items = ref([
     action: (item) => {
       router.push({ name: item.route })
       isSignIn.value = false
+      userStore.userData = {
+        avatar_url: '',
+        industry: '',
+        username: '',
+        email: '',
+        mobile: '',
+        location: '',
+        birthday: '',
+        pronouns: '',
+        social_account: []
+      }
+      console.log("user info after logout",userStore)
     }
   }
 ])

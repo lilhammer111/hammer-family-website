@@ -2,11 +2,11 @@
   <div class="signupFrm">
     <form action="" class="form">
       <h1 class="title">Sign Up</h1>
-      <div class="inputContainer" v-for="item in items" :key="item.id">
+      <div class="inputContainer" v-for="(item, idx) in registerForm" :key="idx">
         <input :type="item.type" class="input" placeholder="a" v-model="item.input" />
         <label for="" class="label">{{ item.text }}</label>
       </div>
-      <Button severity="contract" class="submitBtn" @click="handleSubmit(items)">Sign Up</Button>
+      <Button severity="contract" class="submitBtn" @click="handleSubmit(registerForm)">Sign Up</Button>
     </form>
     <div style="margin-top: 10px">
       already enrolled?
@@ -20,9 +20,11 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router/index.js'
-import { isSignIn } from '@/stores/user.js'
+import { isSignIn, useUserStore } from '@/stores/user.js'
 
-const items = ref([
+const userStore = useUserStore()
+
+const registerForm = ref([
   {
     type: 'text',
     input: '',
@@ -35,35 +37,28 @@ const items = ref([
   }
 ])
 
-function handleSubmit(items) {
-  const data = JSON.stringify({
-    username: items[0].input,
-    password: items[1].input
-  })
+async function handleSubmit(registerForm) {
 
-  const config = {
-    method: 'post',
-    url: `${import.meta.env.VITE_API_URL}/api/account/register`,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    data: data
+  try {
+    const resp = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/account/register`,
+      {
+        username: registerForm[0].input,
+        password: registerForm[1].input
+      }
+    )
+
+    if (resp.status === 201) {
+      isSignIn.value = true
+      await router.push({
+        name: 'home'
+      })
+    }
+  } catch (e) {
+    console.log('register err', e)
   }
 
-  axios(config)
-    .then(function(response) {
-      if (response.status === 201) {
-        isSignIn.value = true
-        console.log(JSON.stringify(response.data))
-        router.push({
-          name: 'home'
-        })
-      }
-    })
-    .catch(function(error) {
-      console.log(error)
-    })
-
+  await userStore.initUserInfo()
 }
 
 </script>
