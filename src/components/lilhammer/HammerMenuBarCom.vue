@@ -68,17 +68,167 @@
       </div>
     </div>
   </Dialog>
+
+  <Dialog
+    @update:visible="metricDiaVis = false"
+    :visible="metricDiaVis" modal
+    header="Fill a Metric Record"
+    :style="{ width: '30rem' }"
+  >
+    <div class="flex-ver-start son-gap-20">
+      <SelectButton v-model="option" :options="options" aria-labelledby="basic" :pt="selectBtnPt" />
+      <div class="grid-2-2" v-if="option === 'Health'">
+        <div v-for="(formItem, idx) of healthForm" :key="idx" class="flex-ver-start son-gap-10">
+          <label :for="formItem.label"> {{ formItem.label }} </label>
+          <InputNumber v-model="formItem.value" :minFractionDigits="0" :maxFractionDigits="2" :inputId="formItem.label" :inputStyle="inputStyle" />
+        </div>
+      </div>
+
+      <div class="grid-2-2" v-else-if="option === 'Diet'">
+        <div v-for="(formItem, idx) of dietForm" :key="idx" class="flex-ver-start son-gap-10">
+          <label :for="formItem.label"> {{ formItem.label }} </label>
+          <InputNumber v-model="formItem.value" :inputId="formItem.label" :inputStyle="inputStyle" />
+        </div>
+      </div>
+
+      <div class="grid-2-2" v-else>
+        <div v-for="(formItem, idx) of healthForm" :key="idx" class="flex-ver-start son-gap-10">
+          <label :for="formItem.label"> {{ formItem.label }} </label>
+          <InputNumber v-model="formItem.value" :inputId="formItem.label" :inputStyle="inputStyle" />
+        </div>
+      </div>
+      <div class="flex-hor-end">
+        <Button type="button" label="Submit" style="width: var(--btn-width-6);margin:0;"
+                @click="fillMetricRecord">
+        </Button>
+      </div>
+    </div>
+  </Dialog>
 </template>
 
 <script setup>
 import Menubar from 'primevue/menubar'
 import { ref } from 'vue'
-import { useToast } from 'primevue/usetoast'
 import Toast from 'primevue/toast'
 import router from '@/router/index.js'
 import { baseUrl, imageUrl, staticBaseUrl } from '@/api/account.js'
 import axios from 'axios'
 import { useJournalStore } from '@/stores/journal.js'
+
+// metric
+const metricDiaVis = ref(false)
+const option = ref('Health')
+const options = ref(['Health', 'Diet', 'Behavior'])
+const selectBtnPt = ref({
+  root: { style: 'margin:  auto' }
+})
+
+const inputStyle = ref({
+  width: '10px'
+})
+
+const healthForm = ref([
+  {
+    label: 'Height',
+    value: 0
+  },
+  {
+
+    label: 'Weight',
+    value: 0
+  },
+  {
+
+    label: 'Teeth',
+    value: 0
+  },
+  {
+
+    label: 'Head Circumference',
+    value: 0
+  }
+])
+const dietForm = ref([
+  {
+    label: 'Milk',
+    value: 10,
+  },
+  {
+    label: 'Meat',
+    value: 10,
+  },
+  {
+    label: 'Egg',
+    value: 10,
+  },
+  {
+    label: 'Vegetable',
+    value: 10,
+  },
+  {
+    label: 'Fruit',
+    value: 10,
+  },  {
+    label: 'Grain',
+    value: 10,
+  },
+])
+
+function fillMetricRecord() {
+  metricDiaVis.value = false
+}
+
+
+// menu
+const items = ref([
+  {
+    label: '✨ Wish',
+    icon: '',
+    command: () => {
+      router.push({ name: 'wish' })
+    }
+  },
+  {
+    label: '🚀 Journal',
+    icon: '',
+    command: () => {
+      router.push({ name: 'journal' })
+    }
+  },
+  {
+    label: '📈 Metric',
+    icon: '',
+    command: () => {
+      router.push({ name: 'hammer-record' })
+    }
+  },
+  {
+    separator: true
+  },
+  {
+    label: 'New',
+    icon: 'pi pi-plus',
+    items: [
+      {
+        label: 'Add an Journal',
+        icon: '',
+        command: () => {
+          journalDialogVisible.value = true
+          router.push({ name: 'journal' })
+        }
+      },
+      {
+        label: 'Fill a Metric Record',
+        icon: '',
+        command: () => {
+          metricDiaVis.value = true
+          router.push({ name: 'hammer-record' })
+        }
+      }
+    ]
+  }
+
+])
 
 // btn
 function showCloseBtn(item) {
@@ -120,7 +270,6 @@ function onUpload(event) {
   }
 }
 
-
 function onSelect(event) {
   console.log('onSelect', event)
 }
@@ -138,8 +287,6 @@ const journalForm = ref({
 
 
 const url = ref(imageUrl)
-
-const toast = useToast()
 
 const journalDialogVisible = ref(false)
 
@@ -179,64 +326,16 @@ async function createJournal() {
   journalDialogVisible.value = false
 }
 
-const items = ref([
-  {
-    label: '💖 Wish',
-    icon: '',
-    command: () => {
-      router.push({ name: 'wish' })
-    }
-  },
-  {
-    label: '🎯 Journal',
-    icon: '',
-    command: () => {
-      router.push({ name: 'journal' })
-    }
-  },
-  {
-    label: '🥦 Health',
-    icon: '',
-    command: () => {
-      router.push({ name: 'hammer-record' })
-    }
-  },
-  {
-    separator: true
-  },
-  {
-    label: 'New',
-    icon: 'pi pi-plus',
-    items: [
-      {
-        label: 'Write a Wish',
-        icon: '',
-        command: () => {
-          toast.add({ severity: 'error', summary: 'Downloads', detail: 'Downloaded from cloud', life: 3000 })
-        }
-      },
-      {
-        label: 'Add an Journal',
-        icon: '',
-        command: () => {
-          journalDialogVisible.value = true
-          router.push({ name: 'journal' })
-        }
-      },
-      {
-        label: 'Fill Growth Record',
-        icon: '',
-        command: () => {
 
-        }
-      }
-    ]
-  }
-
-])
 </script>
 
 <style scoped lang="scss">
+.grid-2-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
 .img-item:hover {
   cursor: pointer;
 }

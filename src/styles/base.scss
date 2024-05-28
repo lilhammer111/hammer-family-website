@@ -49,6 +49,12 @@ body, html {
   justify-content: start;
 }
 
+.flex-hor-end {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
 .son-gap-10 {
   gap: 10px;
 }

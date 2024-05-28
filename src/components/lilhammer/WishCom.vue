@@ -74,7 +74,6 @@ async function fetchWishPerPage() {
     let userIdList = []
 
     for (const idx in wishRespRecords) {
-      console.log("wish items now", wishItems.value)
       wishItems.value[idx] = reactive({})
       wishItems.value[idx]['content'] = wishRespRecords[idx]['content']
       wishItems.value[idx]['created_at'] = wishRespRecords[idx]['created_at']
