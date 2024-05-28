@@ -6,12 +6,14 @@ import axios from 'axios'
 import { useUserStore } from '@/stores/user.js'
 import { imageUrl } from '@/api/account.js'
 import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import { useToast } from 'primevue/usetoast'
+const toast = useToast()
 
 const userStore = useUserStore()
 
 const ptOptions = ref({
   root: { class: 'img-container' },
-  image: {style: "height:100%;width:auto"}
+  image: { style: 'height:100%;width:auto' }
 })
 
 const fileUploadOptions = ref({
@@ -37,14 +39,14 @@ function afterUpload(event) {
 }
 
 
-async function saveUpdate() {
+async function updateUserInfo() {
 
   let postData = {}
 
   for (const key in userStore.userData) {
     postData[key] = userStore.userData[key]
     if (key === 'social_account') {
-      postData[key] = ["","",""]
+      postData[key] = ['', '', '']
       userStore.userData.social_account.forEach(
         (elem) => {
           postData[key].push(elem.url)
@@ -67,9 +69,17 @@ async function saveUpdate() {
       }
     )
 
-    console.log("update user response:", response)
+    console.log('update user response:', response)
     // todo
-    // if ( response.status === 500 ) {}
+    if (response.status === 200) {
+
+      toast.add({
+        severity: 'secondary',
+        summary: 'Great! You\'ve update your information successfully!',
+        group:'dialog',
+        life: 150000,
+      })
+    }
 
     await useUserStore().initUserInfo()
 
@@ -177,7 +187,7 @@ async function saveUpdate() {
 
     </template>
     <template #footer>
-      <Button @click="saveUpdate" label="Save Modification" severity="contract" style="float: right;"></Button>
+      <Button @click="updateUserInfo" label="Save Modification" severity="contract" style="float: right;"></Button>
     </template>
   </Card>
   <PageBottomCom content="Hope these words add a little sparkle to your day."></PageBottomCom>

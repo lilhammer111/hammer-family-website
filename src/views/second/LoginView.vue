@@ -79,7 +79,7 @@ async function handleSubmit(loginForm) {
     console.log('login error:', error)
     if (error.response.status === 401) {
       toast.add({
-        severity: 'contrast',
+        severity: 'secondary',
         summary: 'Hey gus! The password or username you input is incorrect!',
         group: 'dialog',
         life: 15000

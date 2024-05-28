@@ -76,15 +76,18 @@
     :style="{ width: '30rem' }"
   >
     <div class="flex-ver-start son-gap-20">
-      <SelectButton v-model="option" :options="options" aria-labelledby="basic" :pt="selectBtnPt" />
-      <div class="grid-2-2" v-if="option === 'Health'">
-        <div v-for="(formItem, idx) of healthForm" :key="idx" class="flex-ver-start son-gap-10">
+      <SelectButton v-model="currentTag" :options="options" aria-labelledby="basic" :pt="selectBtnPt" />
+      <div class="grid-2-2" v-if="currentTag === 'Health'">
+        <div v-for="(formItem, idx) of healthForm.data" :key="idx" class="flex-ver-start son-gap-10">
           <label :for="formItem.label"> {{ formItem.label }} </label>
-          <InputNumber v-model="formItem.value" :minFractionDigits="0" :maxFractionDigits="2" :inputId="formItem.label" :inputStyle="inputStyle" />
+          <InputNumber v-model="formItem.value" :minFractionDigits="0" :maxFractionDigits="2" :inputId="formItem.label"
+                       :inputStyle="inputStyle" />
         </div>
+        <label :for="healthForm.date.label"> {{ healthForm.date.label }} </label>
+        <Calendar v-model="healthForm.date.value" dateFormat="dd/mm/yy" />
       </div>
 
-      <div class="grid-2-2" v-else-if="option === 'Diet'">
+      <div class="grid-2-2" v-else-if="currentTag === 'Diet'">
         <div v-for="(formItem, idx) of dietForm" :key="idx" class="flex-ver-start son-gap-10">
           <label :for="formItem.label"> {{ formItem.label }} </label>
           <InputNumber v-model="formItem.value" :inputId="formItem.label" :inputStyle="inputStyle" />
@@ -114,10 +117,11 @@ import router from '@/router/index.js'
 import { baseUrl, imageUrl, staticBaseUrl } from '@/api/account.js'
 import axios from 'axios'
 import { useJournalStore } from '@/stores/journal.js'
+import { storeToRefs } from 'pinia'
 
 // metric
 const metricDiaVis = ref(false)
-const option = ref('Health')
+const currentTag = ref('Health')
 const options = ref(['Health', 'Diet', 'Behavior'])
 const selectBtnPt = ref({
   root: { style: 'margin:  auto' }
@@ -127,55 +131,158 @@ const inputStyle = ref({
   width: '10px'
 })
 
-const healthForm = ref([
-  {
-    label: 'Height',
-    value: 0
-  },
-  {
+const healthForm = ref({
+  data: [
+    {
+      label: 'Height',
+      value: 0
+    },
+    {
 
-    label: 'Weight',
-    value: 0
-  },
-  {
+      label: 'Weight',
+      value: 0
+    },
+    {
 
-    label: 'Teeth',
-    value: 0
-  },
-  {
-
-    label: 'Head Circumference',
-    value: 0
+      label: 'Teeth',
+      value: 0
+    },
+    {
+      label: 'Head Circumference',
+      value: 0
+    }
+  ],
+  date: {
+    label: 'Measurement Date',
+    value: new Date()
   }
-])
+})
 const dietForm = ref([
   {
     label: 'Milk',
-    value: 10,
+    value: 10
   },
   {
     label: 'Meat',
-    value: 10,
+    value: 10
   },
   {
     label: 'Egg',
-    value: 10,
+    value: 10
   },
   {
     label: 'Vegetable',
-    value: 10,
+    value: 10
   },
   {
     label: 'Fruit',
-    value: 10,
-  },  {
+    value: 10
+  }, {
     label: 'Grain',
-    value: 10,
+    value: 10
+  }
+])
+const behaviorForm = ref([
+  {
+    label: 'Wake Up Time',
+    value: new Date()
   },
+  {
+    label: 'Sleep Time',
+    value: new Date()
+  },
+  {
+    label: 'Diaper Changes',
+    value: 0
+  },
+  {
+    label: 'Naps',
+    value: 0
+  },
+  {
+    label: 'Crying Episodes',
+    value: 0
+  },
+  {
+    label: 'Duration Outdoor',
+    value: 0
+  }
 ])
 
-function fillMetricRecord() {
+async function fillMetricRecord() {
   metricDiaVis.value = false
+  if (currentTag.value === 'Health') {
+    const data = {}
+
+    for (const idx in healthForm.value.data) {
+      const data_key = healthForm.value.data[idx]['label'].toLowerCase().replace(' ', '_')
+      data[data_key] = healthForm.value.data[idx]['value']
+    }
+
+    data['measurement_date'] = healthForm.value.date.value.toISOString().split('T')[0]
+
+    console.log("health data",data)
+
+    try {
+      const resp = await axios.post(
+        `${baseUrl}/health`,
+        data,
+        { withCredentials: true }
+      )
+
+      if (resp.status === 201) {
+        console.log('create health record resp', resp)
+      }
+    } catch (err) {
+      console.log('create health record err', err)
+    }
+  }
+
+  if (currentTag.value === 'Diet') {
+    const data = {}
+
+    for (const idx in dietForm.value) {
+      const data_key = dietForm.value[idx]['label'].toLowerCase().replace(' ', '_')
+      data[data_key] = dietForm.value[idx]['value']
+    }
+
+    try {
+      const resp = await axios.post(
+        `${baseUrl}/diet`,
+        data,
+        { withCredentials: true }
+      )
+
+      if (resp.status === 201) {
+        console.log('create diet record resp', resp)
+      }
+    } catch (err) {
+      console.log('create diet record err', err)
+    }
+  }
+
+  if (currentTag.value === 'Behavior') {
+    const data = {}
+
+    for (const idx in behaviorForm.value) {
+      const data_key = behaviorForm.value[idx]['label'].toLowerCase().replace(' ', '_')
+      data[data_key] = behaviorForm.value[idx]['value']
+    }
+
+    try {
+      const resp = await axios.post(
+        `${baseUrl}/behavior`,
+        data,
+        { withCredentials: true }
+      )
+
+      if (resp.status === 201) {
+        console.log('create behavior record resp', resp)
+      }
+    } catch (err) {
+      console.log('create behavior record err', err)
+    }
+  }
 }
 
 
@@ -285,6 +392,9 @@ const journalForm = ref({
   images: []
 })
 
+const journalStore = useJournalStore()
+
+const { journalItems, totalJournalItemsNumber } = storeToRefs(journalStore)
 
 const url = ref(imageUrl)
 
@@ -303,10 +413,10 @@ async function createJournal() {
 
     if (resp.status === 201) {
       // 直接添加数据
-      useJournalStore().journalItems.unshift(resp.data['data'])
+      journalItems.value.unshift(resp.data['data'])
 
       // 更新数据总数以便分页
-      useJournalStore().totalJournalItemsNumber++
+      totalJournalItemsNumber.value++
 
       // 清空表单双向数据绑定
       journalForm.value = {
