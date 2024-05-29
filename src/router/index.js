@@ -4,7 +4,7 @@ import LoginView from '@/views/second/LoginView.vue'
 import IndexView from '@/views/primary/WholeView.vue'
 import RegisterView from '@/views/second/RegisterView.vue'
 import HomeView from '@/views/third/HomeView.vue'
-import MsgView from '@/views/third/MsgView.vue'
+import MsgView from '@/views/third/ScoreView.vue'
 import ArticleView from '@/views/third/ArticleView.vue'
 import MainView from '@/views/second/MainView.vue'
 import LilhammerView from '@/views/third/LilhammerView.vue'
@@ -12,9 +12,9 @@ import NewsView from '@/views/third/NewsView.vue'
 import HammerActivityCom from '@/components/lilhammer/JournalCom.vue'
 import HammerRecordCom from '@/components/lilhammer/MetricCom.vue'
 import WishCom from '@/components/lilhammer/WishCom.vue'
-import FoodCom from '@/components/community/share/FoodCom.vue'
-import MovieCom from '@/components/community/share/MovieCom.vue'
-import BookCom from '@/components/community/share/BookCom.vue'
+import FoodCom from '@/components/score/share/FoodCom.vue'
+import MovieCom from '@/components/score/share/MovieCom.vue'
+import BookCom from '@/components/score/share/BookCom.vue'
 import { isSignIn } from '@/stores/user.js'
 import { useToast } from 'primevue/usetoast'
 import SettingsView from '@/views/second/SettingsView.vue'
@@ -197,7 +197,7 @@ router.beforeEach((to, from, next) => {
     next({ name: 'login' })
     const toast = useToast()
     toast.add({
-      severity: 'Contrast',
+      severity:"plain",
       summary: 'Hello! Please log in first. If you don\'t have an account, kindly register.',
       group: 'dialog',
       life: 15000

@@ -67,7 +67,7 @@ async function updateUserInfo() {
     if (response.status === 200) {
 
       toast.add({
-        severity: 'secondary',
+        severity: 'plain',
         summary: 'Great! You\'ve update your information successfully!',
         group: 'dialog',
         life: 150000

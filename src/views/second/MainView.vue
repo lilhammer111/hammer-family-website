@@ -26,7 +26,7 @@ const ptOption = ref({
 
 const navItems = ref([
   {
-    text: '🌴 Home',
+    text: '🏡 Home',
     icon: '',
     route: 'home'
   },
@@ -36,7 +36,7 @@ const navItems = ref([
     route: 'wish'
   },
   {
-    text: '🐣 Community',
+    text: '🌈 Taste & Tell',
     icon: '',
     route: 'food'
   }

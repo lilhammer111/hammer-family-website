@@ -22,6 +22,7 @@ import router from '@/router/index.js'
 import axios from 'axios'
 import { useToast } from 'primevue/usetoast'
 import { isSignIn, useUserStore } from '@/stores/user.js'
+import { baseUrl } from '@/api/account.js'
 
 
 const toast = useToast()
@@ -49,15 +50,9 @@ async function handleSubmit(loginForm) {
     })
   }
 
-  // 可能不需要自己序列化
-  // const data = JSON.stringify({
-  //   username: registerForm[0].input,
-  //   password: registerForm[1].input
-  // })
-
   try {
     const response = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/account/login`,
+      `${baseUrl}/api/account/login`,
       {
         username: loginForm[0].input,
         password: loginForm[1].input
@@ -79,7 +74,7 @@ async function handleSubmit(loginForm) {
     console.log('login error:', error)
     if (error.response.status === 401) {
       toast.add({
-        severity: 'secondary',
+        severity: 'plain',
         summary: 'Hey gus! The password or username you input is incorrect!',
         group: 'dialog',
         life: 15000
