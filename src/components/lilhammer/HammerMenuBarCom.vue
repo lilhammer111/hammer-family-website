@@ -83,22 +83,40 @@
           <InputNumber v-model="formItem.value" :minFractionDigits="0" :maxFractionDigits="2" :inputId="formItem.label"
                        :inputStyle="inputStyle" />
         </div>
-        <label :for="healthForm.date.label"> {{ healthForm.date.label }} </label>
-        <Calendar v-model="healthForm.date.value" dateFormat="dd/mm/yy" />
+        <div class="flex-ver-start son-gap-10">
+          <label :for="healthForm.date.label"> {{ healthForm.date.label }} </label>
+          <Calendar v-model="healthForm.date.value" dateFormat="dd/mm/yy" />
+        </div>
       </div>
 
       <div class="grid-2-2" v-else-if="currentTag === 'Diet'">
-        <div v-for="(formItem, idx) of dietForm" :key="idx" class="flex-ver-start son-gap-10">
+        <div v-for="(formItem, idx) of dietForm.data" :key="idx" class="flex-ver-start son-gap-10">
           <label :for="formItem.label"> {{ formItem.label }} </label>
           <InputNumber v-model="formItem.value" :inputId="formItem.label" :inputStyle="inputStyle" />
+        </div>
+        <div class="flex-ver-start son-gap-10">
+          <label :for="dietForm.date.label"> {{ dietForm.date.label }} </label>
+          <Calendar v-model="dietForm.date.value" dateFormat="dd/mm/yy" />
         </div>
       </div>
 
       <div class="grid-2-2" v-else>
-        <div v-for="(formItem, idx) of healthForm" :key="idx" class="flex-ver-start son-gap-10">
+
+        <div v-for="(formItem, idx) of behaviorForm.data" :key="idx" class="flex-ver-start son-gap-10">
           <label :for="formItem.label"> {{ formItem.label }} </label>
           <InputNumber v-model="formItem.value" :inputId="formItem.label" :inputStyle="inputStyle" />
         </div>
+
+        <div v-for="(formItem, idx) of behaviorForm.time" :key="idx" class="flex-ver-start son-gap-10">
+          <label :for="formItem.label"> {{ formItem.label }} </label>
+          <Calendar :id="formItem.label" v-model="formItem.value" timeOnly />
+        </div>
+
+        <div class="flex-ver-start son-gap-10">
+          <label :for="behaviorForm.date.label"> {{ behaviorForm.date.label }} </label>
+          <Calendar v-model="behaviorForm.date.value" dateFormat="dd/mm/yy" />
+        </div>
+
       </div>
       <div class="flex-hor-end">
         <Button type="button" label="Submit" style="width: var(--btn-width-6);margin:0;"
@@ -118,6 +136,7 @@ import { baseUrl, imageUrl, staticBaseUrl } from '@/api/account.js'
 import axios from 'axios'
 import { useJournalStore } from '@/stores/journal.js'
 import { storeToRefs } from 'pinia'
+import { useMetricStore } from '@/stores/metric.js'
 
 // metric
 const metricDiaVis = ref(false)
@@ -153,61 +172,76 @@ const healthForm = ref({
     }
   ],
   date: {
-    label: 'Measurement Date',
+    label: 'Record Date',
     value: new Date()
   }
 })
-const dietForm = ref([
-  {
-    label: 'Milk',
-    value: 10
-  },
-  {
-    label: 'Meat',
-    value: 10
-  },
-  {
-    label: 'Egg',
-    value: 10
-  },
-  {
-    label: 'Vegetable',
-    value: 10
-  },
-  {
-    label: 'Fruit',
-    value: 10
-  }, {
-    label: 'Grain',
-    value: 10
+const dietForm = ref({
+  data: [
+    {
+      label: 'Milk',
+      value: 10
+    },
+    {
+      label: 'Meat',
+      value: 10
+    },
+    {
+      label: 'Egg',
+      value: 10
+    },
+    {
+      label: 'Vegetable',
+      value: 10
+    },
+    {
+      label: 'Fruit',
+      value: 10
+    }, {
+      label: 'Grain',
+      value: 10
+    }
+  ],
+  date: {
+    label: 'Record Date',
+    value: new Date()
   }
-])
-const behaviorForm = ref([
-  {
-    label: 'Wake Up Time',
+})
+const behaviorForm = ref({
+  data: [
+
+    {
+      label: 'Diaper Changes',
+      value: 0
+    },
+    {
+      label: 'Naps',
+      value: 0
+    },
+    {
+      label: 'Crying Episodes',
+      value: 0
+    },
+    {
+      label: 'Duration Outdoor',
+      value: 0
+    }
+  ],
+  date: {
+    label: 'Record Date',
     value: new Date()
   },
-  {
-    label: 'Sleep Time',
-    value: new Date()
-  },
-  {
-    label: 'Diaper Changes',
-    value: 0
-  },
-  {
-    label: 'Naps',
-    value: 0
-  },
-  {
-    label: 'Crying Episodes',
-    value: 0
-  },
-  {
-    label: 'Duration Outdoor',
-    value: 0
-  }
-])
+  time: [
+    {
+      label: 'Wake Up Time',
+      value: new Date()
+    },
+    {
+      label: 'Sleep Time',
+      value: new Date()
+    }
+  ]
+})
 
 async function fillMetricRecord() {
   metricDiaVis.value = false
@@ -215,13 +249,13 @@ async function fillMetricRecord() {
     const data = {}
 
     for (const idx in healthForm.value.data) {
-      const data_key = healthForm.value.data[idx]['label'].toLowerCase().replace(' ', '_')
+      const data_key = healthForm.value.data[idx]['label'].toLowerCase().replace(/ /g, '_')
       data[data_key] = healthForm.value.data[idx]['value']
     }
 
-    data['measurement_date'] = healthForm.value.date.value.toISOString().split('T')[0]
+    data['record_date'] = healthForm.value.date.value.toISOString().split('T')[0]
 
-    console.log("health data",data)
+    console.log('health data', data)
 
     try {
       const resp = await axios.post(
@@ -232,6 +266,9 @@ async function fillMetricRecord() {
 
       if (resp.status === 201) {
         console.log('create health record resp', resp)
+        const metricStore = useMetricStore()
+        metricStore.healthData.unshift(resp.data['data'])
+        console.log('all health data after creating', metricStore.healthData)
       }
     } catch (err) {
       console.log('create health record err', err)
@@ -241,10 +278,13 @@ async function fillMetricRecord() {
   if (currentTag.value === 'Diet') {
     const data = {}
 
-    for (const idx in dietForm.value) {
-      const data_key = dietForm.value[idx]['label'].toLowerCase().replace(' ', '_')
-      data[data_key] = dietForm.value[idx]['value']
+    for (const idx in dietForm.value.data) {
+      const data_key = dietForm.value.data[idx]['label'].toLowerCase().replace(/ /g, '_')
+      data[data_key] = dietForm.value.data[idx]['value']
     }
+
+    data['record_date'] = dietForm.value.date.value.toISOString().split('T')[0]
+
 
     try {
       const resp = await axios.post(
@@ -255,6 +295,8 @@ async function fillMetricRecord() {
 
       if (resp.status === 201) {
         console.log('create diet record resp', resp)
+        const metricStore = useMetricStore()
+        metricStore.dietData.unshift(resp.data['data'])
       }
     } catch (err) {
       console.log('create diet record err', err)
@@ -264,10 +306,22 @@ async function fillMetricRecord() {
   if (currentTag.value === 'Behavior') {
     const data = {}
 
-    for (const idx in behaviorForm.value) {
-      const data_key = behaviorForm.value[idx]['label'].toLowerCase().replace(' ', '_')
-      data[data_key] = behaviorForm.value[idx]['value']
+    for (const idx in behaviorForm.value.data) {
+      const data_key = behaviorForm.value.data[idx]['label'].toLowerCase().replace(/ /g, '_')
+      data[data_key] = behaviorForm.value.data[idx]['value']
     }
+
+    for (const idx in behaviorForm.value.time) {
+
+      const data_key = behaviorForm.value.time[idx]['label'].toLowerCase().replace(/ /g, '_')
+      data[data_key] = behaviorForm.value.time[idx]['value'].toTimeString().split(' ')[0]
+
+      console.log('time', data[data_key])
+    }
+
+    data['record_date'] = behaviorForm.value.date.value.toISOString().split('T')[0]
+
+    console.log("behavior data before posting", data)
 
     try {
       const resp = await axios.post(
@@ -277,6 +331,8 @@ async function fillMetricRecord() {
       )
 
       if (resp.status === 201) {
+        const metricStore = useMetricStore()
+        metricStore.behaviorData.unshift(resp.data['data'])
         console.log('create behavior record resp', resp)
       }
     } catch (err) {

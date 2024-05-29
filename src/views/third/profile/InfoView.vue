@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user.js'
 import { imageUrl } from '@/api/account.js'
 import PageBottomCom from '@/components/common/PageBottomCom.vue'
 import { useToast } from 'primevue/usetoast'
+
 const toast = useToast()
 
 const userStore = useUserStore()
@@ -41,26 +42,18 @@ function afterUpload(event) {
 
 async function updateUserInfo() {
 
-  let postData = {}
+  const data = userStore.userData
 
-  for (const key in userStore.userData) {
-    postData[key] = userStore.userData[key]
-    if (key === 'social_account') {
-      postData[key] = ['', '', '']
-      userStore.userData.social_account.forEach(
-        (elem) => {
-          postData[key].push(elem.url)
-        }
-      )
-    }
+  console.log('birthday', data['birthday'])
+  if (data['birthday']) {
+    data['birthday'] = userStore.userData.birthday.toISOString().split('T')[0]
   }
-
-  console.log('data to post', postData)
+  console.log('data to post', data)
 
   try {
     const response = await axios.put(
       `${import.meta.env.VITE_API_URL}/api/user`,
-      postData,
+      data,
       {
         withCredentials: true,
         headers: {
@@ -76,12 +69,12 @@ async function updateUserInfo() {
       toast.add({
         severity: 'secondary',
         summary: 'Great! You\'ve update your information successfully!',
-        group:'dialog',
-        life: 150000,
+        group: 'dialog',
+        life: 150000
       })
     }
 
-    await useUserStore().initUserInfo()
+    await useUserStore().setUserData()
 
   } catch (error) {
     console.log('save update user error: ', error)
@@ -153,18 +146,10 @@ async function updateUserInfo() {
         explanation="Include links to your social media profiles."
       >
         <div class="flex-ver-start son-gap-10">
-          <div class="flex-hor-start son-gap-10" v-for="(obj,idx) in userStore.userData.social_account" :key="idx">
+          <div class="flex-hor-start son-gap-10" v-for="idx in 3" :key="idx">
             <i class="pi pi-link"></i>
-            <InputText type="text" v-model="obj.url" />
+            <InputText type="text" v-model="userStore.userData.social_account[idx-1]" />
           </div>
-          <!--          <div class="flex-hor-start son-gap-10">-->
-          <!--            <i class="pi pi-link"></i>-->
-          <!--            <InputText type="text" v-model="userStore.userData.social_account[1]" />-->
-          <!--          </div>-->
-          <!--          <div class="flex-hor-start son-gap-10">-->
-          <!--            <i class="pi pi-link"></i>-->
-          <!--            <InputText type="text" v-model="userStore.userData.social_account[2]" />-->
-          <!--          </div>-->
         </div>
 
       </ProfileInfoCom>

@@ -73,7 +73,7 @@ async function handleSubmit(loginForm) {
         name: 'home'
       })
 
-      await useUserStore().initUserInfo()
+      await useUserStore().setUserData()
     }
   } catch (error) {
     console.log('login error:', error)

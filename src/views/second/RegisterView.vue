@@ -45,20 +45,26 @@ async function handleSubmit(registerForm) {
       {
         username: registerForm[0].input,
         password: registerForm[1].input
+      },
+      {
+        withCredentials: true
       }
     )
 
     if (resp.status === 201) {
+      userStore.clearUserData()
+      userStore.userData.username = registerForm[0].input
       isSignIn.value = true
       await router.push({
         name: 'home'
       })
+
+      await useUserStore().setUserData()
+
     }
   } catch (e) {
     console.log('register err', e)
   }
-
-  await userStore.initUserInfo()
 }
 
 </script>

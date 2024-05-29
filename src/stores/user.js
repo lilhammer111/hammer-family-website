@@ -10,6 +10,13 @@ watchEffect(
   }
 )
 
+// watch(isSignIn, async (newVal) => {
+//   if (newVal === true) {
+//     await useUserStore().setUserData()
+//   }
+// })
+
+
 export const useUserStore = defineStore(
   'user',
   () => {
@@ -21,13 +28,13 @@ export const useUserStore = defineStore(
         email: '',
         mobile: '',
         location: '',
-        birthday: '',
+        birthday: null,
         pronouns: '',
         social_account: []
       }
     )
 
-    async function initUserInfo() {
+    async function setUserData() {
       try {
         if (!isSignIn.value) {
           return
@@ -47,17 +54,43 @@ export const useUserStore = defineStore(
         userData.value.email = response.data['email']
         userData.value.mobile = response.data['mobile']
         userData.value.location = response.data['location']
-        userData.value.birthday = response.data['birthday']
         userData.value.pronouns = response.data['pronouns']
+        userData.value.social_account = response.data['social_account']
 
-        for (const idx in userData.value.social_account) {
-          userData.value.social_account[idx].url = response.data['social_account'][idx]
+        // 单独处理social account
+        if (!userData.value.social_account) {
+          userData.value.social_account = ['', '', '']
         }
+        while (userData.value.social_account.length === 3) {
+          userData.value.social_account.push('')
+        }
+
+        // 单独处理日期
+        if (response.data['birthday']) {
+          const dateString = response.data['birthday']
+          const dateParts = dateString.split('-')
+          userData.value.birthday = new Date(dateParts[0], dateParts[1] - 1, dateParts[2])
+        }
+
       } catch (e) {
         console.log('get user info error: ', e)
       }
     }
 
-    return { userData, initUserInfo }
+    function clearUserData() {
+      userData.value = {
+        avatar_url: '',
+        industry: '',
+        username: '',
+        email: '',
+        mobile: '',
+        location: '',
+        birthday: null,
+        pronouns: '',
+        social_account: []
+      }
+    }
+
+    return { userData, setUserData, clearUserData }
   }
 )
