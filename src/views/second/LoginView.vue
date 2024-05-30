@@ -22,7 +22,7 @@ import router from '@/router/index.js'
 import axios from 'axios'
 import { useToast } from 'primevue/usetoast'
 import { isSignIn, useUserStore } from '@/stores/user.js'
-import { baseUrl } from '@/api/account.js'
+import { baseUrl } from '@/api/index.js'
 
 
 const toast = useToast()
@@ -52,7 +52,7 @@ async function handleSubmit(loginForm) {
 
   try {
     const response = await axios.post(
-      `${baseUrl}/api/account/login`,
+      `${baseUrl}/account/login`,
       {
         username: loginForm[0].input,
         password: loginForm[1].input

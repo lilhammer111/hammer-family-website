@@ -26,6 +26,7 @@ import PrivacyView from '@/views/third/settings/PrivacyView.vue'
 import NotificationView from '@/views/third/settings/NotificationView.vue'
 import ActivityView from '@/views/third/profile/ActivityView.vue'
 import AchievementView from '@/views/third/profile/AchievementView.vue'
+import ChatBotView from '@/views/third/ai/ChatBotView.vue'
 
 const lilhammer_son_router = [
   {
@@ -86,12 +87,16 @@ const third_router = [
     name: 'article',
     component: ArticleView
   },
-
   {
-    path: 'lilhammer',
-    name: 'lilhammer',
+    path: 'hammer',
+    name: 'hammer',
     component: LilhammerView,
     children: lilhammer_son_router
+  },
+  {
+    path:'ai',
+    name: 'ai',
+    component: ChatBotView,
   }
 ]
 

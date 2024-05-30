@@ -36,10 +36,15 @@ const navItems = ref([
     route: 'wish'
   },
   {
+    text: '💬 ChatBot',
+    icon: '',
+    route: 'ai'
+  },
+  {
     text: '🌈 Taste & Tell',
     icon: '',
     route: 'food'
-  }
+  },
 ])
 
 </script>

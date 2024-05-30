@@ -36,6 +36,25 @@ body, html {
   align-items: center;
 }
 
+.flex-hor-start-start {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.flex-hor-start-end {
+  display: flex;
+  justify-content: start;
+  align-items: end;
+}
+
+
+.flex-hor-end-start {
+  display: flex;
+  justify-content: end;
+  align-items: start;
+}
+
 .flex-hor-sb {
   display: flex;
   flex-direction: row;
@@ -58,10 +77,10 @@ body, html {
 .son-gap-10 {
   gap: 10px;
 }
-.son-gap-20{
-  gap:20px;
-}
 
+.son-gap-20 {
+  gap: 20px;
+}
 
 
 .flex-ver-gap-10 {

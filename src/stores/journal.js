@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import axios from 'axios'
-import { baseUrl } from '@/api/account.js'
+import { baseUrl } from '@/api/index.js'
 
 
 export const useJournalStore = defineStore('journal', () => {
