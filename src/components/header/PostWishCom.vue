@@ -22,7 +22,7 @@ async function createWish() {
   if (!text.value.trim()) {
     toast.add(
       {
-        severity: 'error',
+        severity: 'plain',
         summary: 'Hey gus! It failed to create your wish because your input is empty! Please check carefully!',
         life: 15000,
         group: 'dialog'
@@ -72,7 +72,7 @@ async function createWish() {
     @click="showWishEditor"
   />
 
-  <Dialog @update:visible="dialogVisible = false" class="flex-ver-gap-10" :visible="dialogVisible" modal header="Edit"
+  <Dialog @update:visible="dialogVisible = false" class="flex-ver-gap-10" :visible="dialogVisible" modal header="Best Wish"
           :style="{ width: '25rem' }">
     <Textarea autofocus v-model="text" rows="5" cols="29" auto-resize
               placeholder="Thank you for sending your best wishes!" style="border:none" />

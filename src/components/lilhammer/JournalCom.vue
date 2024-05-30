@@ -41,22 +41,28 @@
 <script setup>
 import Image from 'primevue/image'
 import RemarkCom from '@/components/common/RemarkCom.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useJournalStore } from '@/stores/journal.js'
 import { storeToRefs } from 'pinia'
 import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import { isSignIn } from '@/stores/user.js'
 
 // journal store
 const journalStore = useJournalStore()
 const { journalItems, totalJournalItemsNumber, isLoading, pageIndex } = storeToRefs(journalStore)
-const { setJournalItemsOfCurrentPage } = journalStore
 // paginate
 const rowsPerPage = ref(10) // 每页显示的行数
 const onPageChange = (event) => {
-  console.log("page change event", event)
+  console.log('page change event', event)
   pageIndex.value = event.first
-  setJournalItemsOfCurrentPage(pageIndex.value, rowsPerPage.value)
+  journalStore.setJournalItemsOfCurrentPage(pageIndex.value, rowsPerPage.value)
 }
+
+onMounted(async () => {
+  if (isSignIn.value) {
+    await journalStore.setJournalItemsOfCurrentPage(0, 10)
+  }
+})
 </script>
 
 <style scoped lang="scss">

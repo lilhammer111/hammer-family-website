@@ -1,4 +1,4 @@
-# hammer-family-web
+# hammer-web
 
 This project was used to build the lilhammer family's website.
 
