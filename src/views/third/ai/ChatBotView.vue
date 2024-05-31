@@ -7,8 +7,8 @@ import markdownit from 'markdown-it'
 
 const pt = ref({
     card: {
-        root: { style: 'height:calc(100vh - 105px);' },
-        body: { style: 'height: 100%;padding:1rem' },
+        root: { style: 'height:calc(100vh - 105px);border-radius: 5px' },
+        body: { style: 'height: 100%;padding:1rem;' },
         caption: { style: 'height: 3%' },
         content: { style: 'height: 94%;overflow-y: auto' },
         footer: { style: 'height: 3%;position:relative' }
@@ -19,6 +19,8 @@ const pt = ref({
 const md = markdownit()
 
 const chatCompletion = async () => {
+    const userTextRendered = userInput.value
+
     if (!userInput.value.trim()) {
         return
     }
@@ -61,17 +63,19 @@ const chatCompletion = async () => {
         if (resp.ok) {
             dialogs.value.push(
                 {
-                    userText: userInput.value,
-                    aiText: '',
+                    userText: userTextRendered,
+                    aiText: ''
                 }
             )
 
+            userInput.value = ''
 
             const curConversationIndex = dialogs.value.length - 1
             let buffer = ''
             const reader = resp.body.getReader()
             const decoder = new TextDecoder('utf-8')
             let accumContent = ''
+            const icon = '◀'
 
             // eslint-disable-next-line no-constant-condition
             while (true) {
@@ -90,9 +94,12 @@ const chatCompletion = async () => {
                         try {
                             const dataJson = JSON.parse(part)
                             const content = extractContent(dataJson)
-                            accumContent += content
-                            dialogs.value[curConversationIndex].aiText = md.render(accumContent)
-                            // animateText(content, curConversationIndex)
+                            // accumContent += content
+                            for (const word of content) {
+                                accumContent += word
+                                dialogs.value[curConversationIndex].aiText = md.render(accumContent + icon)
+                                sleep(5000)
+                            }
                         } catch (e) {
                             console.error('Error parsing JSON:', e)
                         }
@@ -113,46 +120,27 @@ const chatCompletion = async () => {
         })
     } finally {
         console.log('kankan dialogs', dialogs.value)
-        userInput.value = ''
     }
 }
 
-// function animateText(newText, index) {
-//     let pos = 0;
-//     let accumContent = dialogs.value[index].rawText || ''; // 使用一个新的属性来存储未渲染的纯文本
-//
-//     const interval = setInterval(() => {
-//         if (pos < newText.length) {
-//             accumContent += newText.charAt(pos);  // 累加单个字符到未渲染的纯文本
-//             dialogs.value[index].rawText = accumContent;  // 更新纯文本存储
-//             dialogs.value[index].aiText = md.render(accumContent);  // 渲染累积的纯文本为 HTML
-//             pos++;
-//         } else {
-//             clearInterval(interval);
-//         }
-//     }, 5); // 调整速度以适应视觉效果
-// }
-
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 function extractContent(dataJson) {
     // 检查dataJson是否有choices数组和delta对象
-    return dataJson['choices'][0]?.delta?.content || '';
+    return dataJson['choices'][0]?.delta?.content || ''
 }
 
 const userInput = ref('')
 const textAreaVis = ref(false)
 
-const dialogs = ref([
-    {
-        userText: '你叫什么名字？',
-        aiText: '我叫lilhammer，是一个不太聪明的ai机器人，你可以问我一些简单的问题，问难的问题小心我捶你。',
-    }
-])
+const dialogs = ref([])
 
 const conversation = ref([
     {
         role: 'system',
-        content: '你是 ai hammer，你的生日是2023年2月28号，你家住在上海市普陀区隆德小区8号楼。在回答用户的问题的时候，你还可以使用一些**婴语**来回答，' +
+        content: '你是 ai hammer，你今年一岁了，在回答用户的问题的时候，你还可以使用一些**婴语**来回答，' +
             '比如，嗯嗯~咿咿~呀呀~，当前这样戏剧性的回答方式也要把握好度，在掺杂咿咿呀呀的**婴语**的时候也能让用户听懂你整体的意思' +
             '同时，你会拒绝一切涉及恐怖主义，种族歧视，黄色暴力等问题的回答。' +
             'Hammer AI 为专有名词，不可翻译成其他语言。'

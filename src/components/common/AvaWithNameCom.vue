@@ -16,7 +16,7 @@ function loadAvatarErrorHandle(event) {
       shape="circle"
       @error="loadAvatarErrorHandle"
     />
-    <span style="margin-left: 10px" class="font-bold">{{ props.name }}</span>
+    <span style="margin-left: 10px" class="font-bold">@{{ props.name }}</span>
   </div>
 </template>
 

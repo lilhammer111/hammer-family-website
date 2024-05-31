@@ -11,12 +11,23 @@ import FocusTrap from 'primevue/focustrap'
 import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
 import Tooltip from 'primevue/tooltip'
+import { usePassThrough } from 'primevue/passthrough'
 
+const CustomPreset = usePassThrough(
+    {
+        card: {
+            root: {
+                style: 'border-radius: 5px'
+            }
+        }
+    }
+)
 
 const app = createApp(App)
 app.use(PrimeVue, {
-  ripple: true,
-  outline:true,
+    ripple: true,
+    outline: true,
+    pt: CustomPreset
 })
 app.directive('tooltip', Tooltip)
 app.directive('focustrap', FocusTrap)

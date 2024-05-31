@@ -1,25 +1,32 @@
 <template>
-  <div class="header-container v-cen">
-    <div class="nav v-cen">
-      <img
-        class="logo"
-        :src="logo"
-        alt="logo"
-        srcset=""
-        @click="goHome"
-      />
-      <SearchCom></SearchCom>
+    <div class="flex-ver-start son-gap-10">
+        <div class="header-container v-cen">
+            <div style="height:100%;width:1000px;margin:0 auto" class="flex-hor-sb">
+                <div style="height: 100%" class="flex-hor-start">
+                    <img
+                        class="logo"
+                        :src="logo"
+                        alt="logo"
+                        srcset=""
+                        @click="goHome"
+                        style="height: 80%;object-fit: contain;margin: 0 20px 0 0"
+                    />
+                    <SearchCom></SearchCom>
+                </div>
+                <div class="login-and-avatar-stl v-cen">
+                    <PostBlessCom></PostBlessCom>
+                    <AvatarCom></AvatarCom>
+                    <LoginCom></LoginCom>
+                    <RegisterCom></RegisterCom>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <RouterView></RouterView>
+        </div>
     </div>
-    <div class="login-and-avatar-stl v-cen">
-      <PostBlessCom></PostBlessCom>
-      <AvatarCom></AvatarCom>
-      <LoginCom></LoginCom>
-      <RegisterCom></RegisterCom>
-    </div>
-  </div>
-  <div class="main">
-    <RouterView></RouterView>
-  </div>
+
+
 </template>
 
 <script setup>
@@ -32,7 +39,7 @@ import PostBlessCom from '@/components/header/PostWishCom.vue'
 import router from '@/router/index.js'
 
 function goHome() {
-  router.push({ name: 'home' })
+    router.push({ name: 'home' })
 }
 
 </script>
@@ -40,38 +47,31 @@ function goHome() {
 <style lang="scss" scoped>
 @import '@/styles/variables';
 
-.logo {
-  height: 80%;
-  width: 80%;
-  object-fit: contain;
-  margin: 0 10px 0 5px;
-}
-
 .logo:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .header-container {
-  margin-top: 5px;
-  background-color: #ffffff;
-  height: 65px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  justify-content: space-between;
+    background-color: #ffffff;
+    height: 60px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
 
-  .login-and-avatar-stl .sea {
-    height: 75%;
-  }
+    .login-and-avatar-stl .sea {
+        height: 75%;
+    }
 
-  .nav {
-    height: 100%;
-  }
+    .nav {
+        height: 100%;
+    }
 }
 
 .main {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: row;
-  gap: $m-gap;
+    display: flex;
+    flex-direction: row;
+    gap: $m-gap;
+    width: 1000px;
+    margin-right: auto;
+    margin-left: auto;
 }
 </style>
