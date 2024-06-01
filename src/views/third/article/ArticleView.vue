@@ -118,6 +118,7 @@ onMounted(
             if (resp.status === 200) {
                 //handle
                 const menuData = resp.data['data']
+                console.log('resp data', menuData)
                 /*
                 example:
                     {
@@ -126,41 +127,33 @@ onMounted(
                         ...
                     }
                  */
-                const levelCounts = resp.data['extra']
-
-                // let firstIndex = 0
-                // let secondIndex = 0
-                for (const level1Count of Object.keys(levelCounts)) {
-                    menuItems.value.push(
-                        {
-                            label: level1Count,
-                            items: []
-                        }
-                    )
-                }
-
-                console.log(menuItems.value)
+                // const levelCounts = resp.data['extra']
+                //
+                // for (const level1Count of Object.keys(levelCounts)) {
+                //     menuItems.value.push(
+                //         {
+                //             label: level1Count,
+                //             items: []
+                //         }
+                //     )
+                // }
 
                 let sIndex = 0
-
+                let fIndex = 0
                 for (const data of menuData) {
-                    for (const menuItem of menuItems.value) {
-                        if (menuItem['label'] === data['level1']) {
-
-                            if (menuItem['items'].length && menuItem['items'][sIndex][0].label !== data['level2']) {
-
-                                menuItem['items'].push(
-                                    [
-                                        {
-                                            label: data['level2'],
-                                            items: []
-                                        }
-                                    ]
-                                )
-                                sIndex++
+                    if (!menuItems.value.length) {
+                        menuItems.value.push(
+                            {
+                                label: data['level1'],
+                                items: []
                             }
+                        )
+                    }
 
-                            menuItem['items'].push(
+                    if (menuItems.value[fIndex]['label'] === data['level1']) {
+                        if (!menuItems.value[fIndex]['items'].length) {
+                            sIndex = 0
+                            menuItems.value[fIndex]['items'].push(
                                 [
                                     {
                                         label: data['level2'],
@@ -168,8 +161,30 @@ onMounted(
                                     }
                                 ]
                             )
-
                         }
+
+                        if (menuItems.value[fIndex]['items'][sIndex][0].label === data['level2']) {
+                            menuItems.value[fIndex]['items'][sIndex][0].items.push({ label: data['level3'] })
+                        } else {
+                            sIndex++
+                            menuItems.value[fIndex]['items'].push(
+                                [
+                                    {
+                                        label: data['level2'],
+                                        items: []
+                                    }
+                                ]
+                            )
+                            menuItems.value[fIndex]['items'][sIndex][0].items.push({ label: data['level3'] })
+                        }
+                    } else {
+                        fIndex++
+                        menuItems.value.push(
+                            {
+                                label: data['level1'],
+                                items: []
+                            }
+                        )
                     }
                 }
 
