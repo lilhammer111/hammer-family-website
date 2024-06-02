@@ -61,6 +61,14 @@ body, html {
   align-items: center;
 }
 
+.flex-hor-se {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
 .flex-hor-sa {
   display: flex;
   flex-direction: row;
@@ -195,4 +203,10 @@ body, html {
 .img-item {
   display: flex;
   align-items: center;
+}
+
+// notebook
+.notebook-title-stl {
+  font-size: 18px;
+  font-weight: bolder;
 }

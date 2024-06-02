@@ -98,7 +98,6 @@ const chatCompletion = async () => {
                             for (const word of content) {
                                 accumContent += word
                                 dialogs.value[curConversationIndex].aiText = md.render(accumContent + icon)
-                                sleep(5000)
                             }
                         } catch (e) {
                             console.error('Error parsing JSON:', e)
@@ -123,9 +122,6 @@ const chatCompletion = async () => {
     }
 }
 
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
 
 function extractContent(dataJson) {
     // 检查dataJson是否有choices数组和delta对象

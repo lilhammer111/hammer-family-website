@@ -28,6 +28,7 @@ import ActivityView from '@/views/third/profile/ActivityView.vue'
 import AchievementView from '@/views/third/profile/AchievementView.vue'
 import ChatBotView from '@/views/third/ai/ChatBotView.vue'
 import ArticleCardCom from '@/views/third/article/ArticleCardCom.vue'
+import NoteBookView from '@/views/second/notebook/NoteBookView.vue'
 
 const lilhammer_son_router = [
     {
@@ -84,18 +85,6 @@ const third_router = [
         component: HomeView
     },
     {
-        path: 'article',
-        name: 'article',
-        component: ArticleView,
-        children: [
-            {
-                path:'article-index',
-                name:'article-index',
-                component: ArticleCardCom
-            }
-        ]
-    },
-    {
         path: 'hammer',
         name: 'hammer',
         component: LilhammerView,
@@ -105,7 +94,7 @@ const third_router = [
         path: 'ai',
         name: 'ai',
         component: ChatBotView
-    }
+    },
 ]
 
 const second_router = [
@@ -173,7 +162,24 @@ const second_router = [
                 component: AchievementView
             }
         ]
-    }
+    },
+    {
+        path:'notebook',
+        name:'notebook',
+        component: NoteBookView
+    },
+    {
+        path: 'article',
+        name: 'article',
+        component: ArticleView,
+        children: [
+            {
+                path:'article-index',
+                name:'article-index',
+                component: ArticleCardCom
+            }
+        ]
+    },
 ]
 
 const router = createRouter({

@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 const navItems = ref([
   {
-    text: '🌴 Account Security',
+    text: '🌴 Security',
     icon: '',
     route: 'secure'
   },
@@ -14,7 +14,7 @@ const navItems = ref([
     route: 'preferences'
   },
   {
-    text: '🐣 Privacy Settings',
+    text: '🐣 Privacy',
     icon: '',
     route: 'privacy'
   }

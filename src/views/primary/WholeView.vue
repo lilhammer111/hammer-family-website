@@ -1,7 +1,7 @@
 <template>
     <div class="flex-ver-start son-gap-10">
         <div class="header-container v-cen">
-            <div style="height:100%;width:1000px;margin:0 auto" class="flex-hor-sb">
+            <div class="flex-hor-sb inner-header">
                 <div style="height: 100%" class="flex-hor-start">
                     <img
                         class="logo"
@@ -51,6 +51,12 @@ function goHome() {
     cursor: pointer;
 }
 
+.inner-header {
+    height: 100%;
+    width: $page-width;
+    margin: 0 auto;
+}
+
 .header-container {
     background-color: #ffffff;
     height: 60px;
@@ -70,7 +76,7 @@ function goHome() {
     display: flex;
     flex-direction: row;
     gap: $m-gap;
-    width: 1000px;
+    width: $page-width;
     margin-right: auto;
     margin-left: auto;
 }

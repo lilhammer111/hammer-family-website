@@ -20,6 +20,12 @@ const navItems = ref([
         text: '💬 ChatBot',
         icon: '',
         route: 'ai'
+    },
+    {
+        text: '📕 NoteBook',
+        icon:'',
+        route:'notebook',
+        target: '_blank'
     }
 ])
 

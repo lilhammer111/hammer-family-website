@@ -6,7 +6,9 @@
         <template #content>
             <div class="mg-btm-10" v-for="(data, idx) in datas" :key="idx">
                 <Tag :value="data.tag" class="left-bar-tag-stl" severity="contrast"></Tag>
-                <RouterLink class="news-stl" :to="{name: 'article-index'}">{{ data.title }}</RouterLink>
+                <RouterLink class="news-stl" :to="{name: 'article-index'}" target="_blank">
+                    {{ data.title }}
+                </RouterLink>
             </div>
         </template>
     </Card>

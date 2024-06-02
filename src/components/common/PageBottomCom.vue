@@ -4,7 +4,7 @@ defineProps(['content'])
 
 <template>
   <div class="no-more-stl">
-    {{ content }}
+      🌿 {{ content }}
   </div>
 </template>
 

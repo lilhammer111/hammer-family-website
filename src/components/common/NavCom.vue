@@ -1,42 +1,42 @@
 <template>
-  <div class="left-nav">
-    <Card>
-      <template #content>
-        <div class="left-nav-item " v-for="item of items" :key="item.id">
-            <Button :label="item.text" severity="secondary" link @click="navigate(item)"/>
-        </div>
-      </template>
-    </Card>
-  </div>
+    <div class="left-nav">
+        <Card>
+            <template #content>
+                <div class="flex-ver-start son-gap-10">
+                    <RouterLink class="left-nav-item " v-for="item of items" :key="item.id" :to="{name: item.route}"
+                                :target="item.target">{{ item.text }}
+                    </RouterLink>
+                </div>
+            </template>
+        </Card>
+    </div>
 </template>
 
 <script setup>
-import router from '@/router/index.js'
 
 defineProps([
-  'items'
+    'items'
 ])
 
-function navigate(item) {
-  router.push({name: item.route})
-}
 </script>
 
 <style lang="scss" scoped>
 .left-nav {
-  width: 100%;
+    width: 100%;
 
-  .left-nav-item {
-    margin: 5px 0;
-  }
+    .left-nav-item {
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+    }
 
-  .left-nav-item:hover {
-    background-color: var(--gray-100);
-    border-radius: 10px;
-  }
+    .left-nav-item:hover {
+        background-color: var(--bluegray-100);
+        border-radius: 5px;
+    }
 }
 
 .p-button {
-  color: #000000;
+    color: #000000;
 }
 </style>

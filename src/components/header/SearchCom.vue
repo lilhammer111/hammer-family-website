@@ -10,7 +10,7 @@ import { ref } from 'vue'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 
-const input = ref(null)
+const input = ref('')
 </script>
 
 <style lang="scss">
