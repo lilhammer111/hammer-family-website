@@ -19,6 +19,11 @@ const CustomPreset = usePassThrough(
             root: {
                 style: 'border-radius: 5px'
             }
+        },
+        button: {
+            root: {
+                style: 'margin:0'
+            }
         }
     }
 )

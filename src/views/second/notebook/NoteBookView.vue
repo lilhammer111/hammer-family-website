@@ -1,16 +1,21 @@
 <script setup>
-import NBNavCom from '@/views/second/notebook/NBNavCom.vue'
-import NoteBookContentCom from '@/views/second/notebook/NoteBookContentCom.vue'
-import { useNbSotre } from '@/stores/notebook.js'
+import NBNavBarCom from '@/views/second/notebook/NBNavBarCom.vue'
+import NBContentCom from '@/views/second/notebook/NBContentCom.vue'
+import { useNbStore } from '@/stores/notebook.js'
+import { onMounted } from 'vue'
 
-const notebookStore = useNbSotre()
+const nbStore = useNbStore()
+
+onMounted(async ()=> {
+    await nbStore.setItems()
+})
 </script>
 
 <template>
     <div class="notebook-container">
-        <NBNavCom class="notebook-nav-stl" v-show="notebookStore.navVisible"></NBNavCom>
-        <Divider layout="vertical" :pt="{root: {style: 'margin: 0'}}" v-show="notebookStore.navVisible"></Divider>
-        <NoteBookContentCom class="notebook-content-stl"></NoteBookContentCom>
+        <NBNavBarCom class="notebook-nav-stl" v-show="nbStore.navVisible"></NBNavBarCom>
+        <Divider layout="vertical" :pt="{root: {style: 'margin: 0'}}" v-show="nbStore.navVisible"></Divider>
+        <NBContentCom class="notebook-content-stl"></NBContentCom>
     </div>
 </template>
 

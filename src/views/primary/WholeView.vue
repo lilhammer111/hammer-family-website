@@ -21,8 +21,10 @@
                 </div>
             </div>
         </div>
-        <div class="main">
-            <RouterView></RouterView>
+        <div class="main-container">
+            <div class="main">
+                <RouterView></RouterView>
+            </div>
         </div>
     </div>
 
@@ -53,7 +55,7 @@ function goHome() {
 
 .inner-header {
     height: 100%;
-    width: $page-width;
+    width: $max-page-width;
     margin: 0 auto;
 }
 
@@ -72,12 +74,16 @@ function goHome() {
     }
 }
 
+.main-container {
+    width: 100hh;
+}
+
 .main {
     display: flex;
     flex-direction: row;
     gap: $m-gap;
-    width: $page-width;
-    margin-right: auto;
-    margin-left: auto;
+    margin:0 auto;
+    max-width: $max-page-width;
+    min-width:$min-page-width;
 }
 </style>

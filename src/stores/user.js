@@ -10,13 +10,6 @@ watchEffect(
   }
 )
 
-// watch(isSignIn, async (newVal) => {
-//   if (newVal === true) {
-//     await useUserStore().setUserData()
-//   }
-// })
-
-
 export const useUserStore = defineStore(
   'user',
   () => {
@@ -47,7 +40,7 @@ export const useUserStore = defineStore(
           }
         )
 
-        console.log('get user info:', response)
+        // console.log('get user info:', response)
         userData.value.avatar_url = response.data['avatar_url']
         userData.value.industry = response.data['industry']
         userData.value.username = response.data['username']

@@ -36,7 +36,7 @@ const url = ref(imageUrl)
 function afterUpload(event) {
   console.log('after uploading event: ', event)
   let filename = event.files[0]['name']
-  userStore.userData.avatar_url = `${import.meta.env.VITE_API_URL}/static/file/${filename}`
+  userStore.userData.avatar_url = `${import.meta.env.VITE_API_URL}/static/image/${filename}`
 }
 
 

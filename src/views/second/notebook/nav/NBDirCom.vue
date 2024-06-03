@@ -1,19 +1,26 @@
 <script setup>
+import {  ref } from 'vue'
+import NBItemCom from '@/views/second/notebook/nav/NBItemCom.vue'
+
+
+const tutorialProps = ref({
+    label: 'Tutorial',
+    action: ()=>{}
+})
+
+const noteProps = ref({
+    label: 'Note',
+    action: ()=>{}
+})
+
 
 </script>
 
 <template>
-<div>
-    <div class="notebook-title-stl common-stl flex-hor-sb">
-        <span>Operate</span>
-        <Button
-            icon="pi pi-angle-left"
-            text
-            :pt="{root: {style: 'margin:0'}}"
-            @click="nbStore.navVisible = false"
-        ></Button>
+    <div>
+        <NBItemCom :label="noteProps.label" :action="noteProps.action"></NBItemCom>
+        <NBItemCom :label="tutorialProps.label" :action="tutorialProps.action" ></NBItemCom>
     </div>
-</div>
 </template>
 
 <style scoped lang="scss">

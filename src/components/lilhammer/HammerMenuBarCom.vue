@@ -132,7 +132,7 @@ import Menubar from 'primevue/menubar'
 import { ref } from 'vue'
 import Toast from 'primevue/toast'
 import router from '@/router/index.js'
-import { baseUrl, imageUrl, staticBaseUrl } from '@/api/index.js'
+import { baseUrl, imageUrl, staticImageUrl } from '@/api/index.js'
 import axios from 'axios'
 import { useJournalStore } from '@/stores/journal.js'
 import { storeToRefs } from 'pinia'
@@ -429,7 +429,7 @@ function onUpload(event) {
   console.log('onUpload', event)
   for (const file of event.files) {
     imagesItems.value.push({ url: file.objectURL, closeBtnVis: false })
-    journalForm.value.images.push(staticBaseUrl + '/' + file.name)
+    journalForm.value.images.push(staticImageUrl + '/' + file.name)
   }
 }
 
