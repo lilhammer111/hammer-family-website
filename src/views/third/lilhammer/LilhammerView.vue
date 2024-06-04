@@ -5,7 +5,7 @@
 
 <script setup>
 
-import HammerMenuBarCom from '@/components/lilhammer/HammerMenuBarCom.vue'
+import HammerMenuBarCom from '@/views/third/lilhammer/HammerMenuBarCom.vue'
 </script>
 
 <style lang="scss" scoped>

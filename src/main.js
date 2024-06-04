@@ -12,6 +12,7 @@ import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
 import Tooltip from 'primevue/tooltip'
 import { usePassThrough } from 'primevue/passthrough'
+import 'highlight.js/styles/atom-one-dark.css'
 
 const CustomPreset = usePassThrough(
     {

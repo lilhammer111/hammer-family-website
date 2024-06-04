@@ -1,5 +1,5 @@
 <script setup>
-import NavCom from '@/components/common/NavCom.vue'
+import NavCom from '@/views/common/NavCom.vue'
 import { ref } from 'vue'
 
 const navItems = ref([

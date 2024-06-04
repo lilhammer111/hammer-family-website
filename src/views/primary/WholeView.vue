@@ -13,11 +13,15 @@
                     />
                     <SearchCom></SearchCom>
                 </div>
-                <div class="login-and-avatar-stl v-cen">
-                    <PostBlessCom></PostBlessCom>
-                    <AvatarCom></AvatarCom>
-                    <LoginCom></LoginCom>
-                    <RegisterCom></RegisterCom>
+                <div >
+                    <div v-if="isSignIn" class="flex-hor-sb son-gap-10">
+                        <PostBlessCom></PostBlessCom>
+                        <AvatarCom></AvatarCom>
+                    </div>
+                    <div class="flex-hor-sb son-gap-10" v-else>
+                        <LoginCom></LoginCom>
+                        <RegisterCom></RegisterCom>
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,12 +37,13 @@
 
 <script setup>
 import logo from '@/assets/pictures/hammer_logo.webp'
-import LoginCom from '@/components/header/LoginCom.vue'
-import RegisterCom from '@/components/header/RegisterCom.vue'
-import SearchCom from '@/components/header/SearchCom.vue'
-import AvatarCom from '@/components/header/AvatarCom.vue'
-import PostBlessCom from '@/components/header/PostWishCom.vue'
+import LoginCom from '@/views/primary/header/LoginCom.vue'
+import RegisterCom from '@/views/primary/header/RegisterCom.vue'
+import SearchCom from '@/views/primary/header/SearchCom.vue'
+import AvatarCom from '@/views/primary/header/AvatarCom.vue'
+import PostBlessCom from '@/views/primary/header/PostWishCom.vue'
 import router from '@/router/index.js'
+import { isSignIn } from '@/stores/user.js'
 
 function goHome() {
     router.push({ name: 'home' })
@@ -82,8 +87,8 @@ function goHome() {
     display: flex;
     flex-direction: row;
     gap: $m-gap;
-    margin:0 auto;
+    margin: 0 auto;
     max-width: $max-page-width;
-    min-width:$min-page-width;
+    min-width: $min-page-width;
 }
 </style>

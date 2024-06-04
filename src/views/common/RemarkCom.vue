@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import IconNum from '@/components/common/IconNum.vue'
+import IconNum from '@/views/common/IconNum.vue'
 import { ref, toRefs } from 'vue'
 
 const showRemark = ref(false)

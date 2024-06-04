@@ -30,12 +30,12 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-import RemarkCom from '@/components/common/RemarkCom.vue'
-import AvaWithNameCom from '@/components/common/AvaWithNameCom.vue'
+import RemarkCom from '@/views/common/RemarkCom.vue'
+import AvaWithNameCom from '@/views/common/AvaWithNameCom.vue'
 import axios from 'axios'
 import { storeToRefs } from 'pinia'
 import { useWishStore } from '@/stores/wish.js'
-import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import PageBottomCom from '@/views/common/PageBottomCom.vue'
 
 // paginate
 const first = ref(0) // 当前页的起始索引

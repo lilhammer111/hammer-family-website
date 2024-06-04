@@ -1,6 +1,6 @@
 <template>
     <div class="signupFrm">
-        <form action="" class="form">
+        <form action="" class="form flex-ver-start son-gap-10">
             <h1 class="title">Sign In</h1>
             <div class="inputContainer" v-for="(item, idx) in loginForm" :key="idx">
                 <input :type="item.type" class="input" placeholder="a" v-model="item.input" />
@@ -112,7 +112,6 @@ async function handleSubmit(loginForm) {
     position: relative;
     height: 45px;
     width: 90%;
-    margin-bottom: 17px;
 }
 
 .inputContainer:last-of-type {

@@ -142,7 +142,7 @@
 <script setup>
 import Card from 'primevue/card'
 import { ref } from 'vue'
-import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import PageBottomCom from '@/views/common/PageBottomCom.vue'
 import HomeSecondaryCom from '@/views/third/home/HomeSecondaryCom.vue'
 
 const lilhammer = ref({

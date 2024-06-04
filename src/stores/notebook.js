@@ -5,11 +5,13 @@ import { baseUrl } from '@/api/index.js'
 
 export const useNbStore = defineStore(
     'notebook',
-     () => {
+    () => {
         const navVisible = ref(true)
-        const curArticle = ref()
+        const curArticle = ref(null)
         const noteItems = ref([])
         const tutorialItems = ref([])
+        const displayCurrentArticle = ref(false)
+        const curDirContents = ref([])
 
         async function setItems() {
             try {
@@ -20,7 +22,6 @@ export const useNbStore = defineStore(
 
                 if (resp.status === 200) {
                     const data = resp.data['data']
-                    console.log('resp data', resp.data['data'])
                     for (const item of data) {
                         if (item['kind'] === 'note') {
                             noteItems.value.push(item)
@@ -29,8 +30,6 @@ export const useNbStore = defineStore(
                         }
                     }
 
-                    console.log(noteItems.value)
-                    console.log(tutorialItems.value)
                 } else {
                     console.log('err')
                 }
@@ -39,6 +38,6 @@ export const useNbStore = defineStore(
             }
         }
 
-        return { navVisible, curArticle, noteItems, tutorialItems, setItems }
+        return { navVisible, curArticle, noteItems, tutorialItems, displayCurrentArticle, curDirContents, setItems }
     }
 )

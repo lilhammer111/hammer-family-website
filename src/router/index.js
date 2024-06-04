@@ -1,17 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import WelcomeView from '@/views/primary/WelcomeView.vue'
-import LoginView from '@/views/second/LoginView.vue'
+import LoginView from '@/views/second/account/LoginView.vue'
 import IndexView from '@/views/primary/WholeView.vue'
-import RegisterView from '@/views/second/RegisterView.vue'
+import RegisterView from '@/views/second/account/RegisterView.vue'
 import HomeView from '@/views/third/home/HomeView.vue'
 import MsgView from '@/views/third/ScoreView.vue'
 import ArticleView from '@/views/second/article/ArticleView.vue'
 import MainView from '@/views/second/MainView.vue'
-import LilhammerView from '@/views/third/LilhammerView.vue'
+import LilhammerView from '@/views/third/lilhammer/LilhammerView.vue'
 import NewsView from '@/views/third/NewsView.vue'
-import HammerActivityCom from '@/components/lilhammer/JournalCom.vue'
-import HammerRecordCom from '@/components/lilhammer/MetricCom.vue'
-import WishCom from '@/components/lilhammer/WishCom.vue'
+import HammerActivityCom from '@/views/third/lilhammer/JournalCom.vue'
+import HammerRecordCom from '@/views/third/lilhammer/MetricCom.vue'
+import WishCom from '@/views/third/lilhammer/WishCom.vue'
 import FoodCom from '@/components/score/share/FoodCom.vue'
 import MovieCom from '@/components/score/share/MovieCom.vue'
 import BookCom from '@/components/score/share/BookCom.vue'
@@ -94,7 +94,7 @@ const third_router = [
         path: 'ai',
         name: 'ai',
         component: ChatBotView
-    },
+    }
 ]
 
 const second_router = [
@@ -164,8 +164,8 @@ const second_router = [
         ]
     },
     {
-        path:'notebook',
-        name:'notebook',
+        path: 'notebook',
+        name: 'notebook',
         component: NoteBookView
     },
     {
@@ -174,17 +174,18 @@ const second_router = [
         component: ArticleView,
         children: [
             {
-                path:'article-index',
-                name:'article-index',
+                path: 'article-index',
+                name: 'article-index',
                 component: ArticleCardCom
             }
         ]
-    },
+    }
 ]
 
 const router = createRouter({
     // history: createWebHashHistory(import.meta.env.BASE_URL),
     history: createWebHashHistory(),
+    mode: 'hash',
     routes: [
         {
             path: '/:catchAll(.*)', // Vue 3 使用 /:catchAll(.*) 来捕获所有未定义的路由

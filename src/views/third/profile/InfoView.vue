@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-import ProfileInfoCom from '@/components/common/ProfileInfoCom.vue'
+import ProfileInfoCom from '@/views/common/ProfileInfoCom.vue'
 import FloatLabel from 'primevue/floatlabel'
 import axios from 'axios'
 import { useUserStore } from '@/stores/user.js'
 import { imageUrl } from '@/api/index.js'
-import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import PageBottomCom from '@/views/common/PageBottomCom.vue'
 import { useToast } from 'primevue/usetoast'
 
 const toast = useToast()

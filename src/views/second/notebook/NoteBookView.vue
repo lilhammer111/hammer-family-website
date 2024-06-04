@@ -3,9 +3,10 @@ import NBNavBarCom from '@/views/second/notebook/NBNavBarCom.vue'
 import NBContentCom from '@/views/second/notebook/NBContentCom.vue'
 import { onMounted } from 'vue'
 import { useNbStore } from '@/stores/notebook.js'
+
 const nbStore = useNbStore()
 
-onMounted(async ()=> {
+onMounted(async () => {
     await nbStore.setItems()
 })
 </script>
@@ -27,11 +28,10 @@ onMounted(async ()=> {
 }
 
 .notebook-nav-stl {
-    flex: 1 1 20%;
-    height: calc(100vh - 85px);
+    width: 20%
 }
 
 .notebook-content-stl {
-    flex: 1 1 80%;
+    width: 80%;
 }
 </style>

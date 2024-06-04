@@ -1,7 +1,7 @@
 <script setup>
-import NavCom from '@/components/common/NavCom.vue'
-import NewsCom from '@/components/NewsCom.vue'
-import ArticleCom from '@/components/ArticleCom.vue'
+import NavCom from '@/views/common/NavCom.vue'
+import NewsCom from '@/views/primary/NewsCom.vue'
+import ArticleCom from '@/views/primary/ArticleCom.vue'
 import { ref } from 'vue'
 
 

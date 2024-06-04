@@ -40,11 +40,11 @@
 
 <script setup>
 import Image from 'primevue/image'
-import RemarkCom from '@/components/common/RemarkCom.vue'
+import RemarkCom from '@/views/common/RemarkCom.vue'
 import { onMounted, ref } from 'vue'
 import { useJournalStore } from '@/stores/journal.js'
 import { storeToRefs } from 'pinia'
-import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import PageBottomCom from '@/views/common/PageBottomCom.vue'
 import { isSignIn } from '@/stores/user.js'
 
 // journal store

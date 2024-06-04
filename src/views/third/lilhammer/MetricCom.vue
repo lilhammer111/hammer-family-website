@@ -27,7 +27,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import PageBottomCom from '@/components/common/PageBottomCom.vue'
+import PageBottomCom from '@/views/common/PageBottomCom.vue'
 import { useMetricStore } from '@/stores/metric.js'
 import { storeToRefs } from 'pinia'
 const metricStore = useMetricStore()

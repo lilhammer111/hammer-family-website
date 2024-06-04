@@ -4,9 +4,9 @@ import NBDirCom from '@/views/second/notebook/nav/NBDirCom.vue'
 </script>
 
 <template>
-    <div class="flex-ver-start son-gap-20">
+    <div class="flex-ver-start son-gap-20" style="position: sticky;top: 0">
         <NBOpCom></NBOpCom>
-        <NBDirCom></NBDirCom>
+        <NBDirCom ></NBDirCom>
     </div>
 </template>
 

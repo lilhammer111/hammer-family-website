@@ -1,7 +1,7 @@
 <script setup>
 import genesisAvatar from '@/assets/pictures/genesis.jpg'
 import { onMounted, ref } from 'vue'
-import AvaWithNameCom from '@/components/common/AvaWithNameCom.vue'
+import AvaWithNameCom from '@/views/common/AvaWithNameCom.vue'
 import python_png from '@/assets/pictures/python.jpeg'
 import ArticleOpCom from '@/views/second/article/ArticleOpCom.vue'
 

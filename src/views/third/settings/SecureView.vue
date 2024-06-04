@@ -1,5 +1,5 @@
 <script setup>
-import ProfileInfoCom from '@/components/common/ProfileInfoCom.vue'
+import ProfileInfoCom from '@/views/common/ProfileInfoCom.vue'
 import { ref } from 'vue'
 import FloatLabel from 'primevue/floatlabel'
 

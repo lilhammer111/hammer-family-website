@@ -91,6 +91,13 @@ body, html {
     justify-content: start;
 }
 
+.flex-ver-start-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
 .flex-hor-end {
     display: flex;
     justify-content: end;

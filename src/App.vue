@@ -1,5 +1,5 @@
 <script setup>
-import SystemToastCom from '@/components/common/SystemToastCom.vue'
+import SystemToastCom from '@/views/common/SystemToastCom.vue'
 import { watchEffect } from 'vue'
 import { isSignIn, useUserStore } from '@/stores/user.js'
 
