@@ -5,11 +5,13 @@ import NBItemCom from '@/views/second/notebook/nav/NBItemCom.vue'
 
 const tutorialProps = ref({
     label: 'Tutorial',
+    kind:'tutorial',
     action: ()=>{}
 })
 
 const noteProps = ref({
     label: 'Note',
+    kind:'note',
     action: ()=>{}
 })
 

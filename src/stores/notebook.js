@@ -5,13 +5,13 @@ import { baseUrl } from '@/api/index.js'
 
 export const useNbStore = defineStore(
     'notebook',
-    async () => {
+     () => {
         const navVisible = ref(true)
         const curArticle = ref()
         const noteItems = ref([])
         const tutorialItems = ref([])
 
-        const setItems = async () => {
+        async function setItems() {
             try {
                 const resp = await axios.get(
                     `${baseUrl}/article/owned`,

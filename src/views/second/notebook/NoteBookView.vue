@@ -1,9 +1,8 @@
 <script setup>
 import NBNavBarCom from '@/views/second/notebook/NBNavBarCom.vue'
 import NBContentCom from '@/views/second/notebook/NBContentCom.vue'
-import { useNbStore } from '@/stores/notebook.js'
 import { onMounted } from 'vue'
-
+import { useNbStore } from '@/stores/notebook.js'
 const nbStore = useNbStore()
 
 onMounted(async ()=> {

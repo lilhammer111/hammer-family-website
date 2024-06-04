@@ -121,7 +121,7 @@ const createArticle = async () => {
             console.log('create article successfully', resp.data['data'])
 
             if (form.value.kind === 'note') {
-                nbStore.noteItems.unshift({ label: resp_data['title'] })
+                nbStore.noteItems.unshift({ title: resp_data['title'] })
             }
 
         } else {
