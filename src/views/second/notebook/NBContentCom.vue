@@ -75,7 +75,6 @@ const gotoSlug = (event, dirItem) => {
             <Divider v-show="dirVisible" layout="vertical" :pt="{root: {style: 'height: 50vh'}}"></Divider>
             <!--      文章大纲      -->
             <div v-if="dirVisible" class="article-dir-stl">
-                <div style="margin-bottom: 10px">Directory</div>
                 <div class="flex-ver-start-start">
                     <Button
                         v-for="(dir, idx) of nbStore.curDirContents"

@@ -64,8 +64,6 @@ const md = new MarkdownIt('default', {
 })
     .use(markdownItAnchor, {
         callback(token, anchor_info) {
-            console.log('token', token)
-            console.log('anchor_info', anchor_info)
             const text = anchor_info.title
             const slug = anchor_info.slug
             if (token.tag === 'h1') {
@@ -91,7 +89,7 @@ defineProps({
 const nbStore = useNbStore()
 const resetCurrentArticle = async (item) => {
     nbStore.curArticle = item
-
+    nbStore.curDirContents = []
     console.log('cur doc', nbStore.curArticle)
 
     if (nbStore.curArticle['text_url']) {
