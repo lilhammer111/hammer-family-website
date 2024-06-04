@@ -10,7 +10,7 @@
         ></Button>
     </div>
     <div
-        v-for="(item, idx) of noteItems"
+        v-for="(item, idx) of items"
         :key="idx"
         class="notebook-item-stl notebook-common-stl flex-hor-sb"
         @click="setCurrentArticle(item)"
@@ -29,15 +29,30 @@
 
 <script setup>
 import { useNbStore } from '@/stores/notebook.js'
-import { storeToRefs } from 'pinia'
+import { ref, watch } from 'vue'
 
-defineProps({
+const props = defineProps({
     label: String,
+    kind: String,
     action: Function
 })
 
+
 const nbStore = useNbStore()
-const { noteItems } = storeToRefs(nbStore)
+const items = ref()
+watch(
+    () => {
+        if (props.kind === 'note') {
+            return nbStore.noteItems
+        } else {
+            return nbStore.tutorialItems
+        }
+    },
+    (newVal) => {
+        items.value = newVal
+        console.log('items', items.value)
+    }
+)
 
 const setCurrentArticle = (item) => {
     nbStore.curArticle = item

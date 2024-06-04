@@ -3,7 +3,7 @@ import genesisAvatar from '@/assets/pictures/genesis.jpg'
 import { onMounted, ref } from 'vue'
 import AvaWithNameCom from '@/components/common/AvaWithNameCom.vue'
 import python_png from '@/assets/pictures/python.jpeg'
-import ArticleOpCom from '@/views/third/article/ArticleOpCom.vue'
+import ArticleOpCom from '@/views/second/article/ArticleOpCom.vue'
 
 const cardPt = ref({
     root: { style: 'display: flex;justify-content: start;align-items: center;flex-direction:row;border-radius: 5px' },

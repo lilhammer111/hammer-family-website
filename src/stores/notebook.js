@@ -19,8 +19,8 @@ export const useNbStore = defineStore(
                 )
 
                 if (resp.status === 200) {
-                    console.log('resp data', resp.data['data'])
                     const data = resp.data['data']
+                    console.log('resp data', resp.data['data'])
                     for (const item of data) {
                         if (item['kind'] === 'note') {
                             noteItems.value.push(item)
@@ -28,6 +28,9 @@ export const useNbStore = defineStore(
                             tutorialItems.value.push(item)
                         }
                     }
+
+                    console.log(noteItems.value)
+                    console.log(tutorialItems.value)
                 } else {
                     console.log('err')
                 }
