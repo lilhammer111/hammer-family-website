@@ -29,6 +29,9 @@ import AchievementView from '@/views/third/profile/AchievementView.vue'
 import ChatBotView from '@/views/third/ai/ChatBotView.vue'
 import ArticleCardCom from '@/views/second/article/ArticleCardCom.vue'
 import NoteBookView from '@/views/second/notebook/NoteBookView.vue'
+import NBHomeView from '@/views/second/notebook/view/NBHomeView.vue'
+import NBTextView from '@/views/second/notebook/view/NBTextView.vue'
+import NBEditView from '@/views/second/notebook/view/NBEditView.vue'
 
 const lilhammer_son_router = [
     {
@@ -166,7 +169,12 @@ const second_router = [
     {
         path: 'notebook',
         name: 'notebook',
-        component: NoteBookView
+        component: NoteBookView,
+        children: [
+            {path: 'home', name: 'nb-home', component: NBHomeView},
+            {path: 'text', name: 'nb-text', component: NBTextView},
+            {path: 'edit', name: 'nb-edit', component: NBEditView},
+        ]
     },
     {
         path: 'article',

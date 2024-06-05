@@ -11,7 +11,7 @@
 }
 
 body, html {
-    background-color: #f7f7f7;
+    background-color: $page-background-color;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -21,7 +21,7 @@ body, html {
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
-    background-color: #f7f7f7;
+    background-color: $page-background-color;
 }
 
 .v-cen {
@@ -234,12 +234,15 @@ body, html {
 
 .notebook-item-stl {
     color: var(--bluegray-400);
+    box-sizing: border-box;
+    height: 36px;
 }
 
 .notebook-item-stl:hover {
     background-color: $nb-nav-hover-bk-color;
     border-radius: 5px;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .required::after {

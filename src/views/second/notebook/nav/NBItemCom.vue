@@ -13,10 +13,13 @@
         v-for="(item, idx) of items"
         :key="idx"
         class="notebook-item-stl notebook-common-stl flex-hor-sb"
-        @click="resetCurrentArticle(item)"
+        @click="nbStore.resetCurrentArticle(item, md, false)"
+        @mouseover="hoverItemId = idx"
+        @mouseleave="hoverItemId = -1"
     >
         <span>{{ item.title }}</span>
         <Button
+            v-show="hoverItemId === idx"
             icon="pi pi-ellipsis-h"
             text
             :pt="btnPt"
@@ -28,7 +31,6 @@
 <script setup>
 import { useNbStore } from '@/stores/notebook.js'
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import ClipboardJS from 'clipboard'
@@ -43,6 +45,7 @@ onMounted(() => {
     new ClipboardJS('.pi-copy')
 })
 
+const hoverItemId = ref(-1)
 
 hljs.highlightAll()
 // 配置 markdown-it
@@ -95,26 +98,6 @@ defineProps({
 
 
 const nbStore = useNbStore()
-const resetCurrentArticle = async (item) => {
-    nbStore.curArticle = item
-    nbStore.curDirContents = []
-    console.log('cur doc', nbStore.curArticle)
-
-    if (nbStore.curArticle['text_url']) {
-        const resp = await axios.get(
-            nbStore.curArticle['text_url']
-        )
-
-        if (resp.status === 200) {
-            nbStore.curArticle['text'] = md.render(resp.data)
-        } else {
-            console.log('get static doc is not 200')
-        }
-    } else {
-        nbStore.curArticle['text'] = md.render(nbStore.curArticle['text'])
-    }
-    nbStore.displayCurrentArticle = true
-}
 
 // stl
 const btnPt = ref({
@@ -122,7 +105,3 @@ const btnPt = ref({
     root: { style: 'height: 1.5rem;width:1.5rem;margin:0' }
 })
 </script>
-
-
-<style>
-</style>

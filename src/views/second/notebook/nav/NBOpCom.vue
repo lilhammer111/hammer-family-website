@@ -6,6 +6,7 @@ import { ref } from 'vue'
 import { useNbStore } from '@/stores/notebook.js'
 import axios from 'axios'
 import { baseUrl, staticBaseUrl } from '@/api/index.js'
+import router from '@/router/index.js'
 
 
 const nbStore = useNbStore()
@@ -17,7 +18,8 @@ const items = ref([
         icon: 'pi pi-home',
         label: 'Home',
         action: async () => {
-
+            await router.push({ name: 'nb-home' })
+            nbStore.displayCurrentArticle = false
         }
     },
     {
@@ -39,6 +41,13 @@ const items = ref([
         label: 'Import',
         action: async () => {
             uploadDocDialogVisible.value = true
+        }
+    },
+    {
+        icon: 'pi pi-plus',
+        label: 'New',
+        action: async () => {
+            createDocDialogVisible.value = true
         }
     }
 ])
@@ -136,6 +145,23 @@ const createArticle = async () => {
     }
 }
 
+const createDocDialogVisible = ref(false)
+
+
+const editForm = ref({
+    title: '',
+    kind: '',
+    summary: '',
+    text_url: ''
+})
+const intoEditState = async () => {
+    console.log(editForm.value)
+    await nbStore.resetCurrentArticle(editForm.value, null, true)
+    console.log(nbStore.curArticle)
+    createDocDialogVisible.value = false
+    nbStore.displayCurrentArticle = true
+    await router.push({ name: 'nb-edit' })
+}
 </script>
 
 <template>
@@ -166,8 +192,8 @@ const createArticle = async () => {
         @update:visible="uploadDocDialogVisible = false"
         header="Upload a Doc"
         :style="{ width: '28rem' }"
+        modal
     >
-
         <div class="flex-ver-start son-gap-10">
             <DialogInputElCom :required="true" label="Title" v-model="form.title"></DialogInputElCom>
             <DialogSelectElCom :required="true" label="Accessibility" v-model="form.kind"
@@ -188,6 +214,26 @@ const createArticle = async () => {
             <Button severity="contrast" label="Create Doc" @click="createArticle"></Button>
         </div>
 
+    </Dialog>
+    <Dialog
+        :visible="createDocDialogVisible"
+        @update:visible="createDocDialogVisible = false"
+        header="Create a Doc"
+        :style="{ width: '28rem' }"
+        modal
+    >
+        <div class="flex-ver-start son-gap-10">
+            <DialogInputElCom :required="true" label="Title" v-model="editForm.title"></DialogInputElCom>
+            <DialogSelectElCom :required="true" label="Accessibility" v-model="editForm.kind"
+                               :options="kindsOptions"></DialogSelectElCom>
+            <DialogElCom label="Introduction" :required="false">
+                <template #content>
+                    <Textarea auto-resize v-model="editForm.summary"></Textarea>
+                </template>
+            </DialogElCom>
+            <Divider></Divider>
+            <Button severity="contrast" label="Create Doc" @click="intoEditState"></Button>
+        </div>
     </Dialog>
 </template>
 

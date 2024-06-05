@@ -13,6 +13,9 @@ import DialogService from 'primevue/dialogservice'
 import Tooltip from 'primevue/tooltip'
 import { usePassThrough } from 'primevue/passthrough'
 import 'highlight.js/styles/atom-one-dark.css'
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
 const CustomPreset = usePassThrough(
     {
