@@ -4,10 +4,10 @@
             🎓 Article
         </template>
         <template #content>
-            <div class="mg-btm-10" v-for="(data, idx) in datas" :key="idx">
-                <Tag :value="data.tag" class="left-bar-tag-stl" severity="contrast"></Tag>
+            <div class="mg-btm-10" v-for="(d, idx) in data" :key="idx">
+                <Tag :value="d.tag" class="left-bar-tag-stl" severity="contrast"></Tag>
                 <RouterLink class="news-stl" :to="{name: 'article-index'}" target="_blank">
-                    {{ data.title }}
+                    {{ d.title }}
                 </RouterLink>
             </div>
         </template>
@@ -17,7 +17,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const datas = ref([
+const data = ref([
     {
         title: 'Create a command line application with Rust',
         tag: 'Recommended'
@@ -30,6 +30,8 @@ const datas = ref([
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/variables';
+
 .news-stl {
     font-size: $left-bar-title-font-size;
     color: black;

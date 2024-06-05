@@ -33,7 +33,11 @@ import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import ClipboardJS from 'clipboard'
 import markdownItAnchor from 'markdown-it-anchor'
-
+import markdownItAbbr from 'markdown-it-abbr'
+import markdownItKatex from 'markdown-it-katex'
+import markdownItSup from 'markdown-it-sup'
+import markdownItSub from 'markdown-it-sub'
+import markdownItAttrs from 'markdown-it-attrs'
 
 onMounted(() => {
     new ClipboardJS('.pi-copy')
@@ -76,7 +80,11 @@ const md = new MarkdownIt('default', {
             }
         }
     })
-
+    .use(markdownItAbbr)
+    .use(markdownItKatex)
+    .use(markdownItSup)
+    .use(markdownItSub)
+    .use(markdownItAttrs)
 
 defineProps({
     label: String,

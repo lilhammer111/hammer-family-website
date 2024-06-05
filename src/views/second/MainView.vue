@@ -1,6 +1,5 @@
 <script setup>
 import NavCom from '@/views/common/NavCom.vue'
-import NewsCom from '@/views/primary/NewsCom.vue'
 import ArticleCom from '@/views/primary/ArticleCom.vue'
 import { ref } from 'vue'
 
@@ -34,7 +33,6 @@ const navItems = ref([
 <template>
     <div class="nav-bar-container">
         <NavCom :items="navItems"></NavCom>
-        <NewsCom></NewsCom>
         <ArticleCom></ArticleCom>
     </div>
     <div class="main-content-container">
