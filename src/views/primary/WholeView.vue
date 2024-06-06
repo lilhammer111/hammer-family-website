@@ -69,7 +69,7 @@ function goHome() {
     position: fixed;
     left: 0;
     right: 0;
-    z-index:9999;
+    z-index:1100;
 }
 
 .main-container {

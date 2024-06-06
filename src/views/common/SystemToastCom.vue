@@ -3,7 +3,7 @@ import Toast from 'primevue/toast'
 </script>
 
 <template>
-  <Toast position="top-right" group="dialog">
+  <Toast position="top-right" group="dialog" :pt="{root: {style: 'z-index: 9999'}}">
     <template #message="slotProps">
       <div class="align-items-start" style="flex: 1">
         <div class="v-cen mg-btm-15" >

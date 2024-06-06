@@ -5,7 +5,7 @@
                 <template #title>😊 HI STRANGER</template>
                 <template #content>
                     <p class="m-0">
-                        Welcome to the <b>lilhammer family</b> website! Nestled in the vast digital landscape, this is a
+                        Welcome to the <b>lilhammer family website</b> ! Nestled in the vast digital landscape, this is a
                         place crafted
                         with love and laughter, where every moment is cherished and every visitor is valued.
                     </p>
@@ -42,26 +42,8 @@
             </Card>
 
             <div class="paral-stl">
-
                 <Card class="mg-btm-15">
-                    <template #title>🥰 MEET LITTLE HAMMER</template>
-                    <template #content>
-                        <p class="m-0">
-                            This is my son, {{ familyMembers.son.name }}.
-                            He's already {{ familyMembers.son.age }} year old. How time flies.
-                        </p>
-                        <p class="m-0">
-                            Look at him. He's a real pain in the ass.
-                        </p>
-                        <p class="m-0">
-                            <video :src="familyMembers.son.vide_url" style="height: 300px"></video>
-                        </p>
-
-                    </template>
-                </Card>
-
-                <Card class="mg-btm-15">
-                    <template #title>💕 MY GIRL</template>
+                    <template #title>💕 MEET JOJO</template>
                     <template #content>
                         <p class="m-0">
                             <b>"The club isn't the best place to find a lover, so the bar is where I go..."</b>
@@ -88,6 +70,27 @@
 
                     </template>
                 </Card>
+
+                <Card class="mg-btm-15">
+                    <template #title>🥰 MEET HAMMER</template>
+                    <template #content>
+                        <p>
+                            This is my son, {{ familyMembers.son.name }}, who was born on Feb. 28, 2023.
+                        </p>
+                        <p>
+                            Until now, it has been <span class="time-highlight">{{ elapsedTime.years }}</span> years,
+                            <span class="time-highlight">{{ elapsedTime.days }}</span> days,
+                            <span class="time-highlight">{{ elapsedTime.hours }}</span> hours,
+                            <span class="time-highlight">{{ elapsedTime.minutes }}</span> minutes,
+                            <span class="time-highlight">{{ elapsedTime.seconds }}</span> seconds.
+                        </p>
+                        <p>
+                            How time flies.
+                        </p>
+                        <video muted autoplay loop :src="familyMembers.son.vide_url" style="width:100%"></video>
+                    </template>
+                </Card>
+
             </div>
 
             <Card>
@@ -109,7 +112,6 @@
                                      :alt="slotProps.item.name" :width="slotProps.item.image_size" class="shadow-1" />
                             </div>
                             <Button label="View more" text></Button>
-
                         </template>
 
                         <template #content="slotProps">
@@ -122,7 +124,6 @@
                             <p>
                                 {{ slotProps.item.text }}
                             </p>
-
                         </template>
                     </Timeline>
 
@@ -141,32 +142,66 @@
 
 <script setup>
 import Card from 'primevue/card'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import PageBottomCom from '@/views/common/PageBottomCom.vue'
 import HomeSecondaryCom from '@/views/third/home/HomeSecondaryCom.vue'
+import hammerVid from '@/assets/videos/hammer.mov'
+
+onMounted(() => {
+    updateElapsedTime()
+    setInterval(updateElapsedTime, 1000)
+})
+
+const updateElapsedTime = () => {
+    const birthDate = new Date('2023-02-28T00:00:00')
+    const now = new Date()
+    const diff = now - birthDate
+
+    const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25))
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 365
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
+    const minutes = Math.floor((diff / (1000 * 60)) % 60)
+    const seconds = Math.floor((diff / 1000) % 60)
+
+
+    elapsedTime.value.years = years
+    elapsedTime.value.days = days
+    elapsedTime.value.hours = hours
+    elapsedTime.value.minutes = minutes
+    elapsedTime.value.seconds = seconds
+}
 
 const lilhammer = ref({
-    'name': 'Little Hammer',
-    'age': 1,
-    'vide_url': 'src/assets/videos/hammer.mov'
+    name: 'Little Hammer',
+    age: 1,
+    vide_url: hammerVid
+
+})
+
+const elapsedTime = ref({
+    years: 0,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
 })
 
 const demon = ref({
-    'name': 'Demon',
-    'age': 27
+    name: 'Demon',
+    age: 27
 })
 
 const jojo = ref({
-    'name': 'Demon',
-    'age': 27
+    name: 'Demon',
+    age: 27
 })
 
 
 const familyMembers = ref(
     {
-        'father': demon,
-        'son': lilhammer,
-        'mom': jojo
+        father: demon,
+        son: lilhammer,
+        mom: jojo
     }
 )
 
@@ -253,4 +288,11 @@ const events = ref([
     }
 }
 
+.time-highlight {
+    font-size: 16px;
+    font-weight: bolder;
+    color: black;
+    /*background-color: #f0f8ff;*/
+    padding: 2px 2px;
+}
 </style>
