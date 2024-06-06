@@ -24,16 +24,7 @@ defineProps([
 .left-nav {
     width: 100%;
 
-    .left-nav-item {
-        padding: 10px;
-        text-decoration: none;
-        color: black;
-    }
 
-    .left-nav-item:hover {
-        background-color: var(--bluegray-100);
-        border-radius: 5px;
-    }
 }
 
 .p-button {

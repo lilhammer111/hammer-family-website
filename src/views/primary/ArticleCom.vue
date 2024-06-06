@@ -1,7 +1,13 @@
 <template>
     <Card class="f-width">
         <template #title>
-            🎓 Article
+            <RouterLink
+                class="left-nav-item "
+                :to="{name: 'article-index'}"
+                target="_blank">
+                🎓 Article
+            </RouterLink>
+
         </template>
         <template #content>
             <div class="mg-btm-10" v-for="(d, idx) in data" :key="idx">
@@ -20,7 +26,7 @@ import { ref } from 'vue'
 const data = ref([
     {
         title: 'Create a command line application with Rust',
-        tag: 'Recommended'
+        tag: 'Recommend'
     },
     {
         title: 'Rust Advance Cheatsheet',
@@ -36,4 +42,6 @@ const data = ref([
     font-size: $left-bar-title-font-size;
     color: black;
 }
+
+
 </style>

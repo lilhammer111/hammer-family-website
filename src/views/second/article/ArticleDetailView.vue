@@ -60,11 +60,12 @@ const articleData = ref({
                     <div v-html="articleData.text"></div>
                 </template>
             </Card>
-            <Card style="width: 22%">
+            <Card style="width: 30%">
                 <template #title>
                     <AvaWithNameCom :avatar="hammerPng" :name="'demon'" :withFollowBtn="true"></AvaWithNameCom>
                 </template>
                 <template #content>
+                    Demon is an experienced software developer specializing in both frontend and backend development, with a strong expertise in Vue 3 and PrimeVue. He is dedicated to creating efficient and user-friendly applications, with a passion for innovation and technology, and enjoys tackling complex programming challenges.
                 </template>
             </Card>
         </div>

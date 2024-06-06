@@ -252,3 +252,15 @@ body, html {
     margin-left: 5px; /* 左边距，确保星号与文本之间有间隔 */
     vertical-align: middle; /* 垂直对齐 */
 }
+
+.left-nav-item {
+    display:block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.left-nav-item:hover {
+    background-color: $nb-nav-hover-bk-color;
+    border-radius: 5px;
+}
