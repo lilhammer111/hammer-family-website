@@ -21,7 +21,7 @@ const CustomPreset = usePassThrough(
     {
         card: {
             root: {
-                style: 'border-radius: 5px'
+                style: 'border-radius: 5px;'
             }
         },
         button: {

@@ -3,7 +3,8 @@ import genesisAvatar from '@/assets/pictures/genesis.jpg'
 import { onMounted, ref } from 'vue'
 import AvaWithNameCom from '@/views/common/AvaWithNameCom.vue'
 import python_png from '@/assets/pictures/python.jpeg'
-import ArticleOpCom from '@/views/second/article/ArticleOpCom.vue'
+import ArticleOpCom from '@/views/second/article/com/ArticleOpCom.vue'
+import router from '@/router/index.js'
 
 const cardPt = ref({
     root: { style: 'display: flex;justify-content: start;align-items: center;flex-direction:row;border-radius: 5px' },
@@ -42,6 +43,7 @@ const articles = ref([
 ])
 
 const intoDetail = () => {
+    router.push({name: 'article-detail'})
 }
 
 onMounted(()=> {})

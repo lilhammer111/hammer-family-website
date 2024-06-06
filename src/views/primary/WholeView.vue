@@ -13,7 +13,7 @@
                     />
                     <SearchCom></SearchCom>
                 </div>
-                <div >
+                <div>
                     <div v-if="isSignIn" class="flex-hor-sb son-gap-10">
                         <PostBlessCom></PostBlessCom>
                         <AvatarCom></AvatarCom>
@@ -31,8 +31,6 @@
             </div>
         </div>
     </div>
-
-
 </template>
 
 <script setup>
@@ -68,19 +66,15 @@ function goHome() {
     background-color: #ffffff;
     height: 60px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-    justify-content: space-between;
-
-    .login-and-avatar-stl .sea {
-        height: 75%;
-    }
-
-    .nav {
-        height: 100%;
-    }
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index:9999;
 }
 
 .main-container {
     width: 100hh;
+    margin-top: 75px;
 }
 
 .main {

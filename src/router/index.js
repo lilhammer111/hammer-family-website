@@ -27,11 +27,13 @@ import NotificationView from '@/views/third/settings/NotificationView.vue'
 import ActivityView from '@/views/third/profile/ActivityView.vue'
 import AchievementView from '@/views/third/profile/AchievementView.vue'
 import ChatBotView from '@/views/third/ai/ChatBotView.vue'
-import ArticleCardCom from '@/views/second/article/ArticleCardCom.vue'
+import ArticleCardCom from '@/views/second/article/com/ArticleCardCom.vue'
 import NoteBookView from '@/views/second/notebook/NoteBookView.vue'
 import NBHomeView from '@/views/second/notebook/view/NBHomeView.vue'
 import NBTextView from '@/views/second/notebook/view/NBTextView.vue'
 import NBEditView from '@/views/second/notebook/view/NBEditView.vue'
+import ArticleDetailView from '@/views/second/article/ArticleDetailView.vue'
+import EditorView from '@/views/second/article/EditorView.vue'
 
 const lilhammer_son_router = [
     {
@@ -187,7 +189,13 @@ const second_router = [
                 component: ArticleCardCom
             }
         ]
-    }
+    },
+    {
+        path:'article-detail',
+        name: 'article-detail',
+        component: ArticleDetailView
+    },
+    {name: 'article-editor', path:'article-editor', component: EditorView}
 ]
 
 const router = createRouter({
