@@ -3,7 +3,7 @@
         <template #title>
             <RouterLink
                 class="left-nav-item "
-                :to="{name: 'article-index'}"
+                :to="{name: 'article'}"
                 target="_blank">
                 🎓 Article
             </RouterLink>
@@ -12,7 +12,7 @@
         <template #content>
             <div class="mg-btm-10" v-for="(d, idx) in data" :key="idx">
                 <Tag :value="d.tag" class="left-bar-tag-stl" severity="contrast"></Tag>
-                <RouterLink class="news-stl" :to="{name: 'article-index'}" target="_blank">
+                <RouterLink class="news-stl" :to="{name: 'article'}" target="_blank">
                     {{ d.title }}
                 </RouterLink>
             </div>

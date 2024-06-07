@@ -12,14 +12,14 @@
         </div>
         <div style="width: 85%" class="flex-ver-start son-gap-10">
             <div class="flex-hor-sb">
-                <div class="flex-hor-start son-gap-10" >
+                <div class="flex-hor-start son-gap-10">
                     <Button label="Latest" text></Button>
                     <Button label="Trending" text></Button>
                     <Button label="Insight" text></Button>
                 </div>
                 <Button severity="contrast" label="Write Article" @click="showEditor"></Button>
             </div>
-            <RouterView></RouterView>
+            <ArticleCardCom></ArticleCardCom>
         </div>
     </div>
 </template>
@@ -27,9 +27,13 @@
 <script setup>
 import { ref } from 'vue'
 import router from '@/router/index.js'
+import ArticleCardCom from '@/views/second/article/com/ArticleCardCom.vue'
 
-const showEditor = ()=> {
-    router.push({name: 'article-editor'})
+
+const showEditor = () => {
+    // router.push({name: 'article-editor'})
+    const url = router.resolve({ name: 'article-editor' }).href
+    window.open(url, '_blank')
 }
 
 const navItems = ref([

@@ -13,9 +13,10 @@ import DialogService from 'primevue/dialogservice'
 import Tooltip from 'primevue/tooltip'
 import { usePassThrough } from 'primevue/passthrough'
 import 'highlight.js/styles/atom-one-dark.css'
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import 'quill/dist/quill.bubble.css';
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import piniaPersistedState from 'pinia-plugin-persistedstate'
 
 const CustomPreset = usePassThrough(
     {
@@ -33,6 +34,9 @@ const CustomPreset = usePassThrough(
 )
 
 const app = createApp(App)
+const pinia = createPinia()
+pinia.use(piniaPersistedState)
+
 app.use(PrimeVue, {
     ripple: true,
     outline: true,
@@ -42,7 +46,7 @@ app.directive('tooltip', Tooltip)
 app.directive('focustrap', FocusTrap)
 app.use(ToastService)
 app.use(DialogService)
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 app.mount('#app')
 

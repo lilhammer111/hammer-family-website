@@ -2,12 +2,12 @@
 import genesisAvatar from '@/assets/pictures/genesis.jpg'
 import { onMounted, ref } from 'vue'
 import AvaWithNameCom from '@/views/common/AvaWithNameCom.vue'
-import python_png from '@/assets/pictures/python.jpeg'
 import ArticleOpCom from '@/views/second/article/com/ArticleOpCom.vue'
 import router from '@/router/index.js'
+import { useArticleStore } from '@/stores/article.js'
 
 const cardPt = ref({
-    root: { style: 'display: flex;justify-content: start;align-items: center;flex-direction:row;border-radius: 5px' },
+    root: { style: 'display: flex;justify-content: start;align-items: center;flex-direction:row;border-radius: 5px;height: 260px' },
     header: { style: 'width: 30%' },
     title: { style: 'font-size: 1.8rem' },
     subtitle: { style: 'font-size: 16px;' },
@@ -15,52 +15,34 @@ const cardPt = ref({
 })
 
 
-const articles = ref([
-    {
-        cover: python_png,
-        title: 'Create a command line application with Rust',
-        author: 'Demon',
-        summary: 'In the rapidly evolving world of artificial intelligence, the ability to effectively perform AI inference is crucial for deploying intelligent systems in real-world applications. This article delves into the fundamentals of AI inference, exploring the techniques and technologies that enable AI models to make predictions and decisions based on new data. Whether you\'re a seasoned data scientist, a software developer, or an AI enthusiast, this guide provides you with a clear understanding of the key concepts and practical applications of AI inference.'
-    },
-    {
-        cover: python_png,
-        title: 'How to ai infer',
-        author: 'Demon',
-        summary: 'In the rapidly evolving world of artificial intelligence, the ability to effectively perform AI inference is crucial for deploying intelligent systems in real-world applications. This article delves into the fundamentals of AI inference, exploring the techniques and technologies that enable AI models to make predictions and decisions based on new data. Whether you\'re a seasoned data scientist, a software developer, or an AI enthusiast, this guide provides you with a clear understanding of the key concepts and practical applications of AI inference.'
-    },
-    {
-        cover: python_png,
-        title: 'How to ai infer',
-        author: 'Demon',
-        summary: 'In the rapidly evolving world of artificial intelligence, the ability to effectively perform AI inference is crucial for deploying intelligent systems in real-world applications. This article delves into the fundamentals of AI inference, exploring the techniques and technologies that enable AI models to make predictions and decisions based on new data. Whether you\'re a seasoned data scientist, a software developer, or an AI enthusiast, this guide provides you with a clear understanding of the key concepts and practical applications of AI inference.'
-    },
-    {
-        cover: python_png,
-        title: 'How to ai infer',
-        author: 'Demon',
-        summary: 'In the rapidly evolving world of artificial intelligence, the ability to effectively perform AI inference is crucial for deploying intelligent systems in real-world applications. This article delves into the fundamentals of AI inference, exploring the techniques and technologies that enable AI models to make predictions and decisions based on new data. Whether you\'re a seasoned data scientist, a software developer, or an AI enthusiast, this guide provides you with a clear understanding of the key concepts and practical applications of AI inference.'
-    }
-])
-
-const intoDetail = () => {
-    router.push({name: 'article-detail'})
+const intoDetail = (idx) => {
+    articleStore.setCurrentArticle(idx)
+    router.push(
+        {
+            name: 'article-detail'
+        }
+    )
 }
+const articleStore = useArticleStore()
 
-onMounted(()=> {})
+onMounted(() => {
+    articleStore.loadArticleList()
+})
 </script>
 
 <template>
-    <Card style="overflow: hidden;" v-for="(article, idx) in articles" :pt="cardPt" :key="idx">
+    <Card style="overflow: hidden;" v-for="(article,idx) in articleStore.articleDataList" :pt="cardPt"
+          :key="article.id">
         <template #header>
             <img
                 alt="user header"
-                :src="article.cover"
+                :src="article.cover_url"
                 style="padding:0 10px;width: 100%;height:auto"
             />
         </template>
         <template #title>
             <!--                <Button :label="article.title" link style="font-size: 26px;margin:0"></Button>-->
-            <div type="button" class="title-hover" @click="intoDetail">
+            <div type="button" class="title-hover" @click="intoDetail(idx)">
                 {{ article.title }}
             </div>
         </template>

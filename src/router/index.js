@@ -182,16 +182,9 @@ const second_router = [
         path: 'article',
         name: 'article',
         component: ArticleView,
-        children: [
-            {
-                path: 'article-index',
-                name: 'article-index',
-                component: ArticleCardCom
-            }
-        ]
     },
     {
-        path:'article-detail',
+        path: 'articles-detail',
         name: 'article-detail',
         component: ArticleDetailView
     },
