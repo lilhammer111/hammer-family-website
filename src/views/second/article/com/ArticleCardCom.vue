@@ -1,5 +1,4 @@
 <script setup>
-import genesisAvatar from '@/assets/pictures/genesis.jpg'
 import { onMounted, ref } from 'vue'
 import AvaWithNameCom from '@/views/common/AvaWithNameCom.vue'
 import ArticleOpCom from '@/views/second/article/com/ArticleOpCom.vue'
@@ -27,6 +26,8 @@ const articleStore = useArticleStore()
 
 onMounted(() => {
     articleStore.loadArticleList()
+
+    console.log('article data list', articleStore.articleDataList)
 })
 </script>
 
@@ -48,7 +49,7 @@ onMounted(() => {
         </template>
         <template #subtitle>
             <div class="flex-hor-sb son-gap-10">
-                <AvaWithNameCom name="Jojo" :avatar="genesisAvatar"></AvaWithNameCom>
+                <AvaWithNameCom :name="article.author_name" :avatar="article.author_avatar"></AvaWithNameCom>
                 <ArticleOpCom></ArticleOpCom>
             </div>
         </template>

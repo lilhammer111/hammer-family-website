@@ -62,6 +62,14 @@ body, html {
     align-items: center;
 }
 
+.flex-hor-sb-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
 .flex-reverse-hor-sb {
     display: flex;
     flex-direction: row-reverse;

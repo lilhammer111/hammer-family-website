@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-hor-start-start son-gap-10">
+    <div class="flex-hor-start-start son-gap-10" style="width:100%">
         <div style="width: 15%" class="flex-ver-start son-gap-20">
             <div v-for="(item, idx) of navItems" :key="idx">
                 <div class="tag-title-stl">{{ item.title }}</div>
