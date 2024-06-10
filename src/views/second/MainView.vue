@@ -2,6 +2,7 @@
 import NavCom from '@/views/common/NavCom.vue'
 import ArticleCom from '@/views/primary/ArticleCom.vue'
 import { ref } from 'vue'
+import PageBottomCom from '@/views/common/PageBottomCom.vue'
 
 
 const navItems = ref([
@@ -21,10 +22,9 @@ const navItems = ref([
         route: 'ai'
     },
     {
-        text: '📕 NoteBook',
-        icon:'',
-        route:'notebook',
-        target: '_blank'
+        text: '✨ Moment',
+        icon: '',
+        route: 'moment'
     }
 ])
 
@@ -37,6 +37,7 @@ const navItems = ref([
     </div>
     <div class="main-content-container">
         <RouterView></RouterView>
+        <PageBottomCom content="Each step forward is a step toward something better."></PageBottomCom>
     </div>
 </template>
 

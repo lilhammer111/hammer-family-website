@@ -3,7 +3,7 @@ import WelcomeView from '@/views/primary/WelcomeView.vue'
 import LoginView from '@/views/second/account/LoginView.vue'
 import IndexView from '@/views/primary/WholeView.vue'
 import RegisterView from '@/views/second/account/RegisterView.vue'
-import HomeView from '@/views/third/home/HomeCom.vue'
+import HomeView from '@/views/third/home/HomeView.vue'
 import MsgView from '@/views/third/ScoreView.vue'
 import ArticleView from '@/views/second/article/ArticleView.vue'
 import MainView from '@/views/second/MainView.vue'
@@ -27,13 +27,13 @@ import NotificationView from '@/views/third/settings/NotificationView.vue'
 import ActivityView from '@/views/third/profile/ActivityView.vue'
 import AchievementView from '@/views/third/profile/AchievementView.vue'
 import ChatBotView from '@/views/third/ai/ChatBotView.vue'
-import ArticleCardCom from '@/views/second/article/com/ArticleCardCom.vue'
 import NoteBookView from '@/views/second/notebook/NoteBookView.vue'
 import NBHomeView from '@/views/second/notebook/view/NBHomeView.vue'
 import NBTextView from '@/views/second/notebook/view/NBTextView.vue'
 import NBEditView from '@/views/second/notebook/view/NBEditView.vue'
 import ArticleDetailView from '@/views/second/article/ArticleDetailView.vue'
 import EditorView from '@/views/second/article/EditorView.vue'
+import MomentView from '@/views/third/moment/MomentView.vue'
 
 const lilhammer_son_router = [
     {
@@ -99,7 +99,8 @@ const third_router = [
         path: 'ai',
         name: 'ai',
         component: ChatBotView
-    }
+    },
+    {path: 'moment', name:'moment', component: MomentView}
 ]
 
 const second_router = [

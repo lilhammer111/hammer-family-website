@@ -5,7 +5,7 @@
                 class="left-nav-item "
                 :to="{name: 'article'}"
                 target="_blank">
-                🎓 Article
+                🗞️ Article
             </RouterLink>
 
         </template>
