@@ -1,22 +1,44 @@
 <script setup>
-const props = defineProps(['name', 'avatar', 'withFollowBtn'])
+import { ref } from 'vue'
 
-function loadAvatarErrorHandle(event) {
-    console.log('load avatar error handle event', event)
-    // eslint-disable-next-line vue/no-mutating-props
-    props.avatar = '@/assets/pictures/hammer_logo.webp'
-}
+const props = defineProps({
+    name: {
+        type: String,
+        default: 'stranger'
+    },
+    avatar: {
+        type: String,
+        // todo
+        default: 'default-url'
+    },
+    withFollowBtn: {
+        type: Boolean,
+        default: false
+    },
+    withNameIcon: {
+        type: Boolean,
+        default: false
+    }
+})
+
+
+// function loadAvatarErrorHandle(event) {
+//     console.log('load avatar error handle event', event)
+//     props.avatar = '@/assets/pictures/hammer_logo.webp'
+// }
+
+const avatar = ref(props.avatar ? props.avatar:'@/assets/pictures/hammer_logo.webp')
+const icon = ref(props.withNameIcon ? "pi pi-at" : "")
 </script>
 
 <template>
     <div class="flex-hor-start son-gap-10">
         <Avatar
-            :image="props.avatar"
+            :image="avatar"
             size="small"
             shape="circle"
-            @error="loadAvatarErrorHandle"
         />
-        <Button :label="props.name" icon="pi pi-at" link></Button>
+        <Button :label="props.name" :icon="icon" link></Button>
         <Button
             v-if="withFollowBtn" label="Follow" icon="pi pi-plus" severity="contrast"
         ></Button>

@@ -1,6 +1,7 @@
 <template>
     <div class="flex-hor-start-start son-gap-10" style="width:100%">
         <div style="width: 75%;" class="flex-ver-start son-gap-10">
+            <!--     Hi Strange       -->
             <Card>
                 <template #title>😊 HI STRANGER</template>
                 <template #content>
@@ -41,27 +42,7 @@
                     </p>
                 </template>
             </Card>
-            <Card>
-                <template #title>🥰 MEET HAMMER</template>
-                <template #content>
-                    <p>
-                        This is my son, {{ familyMembers.son.name }}, who was born on Feb. 28, 2023.
-                    </p>
-                    <p>
-                        Until now, it has been <span class="time-highlight">{{ elapsedTime.years }}</span> years,
-                        <span class="time-highlight">{{ elapsedTime.days }}</span> days,
-                        <span class="time-highlight">{{ elapsedTime.hours }}</span> hours,
-                        <span class="time-highlight">{{ elapsedTime.minutes }}</span> minutes,
-                        <span class="time-highlight">{{ elapsedTime.seconds }}</span> seconds.
-                    </p>
-                    <p>
-                        How time flies.
-                    </p>
-                    <div style="text-align: center; height: 100%;">
-                        <video muted autoplay loop :src="familyMembers.son.vide_url" style="width: 60%; height: auto; "></video>
-                    </div>
-                </template>
-            </Card>
+            <!--     meet jojo       -->
             <Card>
                 <template #title>💕 MEET JOJO</template>
                 <template #content>
@@ -90,6 +71,29 @@
 
                 </template>
             </Card>
+            <!--     meet hammer       -->
+            <Card>
+                <template #title>🥰 MEET HAMMER</template>
+                <template #content>
+                    <p>
+                        This is my son, {{ familyMembers.son.name }}, who was born on Feb. 28, 2023.
+                    </p>
+                    <p>
+                        Until now, it has been <span class="time-highlight">{{ elapsedTime.years }}</span> years,
+                        <span class="time-highlight">{{ elapsedTime.days }}</span> days,
+                        <span class="time-highlight">{{ elapsedTime.hours }}</span> hours,
+                        <span class="time-highlight">{{ elapsedTime.minutes }}</span> minutes,
+                        <span class="time-highlight">{{ elapsedTime.seconds }}</span> seconds.
+                    </p>
+                    <p>
+                        How time flies.
+                    </p>
+                    <div style="text-align: center; height: 100%;">
+                        <video muted autoplay loop :src="familyMembers.son.vide_url" style="width: 60%; height: auto; "></video>
+                    </div>
+                </template>
+            </Card>
+
         </div>
         <div style="width:25%">
             <HomeSecondaryCom></HomeSecondaryCom>

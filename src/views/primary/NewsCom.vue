@@ -24,7 +24,7 @@ const datas = ref([
     tag: 'Exclusive'
   },
   {
-    title: 'lilhammer says Mom',
+    title: 'hammer says Mom',
     tag: 'Breaking'
   }
 ])

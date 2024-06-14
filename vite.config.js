@@ -30,8 +30,8 @@ export default defineConfig({
   },
   server: {
     https: {
-      key: fs.readFileSync("/home/lilhammer/Dev/Cert/localhost+2-key.pem"),
-      cert: fs.readFileSync('/home/lilhammer/Dev/Cert/localhost+2.pem')
+      key: fs.readFileSync("/home/hammer/Dev/Cert/localhost+2-key.pem"),
+      cert: fs.readFileSync('/home/hammer/Dev/Cert/localhost+2.pem')
     }
   }
 })
